@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Set;
+
 public class DrawGraphImpl implements DrawGraph {
   
   public DrawGraphImpl() {
@@ -21,6 +23,42 @@ public class DrawGraphImpl implements DrawGraph {
   public void save() {
     // TODO Auto-generated method stub
     
+  }
+
+  @Override
+  public Set<String> costants() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Set<String> digits() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Set<String> mathFucntions() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Set<String> punctuation() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
+  @Override
+  public Set<String> settings() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+  
+  @Override
+  public Set<String> variables() {
+    // TODO Auto-generated method stub
+    return null;
   }
   
 }

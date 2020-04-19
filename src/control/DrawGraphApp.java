@@ -15,6 +15,13 @@ public class DrawGraphApp implements DrawGraphViewObserver{
   public DrawGraphApp() {
     this.model = new DrawGraphImpl();
     this.view = new DrawGraphViewImpl();
+    this.view.setObserver(this);
+    this.view.setCostants(this.model.costants());
+    this.view.setDigits(this.model.digits());
+    this.view.setMathFunctions(this.model.mathFucntions());
+    this.view.setPunctuation(this.model.punctuation());
+    this.view.setVariables(this.model.variables());
+    this.view.start();
   }
   
   public void generateGraph(List<Integer> settings) {

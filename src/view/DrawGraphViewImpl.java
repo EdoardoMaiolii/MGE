@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -44,6 +45,12 @@ public class DrawGraphViewImpl implements DrawGraphView {
   private static final int INNER_SOUTH_PANEL_COLUMNS = 4;
   
   private DrawGraphViewObserver observer;
+  private Set<String> settings = new HashSet<>();
+  private Set<String> variables = new HashSet<>();
+  private Set<String> mathFunctions = new HashSet<>();
+  private Set<String> digits = new HashSet<>();
+  private Set<String> costants = new HashSet<>();
+  private Set<String> punctuation = new HashSet<>();
   private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
   private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
   private Set<JButton> inputButtons = new HashSet();
@@ -61,19 +68,19 @@ public class DrawGraphViewImpl implements DrawGraphView {
     //Center Panel
     final JPanel pCenter = new JPanel(new BorderLayout());
     //Inner North Panel
-    final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, VariableValues());
+    final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, this.variables.iterator());
     pInnerNorth.setBorder(new TitledBorder(INNER_NORTH_PANEL_NAME));
     //Inner West Panel
-    final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, MathFunctionValues());
+    final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, this.mathFunctions.iterator());
     pInnerWest.setBorder(new TitledBorder(INNER_WEST_PANEL_NAME));
     //Inner Center Panel
-    final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, DigitValues());
+    final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, this.digits.iterator());
     pInnerCenter.setBorder(new TitledBorder(INNER_CENTER_PANEL_NAME));
     //Inner East Panel
-    final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, CostantValues());
+    final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, this.costants.iterator());
     pInnerEast.setBorder(new TitledBorder(INNER_EAST_PANEL_NAME));
     //Inner South Panel
-    final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, PunctuationValues());
+    final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, this.punctuation.iterator());
     pCenter.add(pInnerNorth, BorderLayout.NORTH);
     pCenter.add(pInnerWest, BorderLayout.WEST);
     pCenter.add(pInnerCenter, BorderLayout.CENTER);
@@ -101,11 +108,45 @@ public class DrawGraphViewImpl implements DrawGraphView {
   }
   
   @Override
-  public void expressionIncorrect() {
-    // TODO Auto-generated method stub
-    
+  public void start() {
+    this.inputFrame.setVisible(true);
+  }
+  
+  @Override
+  public void setObserver(DrawGraphViewObserver observer) {
+    this.observer = observer;
   }
 
+  @Override
+  public void setSettings(Set<String> settings) {
+    this.settings = settings;
+  }
+  
+  @Override
+  public void setVariables(Set<String> variables) {
+    this.variables = variables;
+  }
+
+  @Override
+  public void setMathFunctions(Set<String> mathFunctions) {
+    this.mathFunctions = mathFunctions;
+  }
+
+  @Override
+  public void setDigits(Set<String> digits) {
+    this.digits = digits;
+  }
+
+  @Override
+  public void setCostants(Set<String> costants) {
+    this.costants = costants;
+  }
+
+  @Override
+  public void setPunctuation(Set<String> punctuation) {
+    this.punctuation = punctuation;
+  }
+  
   /*
   @Override
   public void drawGraph(Object generate) {
@@ -113,6 +154,12 @@ public class DrawGraphViewImpl implements DrawGraphView {
     
   }
   */
+  
+  @Override
+  public void expressionIncorrect() {
+    // TODO Auto-generated method stub
+    
+  }
   
   private JPanel gridButtonsPanel(int rows, int cols, Iterator<String> labels) {
     final JPanel panel = new JPanel(new GridBagLayout());

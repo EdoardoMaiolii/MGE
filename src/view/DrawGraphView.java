@@ -1,8 +1,27 @@
 package view;
-public interface DrawGraphView {
 
-  void expressionIncorrect();
+import java.util.Set;
+
+import control.DrawGraphViewObserver;
+
+public interface DrawGraphView {
+  void start();
   
   //void drawGraph();
 
+  void setObserver(DrawGraphViewObserver observer);
+  
+  void setSettings(Set<String> settings);
+  
+  void setVariables(Set<String> variables);
+  
+  void setMathFunctions(Set<String> mathFunctions);
+  
+  void setDigits(Set<String> digits);
+  
+  void setCostants(Set<String> costants);
+  
+  void setPunctuation(Set<String> punctuation);  
+  
+  void expressionIncorrect();
 }
