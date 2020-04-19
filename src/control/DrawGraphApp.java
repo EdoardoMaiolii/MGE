@@ -26,6 +26,8 @@ public class DrawGraphApp implements DrawGraphViewObserver{
     this.model.generate();
   }
   
+  
+  
   public void loadGraph() {
     this.model.load();
   }
