@@ -20,27 +20,14 @@ public class DrawGraphApp implements DrawGraphViewObserver{
     this.view.setDigits(this.model.digits());
     this.view.setMathFunctions(this.model.mathFucntions());
     this.view.setPunctuation(this.model.punctuation());
+    this.view.setSettings(this.model.settings());
     this.view.setVariables(this.model.variables());
     this.view.start();
   }
   
-  public void generateGraph(List<Integer> settings) {
-    try {
-      //this.view.drawGraph(this.model.generate(settings));
-    } catch (IllegalArgumentException e) {
-      this.view.expressionIncorrect();
-    }
-    this.model.generate();
-  }
-  
-  
-  
-  public void loadGraph() {
-    this.model.load();
-  }
-  
-  public void saveGraph() {
-    this.model.save();
+  @Override
+  public void newExpression(String expression) {
+    
   }
   
   public static void main(String[] args) {

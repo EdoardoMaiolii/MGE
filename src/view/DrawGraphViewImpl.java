@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -30,7 +33,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
   private static final String CLEAR = "CLEAR";
   private static final String LOAD = "LOAD";
   private static final String SAVE = "SAVE";
-  private static final String GO = "GO";
+  private static final String PLOT = "PLOT";
   private static final int MATH_EXPRESSION_LENGTH = 70;
   private static final int SETTINGS_LENGTH = 20;
   private static final int INNER_NORTH_PANEL_ROWS = 1;
@@ -53,7 +56,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
   private Set<String> punctuation = new HashSet<>();
   private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
   private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
-  private Set<JButton> inputButtons = new HashSet();
+  private final Set<JButton> inputButtons = new HashSet<>();
   
   public DrawGraphViewImpl() {
     //North Panel
@@ -64,7 +67,17 @@ public class DrawGraphViewImpl implements DrawGraphView {
     pNorth.add(lMathExpression);
     pNorth.add(tMathExpression);
     //West Panel
-    //TODO
+    final JPanel pWest = new JPanel(new GridBagLayout());
+    final GridBagConstraints gbcWest = new GridBagConstraints();
+    pWest.setBorder(new TitledBorder(WEST_PANEL_NAME));
+    gbcWest.gridy = 0;
+    for (final String setting : settings) {
+      final JLabel lSetting = new JLabel(setting);
+      final JTextField tSetting = new JTextField(SETTINGS_LENGTH);
+      pWest.add(lSetting, gbcWest);
+      pWest.add(tSetting, gbcWest);
+      gbcWest.gridy = gbcWest.gridy + 1;
+    }
     //Center Panel
     final JPanel pCenter = new JPanel(new BorderLayout());
     //Inner North Panel
@@ -94,17 +107,62 @@ public class DrawGraphViewImpl implements DrawGraphView {
     final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     final JButton bLoad = new JButton(LOAD);
     final JButton bSave = new JButton(SAVE);
-    final JButton bGo = new JButton(GO);   
+    final JButton bPlot = new JButton(PLOT);   
     pSouth.add(bLoad);
     pSouth.add(bSave);
-    pSouth.add(bGo);
+    pSouth.add(bPlot);
     this.inputFrame.getMainPanel().add(pNorth, BorderLayout.NORTH);
-    //this.inputFrame.getMainPanel().add(pWest, BorderLayout.WEST);
+    this.inputFrame.getMainPanel().add(pWest, BorderLayout.WEST);
     this.inputFrame.getMainPanel().add(pCenter, BorderLayout.CENTER);
     this.inputFrame.getMainPanel().add(pEast, BorderLayout.EAST);
     this.inputFrame.getMainPanel().add(pSouth, BorderLayout.SOUTH);
     this.inputFrame.setResizable(true);
     this.inputFrame.pack();
+    
+    for(final JButton jb : this.inputButtons) {
+      jb.addActionListener(new ActionListener() {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+          tMathExpression.setText(tMathExpression.getText()+jb.getText());
+        }
+ 
+      });
+    }
+    
+    bClear.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        tMathExpression.setText("");
+      }
+    });
+    
+    bLoad.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        
+      }
+    });
+    
+    bSave.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // TODO Auto-generated method stub
+        
+      }
+    });
+    
+    bPlot.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        observer.newExpression(tMathExpression.getText());
+      }
+    });
   }
   
   @Override
@@ -169,11 +227,16 @@ public class DrawGraphViewImpl implements DrawGraphView {
     gbc.fill = GridBagConstraints.HORIZONTAL;
     for(int i=0; i<rows; i++) {
       for(int j=0; j<cols; j++) {
-        final JButton jb = new JButton(labels.next());
-        gbc.gridx = j;
-        gbc.gridy = i;
-        panel.add(jb, gbc);
-        this.inputButtons.add(jb);
+        if(labels.hasNext()) {
+          final JButton jb = new JButton(labels.next());
+          gbc.gridx = j;
+          gbc.gridy = i;
+          panel.add(jb, gbc);
+          this.inputButtons.add(jb);
+        }
+        else {
+          break;
+        }
       }
     }
     return panel;
