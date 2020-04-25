@@ -1,6 +1,10 @@
 package model;
 
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import libraries.Constants;
 
 public class DrawGraphImpl implements DrawGraph {
   
@@ -27,38 +31,32 @@ public class DrawGraphImpl implements DrawGraph {
 
   @Override
   public Set<String> costants() {
-    // TODO Auto-generated method stub
-    return null;
+    return Arrays.asList(Constants.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList())
   }
 
   @Override
   public Set<String> digits() {
-    // TODO Auto-generated method stub
-    return null;
+    return Arrays.asList(Digit.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
   }
 
   @Override
   public Set<String> mathFunctions() {
-    // TODO Auto-generated method stub
-    return null;
+    return Arrays.asList(MathFunctions.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
   }
 
   @Override
   public Set<String> punctuation() {
-    // TODO Auto-generated method stub
-    return null;
+	 return Arrays.asList(Punctuations.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
   }
 
   @Override
   public Set<String> settings() {
-    // TODO Auto-generated method stub
-    return null;
+	  return Arrays.asList(Settings.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
   }
   
   @Override
   public Set<String> variables() {
-    // TODO Auto-generated method stub
-    return null;
+	  return Arrays.asList(Variables.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
   }
   
 }
