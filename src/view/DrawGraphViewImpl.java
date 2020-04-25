@@ -8,12 +8,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -204,14 +202,6 @@ public class DrawGraphViewImpl implements DrawGraphView {
   public void setPunctuation(Set<String> punctuation) {
     this.punctuation = punctuation;
   }
-  
-  /*
-  @Override
-  public void drawGraph(Object generate) {
-    // TODO Auto-generated method stub
-    
-  }
-  */
   
   @Override
   public void expressionIncorrect() {

@@ -1,7 +1,5 @@
 package control;
 
-import java.util.List;
-
 import model.DrawGraph;
 import model.DrawGraphImpl;
 import view.DrawGraphView;
@@ -18,7 +16,7 @@ public class DrawGraphApp implements DrawGraphViewObserver{
     this.view.setObserver(this);
     this.view.setCostants(this.model.costants());
     this.view.setDigits(this.model.digits());
-    this.view.setMathFunctions(this.model.mathFucntions());
+    this.view.setMathFunctions(this.model.mathFunctions());
     this.view.setPunctuation(this.model.punctuation());
     this.view.setSettings(this.model.settings());
     this.view.setVariables(this.model.variables());
@@ -27,7 +25,7 @@ public class DrawGraphApp implements DrawGraphViewObserver{
   
   @Override
   public void newExpression(String expression) {
-    
+    //TODO
   }
   
   public static void main(String[] args) {

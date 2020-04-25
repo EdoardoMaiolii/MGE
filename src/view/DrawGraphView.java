@@ -6,8 +6,6 @@ import control.DrawGraphViewObserver;
 
 public interface DrawGraphView {
   void start();
-  
-  //void drawGraph();
 
   void setObserver(DrawGraphViewObserver observer);
   

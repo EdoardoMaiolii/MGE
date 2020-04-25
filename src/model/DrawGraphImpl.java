@@ -38,7 +38,7 @@ public class DrawGraphImpl implements DrawGraph {
   }
 
   @Override
-  public Set<String> mathFucntions() {
+  public Set<String> mathFunctions() {
     // TODO Auto-generated method stub
     return null;
   }

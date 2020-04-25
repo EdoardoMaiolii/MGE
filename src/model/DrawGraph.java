@@ -14,7 +14,7 @@ public interface DrawGraph {
 
   Set<String> digits();
 
-  Set<String> mathFucntions();
+  Set<String> mathFunctions();
 
   Set<String> punctuation();
 
