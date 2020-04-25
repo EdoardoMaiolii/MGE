@@ -1,4 +1,4 @@
-package libraries;
+package model;
 public enum Constants {
 	E(2.71),//2.7182818284 nepero
 	PI(3.14),//3.1415926535 pigreco

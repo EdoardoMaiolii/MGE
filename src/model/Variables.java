@@ -1,4 +1,4 @@
-package view;
+package model;
 public enum Variables {
 	
 	X("x"),
@@ -14,7 +14,7 @@ public enum Variables {
 		this.name = name;
 	}
 	
-	public String getName() {
+	public String getLabel() {
 		return this.name;
 	}
 	

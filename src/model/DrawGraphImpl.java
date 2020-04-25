@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import libraries.Constants;
-
 public class DrawGraphImpl implements DrawGraph {
   
   public DrawGraphImpl() {
@@ -31,32 +29,32 @@ public class DrawGraphImpl implements DrawGraph {
 
   @Override
   public Set<String> costants() {
-    return Arrays.asList(Constants.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList())
+    return Arrays.asList(Constants.values()).stream().map(i -> i.getLabel()).collect(Collectors.toSet());
   }
 
   @Override
   public Set<String> digits() {
-    return Arrays.asList(Digit.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
+    return Arrays.asList(Digits.values()).stream().map(i -> i.getLabel()).collect(Collectors.toSet());
   }
 
   @Override
   public Set<String> mathFunctions() {
-    return Arrays.asList(MathFunctions.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
+    return Arrays.asList(MathFunctions.values()).stream().map(i -> i.getLabel()).collect(Collectors.toSet());
   }
 
   @Override
   public Set<String> punctuation() {
-	 return Arrays.asList(Punctuations.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
+	 return Arrays.asList(Punctuation.values()).stream().map(i -> i.getLabel()).collect(Collectors.toSet());
   }
 
   @Override
   public Set<String> settings() {
-	  return Arrays.asList(Settings.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
+	  return Arrays.asList(Settings.values()).stream().map(i -> i.getLabel()).collect(Collectors.toSet());
   }
   
   @Override
   public Set<String> variables() {
-	  return Arrays.asList(Variables.values()).stream().map(i -> i.getLabel()).collect(Collectors.toList());
+	  return Arrays.asList(Variables.values()).stream().map(i -> i.getLabel()).collect(Collectors.toSet());
   }
   
 }

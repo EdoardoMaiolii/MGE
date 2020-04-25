@@ -1,4 +1,4 @@
-package view;
+package model;
 public enum Punctuation {
 	
 	DOT("."),
@@ -12,7 +12,7 @@ public enum Punctuation {
 		this.name = name;
 	}
 	
-	public String getName() {
+	public String getLabel() {
 		return this.name;
 	}
 }

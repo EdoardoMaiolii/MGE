@@ -1,4 +1,4 @@
-package libraries;
+package model;
 import java.util.List;
 
 public enum MathFunctions {

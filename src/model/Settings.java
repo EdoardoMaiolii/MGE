@@ -1,4 +1,4 @@
-package view;
+package model;
 public enum Settings {
   
 	MAX("Max"),
@@ -11,7 +11,7 @@ public enum Settings {
 		this.name = name;
 	}
 	
-	public String getName() {
+	public String getLabel() {
 		return this.name;
 	}
 

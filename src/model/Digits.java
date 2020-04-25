@@ -1,4 +1,4 @@
-package view;
+package model;
 public enum Digits {
 	
 	ZERO("0"),
@@ -18,7 +18,7 @@ public enum Digits {
 		this.name = name;
 	}
 	
-	public String getName() {
+	public String getLabel() {
 		return this.name;
 	}
 }
