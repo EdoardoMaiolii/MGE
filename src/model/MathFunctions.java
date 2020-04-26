@@ -1,7 +1,6 @@
 package model;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum MathFunctions {
@@ -164,10 +163,10 @@ public enum MathFunctions {
 			return null;
 	}
 	
-	public static Set<String> names(){
+	public static List<String> names(){
       return Arrays.asList(MathFunctions.values()).stream()
                                               .map(e -> e.getName())
-                                              .collect(Collectors.toSet());
+                                              .collect(Collectors.toList());
     }
 	
 	protected abstract Double calculate(List<Double> parameters);

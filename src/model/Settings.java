@@ -1,7 +1,7 @@
 package model;
 
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public enum Settings {
@@ -20,9 +20,9 @@ public enum Settings {
 		return this.name;
 	}
 	
-	public static Set<String> names(){
+	public static List<String> names(){
       return Arrays.asList(Settings.values()).stream()
                                               .map(e -> e.getName())
-                                              .collect(Collectors.toSet());
+                                              .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,7 @@
 package model;
 
 import java.util.Arrays;
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public enum Constants {
@@ -33,9 +33,9 @@ public enum Constants {
 	public String getSyntax() {
 		return this.name().toLowerCase();
 	}
-	public static Set<String> names(){
+	public static List<String> names(){
       return Arrays.asList(Constants.values()).stream()
                                               .map(e -> e.getName())
-                                              .collect(Collectors.toSet());
+                                              .collect(Collectors.toList());
     }
 };

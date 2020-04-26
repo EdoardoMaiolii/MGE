@@ -8,12 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
@@ -177,11 +177,10 @@ public class DrawGraphViewImpl implements DrawGraphView {
   
   @Override
   public void expressionIncorrect() {
-    // TODO Auto-generated method stub
-    
+    JOptionPane.showMessageDialog(this.inputFrame, "Enter a valid expression please...");
   }
   
-  private JPanel gridButtonsPanel(int rows, int cols, Set<String> labels) {
+  private JPanel gridButtonsPanel(int rows, int cols, List<String> labels) {
     final Iterator<String> labelsIterator = labels.iterator();
     final JPanel panel = new JPanel(new GridBagLayout());
     final GridBagConstraints gbc = new GridBagConstraints();
