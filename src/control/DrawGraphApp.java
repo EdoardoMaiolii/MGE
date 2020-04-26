@@ -14,12 +14,6 @@ public class DrawGraphApp implements DrawGraphViewObserver{
     this.model = new DrawGraphImpl();
     this.view = new DrawGraphViewImpl();
     this.view.setObserver(this);
-    this.view.setCostants(this.model.costants());
-    this.view.setDigits(this.model.digits());
-    this.view.setMathFunctions(this.model.mathFunctions());
-    this.view.setPunctuation(this.model.punctuation());
-    this.view.setSettings(this.model.settings());
-    this.view.setVariables(this.model.variables());
     this.view.start();
   }
   

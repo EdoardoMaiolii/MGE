@@ -1,4 +1,9 @@
 package model;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public enum Variables {
 	
 	X("x"),
@@ -14,8 +19,13 @@ public enum Variables {
 		this.name = name;
 	}
 	
-	public String getLabel() {
+	public String getName() {
 		return this.name;
 	}
 	
+	public static Set<String> names(){
+	  return Arrays.asList(Variables.values()).stream()
+	                                          .map(e -> e.getName())
+	                                          .collect(Collectors.toSet());
+	}
 }

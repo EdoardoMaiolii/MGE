@@ -1,4 +1,9 @@
 package model;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public enum Digits {
 	
 	ZERO("0"),
@@ -18,7 +23,13 @@ public enum Digits {
 		this.name = name;
 	}
 	
-	public String getLabel() {
+	public String getName() {
 		return this.name;
 	}
+	
+	public static Set<String> names(){
+      return Arrays.asList(Digits.values()).stream()
+                                              .map(e -> e.getName())
+                                              .collect(Collectors.toSet());
+    }
 }

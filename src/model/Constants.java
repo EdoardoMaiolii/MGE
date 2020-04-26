@@ -1,4 +1,9 @@
 package model;
+
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public enum Constants {
 	E(2.71),//2.7182818284 nepero
 	PI(3.14),//3.1415926535 pigreco
@@ -22,10 +27,15 @@ public enum Constants {
 	public Double getValue() {
 		return value;
 	}	
-	public String getLabel() {
+	public String getName() {
 		return this.name();
 	}
 	public String getSyntax() {
 		return this.name().toLowerCase();
 	}
+	public static Set<String> names(){
+      return Arrays.asList(Constants.values()).stream()
+                                              .map(e -> e.getName())
+                                              .collect(Collectors.toSet());
+    }
 };

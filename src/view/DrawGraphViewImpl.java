@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import javax.swing.JButton;
@@ -17,6 +19,12 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import control.DrawGraphViewObserver;
+import model.Constants;
+import model.Digits;
+import model.MathFunctions;
+import model.Punctuation;
+import model.Settings;
+import model.Variables;
 
 public class DrawGraphViewImpl implements DrawGraphView {
   private static final String INPUT_FRAME_NAME = "Mathematical Graphic Engine";
@@ -40,18 +48,12 @@ public class DrawGraphViewImpl implements DrawGraphView {
   private static final int INNER_WEST_PANEL_COLUMNS = 4;
   private static final int INNER_CENTER_PANEL_ROWS = 5;
   private static final int INNER_CENTER_PANEL_COLUMNS = 2;
-  private static final int INNER_EAST_PANEL_ROWS = 1;
+  private static final int INNER_EAST_PANEL_ROWS = 6;
   private static final int INNER_EAST_PANEL_COLUMNS = 2;
   private static final int INNER_SOUTH_PANEL_ROWS = 1;
   private static final int INNER_SOUTH_PANEL_COLUMNS = 4;
   
   private DrawGraphViewObserver observer;
-  private Set<String> settings = new HashSet<>();
-  private Set<String> variables = new HashSet<>();
-  private Set<String> mathFunctions = new HashSet<>();
-  private Set<String> digits = new HashSet<>();
-  private Set<String> costants = new HashSet<>();
-  private Set<String> punctuation = new HashSet<>();
   private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
   private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
   private final Set<JButton> inputButtons = new HashSet<>();
@@ -69,7 +71,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     final GridBagConstraints gbcWest = new GridBagConstraints();
     pWest.setBorder(new TitledBorder(WEST_PANEL_NAME));
     gbcWest.gridy = 0;
-    for (final String setting : settings) {
+    for (final String setting : Settings.names()) {
       final JLabel lSetting = new JLabel(setting);
       final JTextField tSetting = new JTextField(SETTINGS_LENGTH);
       pWest.add(lSetting, gbcWest);
@@ -79,19 +81,19 @@ public class DrawGraphViewImpl implements DrawGraphView {
     //Center Panel
     final JPanel pCenter = new JPanel(new BorderLayout());
     //Inner North Panel
-    final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, this.variables.iterator());
+    final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, Variables.names());
     pInnerNorth.setBorder(new TitledBorder(INNER_NORTH_PANEL_NAME));
     //Inner West Panel
-    final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, this.mathFunctions.iterator());
+    final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, MathFunctions.names());
     pInnerWest.setBorder(new TitledBorder(INNER_WEST_PANEL_NAME));
     //Inner Center Panel
-    final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, this.digits.iterator());
+    final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, Digits.names());
     pInnerCenter.setBorder(new TitledBorder(INNER_CENTER_PANEL_NAME));
     //Inner East Panel
-    final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, this.costants.iterator());
+    final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, Constants.names());
     pInnerEast.setBorder(new TitledBorder(INNER_EAST_PANEL_NAME));
     //Inner South Panel
-    final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, this.punctuation.iterator());
+    final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, Punctuation.names());
     pCenter.add(pInnerNorth, BorderLayout.NORTH);
     pCenter.add(pInnerWest, BorderLayout.WEST);
     pCenter.add(pInnerCenter, BorderLayout.CENTER);
@@ -172,36 +174,6 @@ public class DrawGraphViewImpl implements DrawGraphView {
   public void setObserver(DrawGraphViewObserver observer) {
     this.observer = observer;
   }
-
-  @Override
-  public void setSettings(Set<String> settings) {
-    this.settings = settings;
-  }
-  
-  @Override
-  public void setVariables(Set<String> variables) {
-    this.variables = variables;
-  }
-
-  @Override
-  public void setMathFunctions(Set<String> mathFunctions) {
-    this.mathFunctions = mathFunctions;
-  }
-
-  @Override
-  public void setDigits(Set<String> digits) {
-    this.digits = digits;
-  }
-
-  @Override
-  public void setCostants(Set<String> costants) {
-    this.costants = costants;
-  }
-
-  @Override
-  public void setPunctuation(Set<String> punctuation) {
-    this.punctuation = punctuation;
-  }
   
   @Override
   public void expressionIncorrect() {
@@ -209,7 +181,8 @@ public class DrawGraphViewImpl implements DrawGraphView {
     
   }
   
-  private JPanel gridButtonsPanel(int rows, int cols, Iterator<String> labels) {
+  private JPanel gridButtonsPanel(int rows, int cols, Set<String> labels) {
+    final Iterator<String> labelsIterator = labels.iterator();
     final JPanel panel = new JPanel(new GridBagLayout());
     final GridBagConstraints gbc = new GridBagConstraints();
     gbc.gridx = 0;
@@ -217,8 +190,8 @@ public class DrawGraphViewImpl implements DrawGraphView {
     gbc.fill = GridBagConstraints.HORIZONTAL;
     for(int i=0; i<rows; i++) {
       for(int j=0; j<cols; j++) {
-        if(labels.hasNext()) {
-          final JButton jb = new JButton(labels.next());
+        if(labelsIterator.hasNext()) {
+          final JButton jb = new JButton(labelsIterator.next());
           gbc.gridx = j;
           gbc.gridy = i;
           panel.add(jb, gbc);
@@ -231,4 +204,5 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
     return panel;
   }
+  
 }

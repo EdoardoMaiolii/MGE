@@ -1,5 +1,8 @@
 package model;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public enum MathFunctions {
 	SUM(2,"+") {
@@ -136,11 +139,11 @@ public enum MathFunctions {
 	};
 	
 	private final int nParameters;
-	private final String mylabel;
+	private final String name;
 	
-	MathFunctions(int nPar , String label) {
+	MathFunctions(int nPar , String name) {
 		this.nParameters = nPar;
-		this.mylabel = label;
+		this.name = name;
 	}
 	
 	public int getNParameters() {
@@ -151,8 +154,8 @@ public enum MathFunctions {
 		return this.name().toLowerCase();
 	}
 	
-	public String getLabel() {
-		return mylabel;
+	public String getName() {
+		return this.name;
 	}
 	public Double resolve(List<Double> list) {
 		if (list.size() == nParameters)
@@ -160,6 +163,12 @@ public enum MathFunctions {
 		else 
 			return null;
 	}
+	
+	public static Set<String> names(){
+      return Arrays.asList(MathFunctions.values()).stream()
+                                              .map(e -> e.getName())
+                                              .collect(Collectors.toSet());
+    }
 	
 	protected abstract Double calculate(List<Double> parameters);
 }
