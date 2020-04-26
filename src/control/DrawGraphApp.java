@@ -19,7 +19,12 @@ public class DrawGraphApp implements DrawGraphViewObserver{
   
   @Override
   public void newExpression(String expression) {
-    //TODO
+    try {
+      this.model.parse(expression);
+      this.view.graph(this.model.generateGraph());
+    } catch (IllegalArgumentException e) {
+      this.view.expressionIncorrect();
+    }
   }
   
   public static void main(String[] args) {

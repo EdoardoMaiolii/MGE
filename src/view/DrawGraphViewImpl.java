@@ -180,6 +180,13 @@ public class DrawGraphViewImpl implements DrawGraphView {
     JOptionPane.showMessageDialog(this.inputFrame, "Enter a valid expression please...");
   }
   
+  @Override
+  public void graph(List<Point> points) {
+    final JPanel graphPanel = new PlotFunctionPanel((int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2, 5, points);
+    this.graphFrame.add(graphPanel, BorderLayout.CENTER);
+    this.graphFrame.setVisible(true);
+  }
+  
   private JPanel gridButtonsPanel(int rows, int cols, List<String> labels) {
     final Iterator<String> labelsIterator = labels.iterator();
     final JPanel panel = new JPanel(new GridBagLayout());
