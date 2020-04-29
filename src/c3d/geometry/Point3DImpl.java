@@ -5,7 +5,8 @@ public class Point3DImpl implements Point3D {
 	private final double x;
 	private final double y;
 	private final double z;
-	
+	private Point2D cachedRender;
+
 	private static final Point2D pointOfView = Point2D.fromDoubles(0, -600);
 	private static final Point2D focalPoint = Point2D.origin();
 
@@ -48,18 +49,20 @@ public class Point3DImpl implements Point3D {
 
 	@Override
 	public Point3D rotated(double angleXY, double angleYZ) {
-		return this.rotatedXY(angleXY)
-				.rotatedYZ(angleYZ);
+		return this.rotatedXY(angleXY).rotatedYZ(angleYZ);
 	}
 
 	@Override
 	public Point2D render() {
-		double finalX = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getY()), pointOfView).getZero();
+		if (this.cachedRender == null) {
+			double finalX = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getY()), pointOfView).getZero();
 
-		Line finalLine = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getZ()), focalPoint);
-		double finalY = finalLine.solveFor(finalX);
+			Line finalLine = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getZ()), focalPoint);
+			double finalY = finalLine.solveFor(finalX);
 
-		return Point2D.fromDoubles(finalX, finalY);
+			this.cachedRender = Point2D.fromDoubles(finalX, finalY);
+		}
+		return this.cachedRender;
 	}
 
 }
