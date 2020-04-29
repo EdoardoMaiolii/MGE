@@ -1,6 +1,6 @@
 package c3d;
 
-import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import c3d.geometry.Point3D;

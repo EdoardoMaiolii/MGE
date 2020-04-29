@@ -37,6 +37,6 @@ public class Segment2DImpl implements Segment2D {
 	@Override
 	public Color getColor() {
 		// TODO Auto-generated method stub
-		return null;
+		return this.color;
 	}
 }

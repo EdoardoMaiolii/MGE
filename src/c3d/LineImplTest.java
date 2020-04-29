@@ -1,13 +1,11 @@
 package c3d;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 import c3d.geometry.Line;
-import c3d.geometry.LineImpl;
 import c3d.geometry.Point2D;
-import c3d.geometry.Point2DImpl;
 
 class LineImplTest {
 

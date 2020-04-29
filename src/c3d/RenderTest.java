@@ -1,23 +1,16 @@
 package c3d;
 
 import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.swing.JFrame;
 
 import c3d.geometry.Point3D;
-import c3d.geometry.Point3DImpl;
 import c3d.geometry.Segment2D;
 import c3d.geometry.Segment3D;
-import c3d.geometry.Segment3DImpl;
 
 public class RenderTest extends Canvas {
 

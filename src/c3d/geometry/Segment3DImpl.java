@@ -40,8 +40,7 @@ public class Segment3DImpl implements Segment3D {
 
 	@Override
 	public Color getColor() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.color;
 	}
 
 	@Override
