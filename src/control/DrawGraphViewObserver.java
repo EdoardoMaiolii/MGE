@@ -2,6 +2,6 @@ package control;
 
 public interface DrawGraphViewObserver {
 
-  void newExpression(String expression);
+  void newGraph(String function, int max, int min, int rate);
 
 }
