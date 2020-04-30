@@ -235,10 +235,8 @@ public class DrawGraphViewImpl implements DrawGraphView {
       
       public void paintComponent(Graphics g) {
         for(final Segment2D segment : segments) {
-          final Point2D pointA = segment.getA();
-          final Point2D pointB = segment.getB();
-          g.drawLine((int)(pointA.getX()*this.center.getX()+this.center.getX()), (int)(pointA.getY()*-this.center.getY()+this.center.getY()),
-              (int)(pointB.getX()*this.center.getX()+this.center.getX()), (int)(pointB.getY()*-this.center.getY()+this.center.getY()));
+          g.drawLine((int)(segment.getA().getX()*this.center.getX()+this.center.getX()), (int)(segment.getA().getY()*-this.center.getY()+this.center.getY()),
+              (int)(segment.getB().getX()*this.center.getX()+this.center.getX()), (int)(segment.getB().getY()*-this.center.getY()+this.center.getY()));
         }
       }
     };
