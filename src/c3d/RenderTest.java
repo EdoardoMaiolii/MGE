@@ -8,12 +8,17 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import c3d.geometry.Point2D;
 import c3d.geometry.Point3D;
 import c3d.geometry.Segment2D;
 import c3d.geometry.Segment3D;
 
 public class RenderTest extends Canvas {
 
+	/**
+	 *
+	 */
+	private static final int screenSize = 200;
 	/**
 	 * 
 	 */
@@ -36,13 +41,12 @@ public class RenderTest extends Canvas {
 
 		MeshVisualizer visualizer = new MeshVisualizerImpl();
 
-		visualizer.setModel(set);
+		visualizer.setMesh(set);
 
-		// visualizer.setRotationXY(10);
-		// visualizer.setTranslation(Point3D.fromDoubles(0, -400, 100));
-		var set2 = visualizer.render();
+		visualizer.setTranslation(Point3D.fromDoubles(0, 0, 20));
+		var output = visualizer.render();
 
-		RenderTest dr = new RenderTest(set2);
+		RenderTest dr = new RenderTest(output);
 		JFrame frame = new JFrame("My Drawing");
 		frame.add(dr);
 		frame.pack();
@@ -57,8 +61,12 @@ public class RenderTest extends Canvas {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		output.forEach(el -> g.drawLine((int) el.getA().getX() * 200 + 200, (int) el.getA().getY() * 200 + 200,
-				(int) el.getB().getX() * 200 + 200, (int) el.getB().getY() * 200 + 200));
+		output.stream()
+				.map(seg -> Segment2D.fromPoints(Point2D.fromDoubles(seg.getA().getX(), -seg.getA().getY()),
+						Point2D.fromDoubles(seg.getB().getX(), -seg.getB().getY())))
+				.peek(el -> System.out.println(el)).map(el -> el.transformed(coord -> coord * screenSize + screenSize))
+				.forEach(el -> g.drawLine((int) el.getA().getX(), (int) el.getA().getY(), (int) el.getB().getX(),
+						(int) el.getB().getY()));
 	}
 
 	RenderTest(List<Segment2D> model) {

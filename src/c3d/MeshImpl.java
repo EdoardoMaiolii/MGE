@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.*;
 
+import c3d.geometry.Point3D;
 import c3d.geometry.Segment2D;
 import c3d.geometry.Segment3D;
 
@@ -36,5 +37,11 @@ public class MeshImpl implements Mesh {
 	public Mesh transformed(final Function<Double, Double> transformation) {
 		return new MeshImpl(
 				this.segments.stream().map(seg -> seg.transformed(transformation)).collect(Collectors.toList()));
+	}
+
+	@Override
+	public Mesh translated(Point3D vector) {
+		return new MeshImpl(this.segments.stream()
+				.map(seg -> seg.translated(vector.getX(), vector.getY(), vector.getZ())).collect(Collectors.toList()));
 	}
 }

@@ -9,15 +9,16 @@ public class MeshVisualizerImpl implements MeshVisualizer {
 	private Mesh mesh;
 	private double rotationXY = 0;
 	private double rotationYZ = 0;
-	private Point3D translation = Point3D.fromDoubles(0, targetMeshScale, 0);
+	private Point3D translation = Point3D.origin();
 	private static double targetMeshScale = 100;
 	private static Point2D pointOfView = Point2D.fromDoubles(0, -targetMeshScale);
 
 	@Override
-	public void setModel(final List<Segment3D> model) {
-		this.mesh = Mesh.fromSegments(model);
+	public void setMesh(final List<Segment3D> segments) {
+		this.mesh = Mesh.fromSegments(segments);
 		double currentScale = mesh.getScale();
-		this.mesh = this.mesh.transformed(value -> value / currentScale * targetMeshScale);
+		this.mesh = this.mesh.transformed(value -> value / currentScale * targetMeshScale)
+				.translated(Point3D.fromDoubles(0, targetMeshScale, 0));
 	}
 
 	@Override
@@ -59,7 +60,8 @@ public class MeshVisualizerImpl implements MeshVisualizer {
 				return MeshVisualizerImpl.pointOfView;
 			}
 
-		}).stream().map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
-				.collect(Collectors.toList());
+		}).stream().peek(el -> System.out.println(el))
+				.map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
+				.peek(el -> System.out.println(el)).collect(Collectors.toList());
 	}
 }

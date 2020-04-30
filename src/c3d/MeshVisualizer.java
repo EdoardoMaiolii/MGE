@@ -8,7 +8,7 @@ import c3d.geometry.Segment3D;
 
 public interface MeshVisualizer {
 
-	void setModel(List<Segment3D> model);
+	void setMesh(List<Segment3D> segments);
 
 	void setRotationXY(double rotationXY);
 
