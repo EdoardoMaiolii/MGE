@@ -1,5 +1,7 @@
 package c3d.geometry;
 
+import java.util.function.Function;
+
 public class Point3DImpl implements Point3D {
 
 	@Override
@@ -48,7 +50,7 @@ public class Point3DImpl implements Point3D {
 	}
 
 	@Override
-	public Point3D translate(final double x, final double y, final double z) {
+	public Point3D translated(final double x, final double y, final double z) {
 		return new Point3DImpl(this.x + x, this.y + y, this.z + z);
 	}
 
@@ -77,13 +79,9 @@ public class Point3DImpl implements Point3D {
 	}
 
 	@Override
-	public Point3D changeScale(double currentScale, double newScale) {
-		return new Point3DImpl(this.inverseLerp(this.x, currentScale, newScale),
-				this.inverseLerp(this.y, currentScale, newScale), this.inverseLerp(this.z, currentScale, newScale));
-	}
-
-	private double inverseLerp(double value, double currentScale, double newScale) {
-		return value / currentScale * newScale;
+	public Point3D transformed(Function<Double, Double> transformation) {
+		return new Point3DImpl(transformation.apply(this.x), transformation.apply(this.y),
+				transformation.apply(this.z));
 	}
 
 }

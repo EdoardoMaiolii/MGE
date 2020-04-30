@@ -25,7 +25,6 @@ class MeshTest {
 
 		final var mesh = Mesh.fromSegments(set);
 		System.out.println(mesh);
-		System.out.println(mesh.scaled(100));
 	}
 
 }

@@ -1,6 +1,7 @@
 package c3d;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.*;
 
 import c3d.geometry.Segment2D;
@@ -13,17 +14,10 @@ public class MeshImpl implements Mesh {
 		this.segments = segments;
 	}
 
-	private double getScale() {
+	@Override
+	public double getScale() {
 		return segments.stream().flatMap(seg -> Stream.of(seg.getA(), seg.getB()))
 				.flatMapToDouble(point -> DoubleStream.of(point.getX(), point.getY())).max().orElse(1);
-	}
-
-	@Override
-	public Mesh scaled(final double scale) {
-		final double currentScale = this.getScale();
-		return new MeshImpl(
-				segments.stream().map(seg -> Segment3D.fromPoints(seg.getA().changeScale(currentScale, scale),
-						seg.getB().changeScale(currentScale, scale))).collect(Collectors.toList()));
 	}
 
 	@Override
@@ -36,5 +30,11 @@ public class MeshImpl implements Mesh {
 	@Override
 	public String toString() {
 		return "MeshImpl [segments=" + segments + "]";
+	}
+
+	@Override
+	public Mesh transformed(final Function<Double, Double> transformation) {
+		return new MeshImpl(
+				this.segments.stream().map(seg -> seg.transformed(transformation)).collect(Collectors.toList()));
 	}
 }

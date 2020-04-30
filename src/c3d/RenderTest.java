@@ -38,8 +38,8 @@ public class RenderTest extends Canvas {
 
 		visualizer.setModel(set);
 
-		//visualizer.setRotationXY(10);
-		visualizer.setTranslation(Point3D.fromDoubles(0, -400, 100));
+		// visualizer.setRotationXY(10);
+		// visualizer.setTranslation(Point3D.fromDoubles(0, -400, 100));
 		var set2 = visualizer.render();
 
 		RenderTest dr = new RenderTest(set2);
@@ -57,8 +57,8 @@ public class RenderTest extends Canvas {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		output.forEach(el -> g.drawLine((int) el.getA().getX() + 200, (int) el.getA().getY() + 200,
-				(int) el.getB().getX() + 200, (int) el.getB().getY() + 200));
+		output.forEach(el -> g.drawLine((int) el.getA().getX() * 200 + 200, (int) el.getA().getY() * 200 + 200,
+				(int) el.getB().getX() * 200 + 200, (int) el.getB().getY() * 200 + 200));
 	}
 
 	RenderTest(List<Segment2D> model) {

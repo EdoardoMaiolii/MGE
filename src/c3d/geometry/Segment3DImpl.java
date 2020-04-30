@@ -1,6 +1,7 @@
 package c3d.geometry;
 
 import java.awt.Color;
+import java.util.function.Function;
 
 public class Segment3DImpl implements Segment3D {
 	@Override
@@ -35,7 +36,7 @@ public class Segment3DImpl implements Segment3D {
 
 	@Override
 	public Segment3D translated(final double x, final double y, final double z) {
-		return new Segment3DImpl(this.getA().translate(x, y, z), this.getB().translate(x, y, z));
+		return new Segment3DImpl(this.getA().translated(x, y, z), this.getB().translated(x, y, z));
 	}
 
 	@Override
@@ -56,5 +57,10 @@ public class Segment3DImpl implements Segment3D {
 	@Override
 	public Segment2D render(Point2D pointOfView) {
 		return Segment2D.fromPoints(this.getA().render(pointOfView), this.getB().render(pointOfView), this.color);
+	}
+
+	@Override
+	public Segment3D transformed(Function<Double, Double> transformation) {
+		return new Segment3DImpl(this.a.transformed(transformation), this.b.transformed(transformation));
 	}
 }

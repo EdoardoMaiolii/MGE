@@ -1,6 +1,7 @@
 package c3d;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import c3d.geometry.*;
 
@@ -8,13 +9,15 @@ public class MeshVisualizerImpl implements MeshVisualizer {
 	private Mesh mesh;
 	private double rotationXY = 0;
 	private double rotationYZ = 0;
-	private Point3D translation = Point3D.origin();
+	private Point3D translation = Point3D.fromDoubles(0, targetMeshScale, 0);
 	private static double targetMeshScale = 100;
-	private static Point2D pointOfView = Point2D.fromDoubles(0, targetMeshScale / 2);
+	private static Point2D pointOfView = Point2D.fromDoubles(0, -targetMeshScale);
 
 	@Override
 	public void setModel(final List<Segment3D> model) {
-		this.mesh = Mesh.fromSegments(model).scaled(targetMeshScale);
+		this.mesh = Mesh.fromSegments(model);
+		double currentScale = mesh.getScale();
+		this.mesh = this.mesh.transformed(value -> value / currentScale * targetMeshScale);
 	}
 
 	@Override
@@ -56,6 +59,7 @@ public class MeshVisualizerImpl implements MeshVisualizer {
 				return MeshVisualizerImpl.pointOfView;
 			}
 
-		});
+		}).stream().map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
+				.collect(Collectors.toList());
 	}
 }
