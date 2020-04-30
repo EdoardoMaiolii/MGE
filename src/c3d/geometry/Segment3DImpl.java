@@ -52,4 +52,9 @@ public class Segment3DImpl implements Segment3D {
 	public Segment2D render() {
 		return Segment2D.fromPoints(this.getA().render(), this.getB().render(), this.color);
 	}
+
+	@Override
+	public Segment2D render(Point2D pointOfView) {
+		return Segment2D.fromPoints(this.getA().render(pointOfView), this.getB().render(pointOfView), this.color);
+	}
 }

@@ -4,16 +4,17 @@ import java.util.List;
 
 import c3d.geometry.*;
 
-public class ModelVisualizerImpl implements ModelVisualizer {
-	private Mesh model;
+public class MeshVisualizerImpl implements MeshVisualizer {
+	private Mesh mesh;
 	private double rotationXY = 0;
 	private double rotationYZ = 0;
 	private Point3D translation = Point3D.origin();
-	private static double targetMeshScale = 60;
+	private static double targetMeshScale = 100;
+	private static Point2D pointOfView = Point2D.fromDoubles(0, targetMeshScale / 2);
 
 	@Override
 	public void setModel(final List<Segment3D> model) {
-		this.model = Mesh.fromSegments(model).scaled(targetMeshScale);
+		this.mesh = Mesh.fromSegments(model).scaled(targetMeshScale);
 	}
 
 	@Override
@@ -33,21 +34,26 @@ public class ModelVisualizerImpl implements ModelVisualizer {
 
 	@Override
 	public List<Segment2D> render() {
-		return this.model.render(new RenderParameters() {
+		return this.mesh.render(new RenderParameters() {
 
 			@Override
 			public double rotationXY() {
-				return ModelVisualizerImpl.this.rotationXY;
+				return MeshVisualizerImpl.this.rotationXY;
 			}
 
 			@Override
 			public double rotationYZ() {
-				return ModelVisualizerImpl.this.rotationYZ;
+				return MeshVisualizerImpl.this.rotationYZ;
 			}
 
 			@Override
 			public Point3D translation() {
-				return ModelVisualizerImpl.this.translation;
+				return MeshVisualizerImpl.this.translation;
+			}
+
+			@Override
+			public Point2D pointOfView() {
+				return MeshVisualizerImpl.pointOfView;
 			}
 
 		});

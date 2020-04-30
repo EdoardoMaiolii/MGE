@@ -34,12 +34,12 @@ public class RenderTest extends Canvas {
 
 		var set = Arrays.asList(ab, bd, cd, ca);
 
-		ModelVisualizer visualizer = new ModelVisualizerImpl();
+		MeshVisualizer visualizer = new MeshVisualizerImpl();
 
 		visualizer.setModel(set);
 
 		//visualizer.setRotationXY(10);
-		visualizer.setTranslation(Point3D.fromDoubles(0, 0, 100));
+		visualizer.setTranslation(Point3D.fromDoubles(0, -400, 100));
 		var set2 = visualizer.render();
 
 		RenderTest dr = new RenderTest(set2);

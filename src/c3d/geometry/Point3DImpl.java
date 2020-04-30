@@ -12,7 +12,7 @@ public class Point3DImpl implements Point3D {
 	private final double z;
 	private Point2D cachedRender;
 
-	private static final Point2D pointOfView = Point2D.fromDoubles(0, -600);
+	private static final Point2D defaultPointOfView = Point2D.fromDoubles(0, -600);
 	private static final Point2D focalPoint = Point2D.origin();
 
 	// packace protected
@@ -58,16 +58,22 @@ public class Point3DImpl implements Point3D {
 	}
 
 	@Override
-	public Point2D render() {
+	public Point2D render(Point2D pointOfView) {
 		if (this.cachedRender == null) {
-			final double finalX = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getY()), pointOfView).getZero();
+			final double finalX = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getY()), defaultPointOfView)
+					.getZero();
 
-			final Line finalLine = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getZ()), focalPoint);
-			final double finalY = finalLine.solveFor(finalX);
+			final Line heightLine = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getZ()), focalPoint);
+			final double finalY = heightLine.solveFor(finalX);
 
 			this.cachedRender = Point2D.fromDoubles(finalX, finalY);
 		}
 		return this.cachedRender;
+	}
+
+	@Override
+	public Point2D render() {
+		return this.render(defaultPointOfView);
 	}
 
 	@Override
