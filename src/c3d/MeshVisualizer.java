@@ -17,4 +17,8 @@ public interface MeshVisualizer {
 	void setTranslation(Point3D translation);
 
 	List<Segment2D> render();
+
+	static MeshVisualizer create() {
+		return new MeshVisualizerImpl();
+	}
 }

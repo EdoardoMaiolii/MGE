@@ -60,8 +60,7 @@ public class MeshVisualizerImpl implements MeshVisualizer {
 				return MeshVisualizerImpl.pointOfView;
 			}
 
-		}).stream().peek(el -> System.out.println(el))
-				.map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
-				.peek(el -> System.out.println(el)).collect(Collectors.toList());
+		}).stream().map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
+				.collect(Collectors.toList());
 	}
 }

@@ -39,7 +39,7 @@ public class RenderTest extends Canvas {
 
 		var set = Arrays.asList(ab, bd, cd, ca);
 
-		MeshVisualizer visualizer = new MeshVisualizerImpl();
+		MeshVisualizer visualizer = MeshVisualizer.create();
 
 		visualizer.setMesh(set);
 
@@ -64,7 +64,7 @@ public class RenderTest extends Canvas {
 		output.stream()
 				.map(seg -> Segment2D.fromPoints(Point2D.fromDoubles(seg.getA().getX(), -seg.getA().getY()),
 						Point2D.fromDoubles(seg.getB().getX(), -seg.getB().getY())))
-				.peek(el -> System.out.println(el)).map(el -> el.transformed(coord -> coord * screenSize + screenSize))
+				.map(el -> el.transformed(coord -> coord * screenSize + screenSize))
 				.forEach(el -> g.drawLine((int) el.getA().getX(), (int) el.getA().getY(), (int) el.getB().getX(),
 						(int) el.getB().getY()));
 	}
