@@ -2,6 +2,11 @@ package c3d.geometry;
 
 public class Point3DImpl implements Point3D {
 
+	@Override
+	public String toString() {
+		return "Point3DImpl [x=" + x + ", y=" + y + ", z=" + z + "]";
+	}
+
 	private final double x;
 	private final double y;
 	private final double z;
@@ -63,6 +68,16 @@ public class Point3DImpl implements Point3D {
 			this.cachedRender = Point2D.fromDoubles(finalX, finalY);
 		}
 		return this.cachedRender;
+	}
+
+	@Override
+	public Point3D changeScale(double currentScale, double newScale) {
+		return new Point3DImpl(this.inverseLerp(this.x, currentScale, newScale),
+				this.inverseLerp(this.y, currentScale, newScale), this.inverseLerp(this.z, currentScale, newScale));
+	}
+
+	private double inverseLerp(double value, double currentScale, double newScale) {
+		return value / currentScale * newScale;
 	}
 
 }

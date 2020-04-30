@@ -3,6 +3,11 @@ package c3d.geometry;
 import java.awt.Color;
 
 public class Segment3DImpl implements Segment3D {
+	@Override
+	public String toString() {
+		return "Segment3DImpl [a=" + a + ", b=" + b + ", color=" + color + "]";
+	}
+
 	private final Point3D a;
 	private final Point3D b;
 	private final Color color;

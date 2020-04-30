@@ -38,7 +38,7 @@ public class RenderTest extends Canvas {
 
 		visualizer.setModel(set);
 
-		visualizer.setRotationXY(10);
+		//visualizer.setRotationXY(10);
 		visualizer.setTranslation(Point3D.fromDoubles(0, 0, 100));
 		var set2 = visualizer.render();
 

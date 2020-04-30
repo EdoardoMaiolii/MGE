@@ -14,6 +14,8 @@ public interface Point3D {
 	
 	Point2D render();
 
+	Point3D changeScale(double currentScale, double newScale);
+
 	public static Point3D origin() {
 		return new Point3DImpl(0, 0, 0);
 	}
