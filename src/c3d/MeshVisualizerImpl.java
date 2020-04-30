@@ -63,4 +63,19 @@ public class MeshVisualizerImpl implements MeshVisualizer {
 		}).stream().map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
 				.collect(Collectors.toList());
 	}
+
+	@Override
+	public double getRotationXY() {
+		return this.rotationXY;
+	}
+
+	@Override
+	public double getRotationYZ() {
+		return this.rotationYZ;
+	}
+
+	@Override
+	public Point3D getTranslation() {
+		return this.translation;
+	}
 }

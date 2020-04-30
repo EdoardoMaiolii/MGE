@@ -12,9 +12,15 @@ public interface MeshVisualizer {
 
 	void setRotationXY(double rotationXY);
 
+	double getRotationXY();
+
 	void setRotationYZ(double rotationYZ);
 
+	double getRotationYZ();
+
 	void setTranslation(Point3D translation);
+
+	Point3D getTranslation();
 
 	List<Segment2D> render();
 
