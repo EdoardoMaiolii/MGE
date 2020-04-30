@@ -1,9 +1,12 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
@@ -18,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import c3d.geometry.Point2D;
+import c3d.geometry.Segment2D;
 import control.DrawGraphViewObserver;
 import model.Constants;
 import model.Digits;
@@ -52,6 +57,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
   private static final int INNER_EAST_PANEL_COLUMNS = 2;
   private static final int INNER_SOUTH_PANEL_ROWS = 1;
   private static final int INNER_SOUTH_PANEL_COLUMNS = 4;
+  private static final int GRAPH_PANEL_SIZE = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2;
   
   private DrawGraphViewObserver observer;
   private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
@@ -181,8 +187,29 @@ public class DrawGraphViewImpl implements DrawGraphView {
   }
   
   @Override
-  public void graph(List<Point> points) {
-    final JPanel graphPanel = new PlotFunctionPanel((int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2, 5, points);
+  public void plotGraph(List<Segment2D> segments) {
+    final JPanel graphPanel = new JPanel() {
+      /**
+       * 
+       */
+      private static final long serialVersionUID = 1L;      
+      
+      private Point center;
+      
+      public void JPanel() {
+        this.center = new Point((int)GRAPH_PANEL_SIZE/2, (int)GRAPH_PANEL_SIZE/2);
+        this.setPreferredSize(new Dimension(GRAPH_PANEL_SIZE, GRAPH_PANEL_SIZE));        
+      }
+      
+      public void paintComponent(Graphics g) {
+        for(final Segment2D segment : segments) {
+          final Point2D pointA = segment.getA();
+          final Point2D pointB = segment.getB();
+          g.drawLine((int)(pointA.getX()*this.center.getX()+this.center.getX()), (int)(pointA.getY()*-this.center.getY()+this.center.getY()),
+              (int)(pointB.getX()*this.center.getX()+this.center.getX()), (int)(pointB.getY()*-this.center.getY()+this.center.getY()));
+        }
+      }
+    };
     this.graphFrame.add(graphPanel, BorderLayout.CENTER);
     this.graphFrame.setVisible(true);
   }
