@@ -41,10 +41,19 @@ public class DrawGraphViewImpl implements DrawGraphView {
   private static final String INNER_CENTER_PANEL_NAME = "Digits";
   private static final String INNER_EAST_PANEL_NAME = "Costants";
   private static final String MATH_EXPRESSION_NAME = "F=";
+  private static final String MAX_VALUE = "Max";
+  private static final String MIN_VALUE = "Min";
+  private static final String RATE = "Rate";
   private static final String CLEAR = "CLEAR";
   private static final String LOAD = "LOAD";
   private static final String SAVE = "SAVE";
   private static final String PLOT = "PLOT";
+  private static final String ZOOM_IN = "+";
+  private static final String ZOOM_OUT = "-";
+  private static final String UP = "UP";
+  private static final String LEFT = "LEFT";
+  private static final String RIGHT = "RIGHT";
+  private static final String DOWN = "DOWN";
   private static final int MATH_EXPRESSION_LENGTH = 70;
   private static final int SETTINGS_LENGTH = 20;
   private static final int INNER_NORTH_PANEL_ROWS = 1;
@@ -77,13 +86,20 @@ public class DrawGraphViewImpl implements DrawGraphView {
     final GridBagConstraints gbcWest = new GridBagConstraints();
     pWest.setBorder(new TitledBorder(WEST_PANEL_NAME));
     gbcWest.gridy = 0;
-    for (final String setting : Settings.names()) {
-      final JLabel lSetting = new JLabel(setting);
-      final JTextField tSetting = new JTextField(SETTINGS_LENGTH);
-      pWest.add(lSetting, gbcWest);
-      pWest.add(tSetting, gbcWest);
-      gbcWest.gridy = gbcWest.gridy + 1;
-    }
+    final JLabel lMax = new JLabel(MAX_VALUE);
+    final JTextField tMax = new JTextField(SETTINGS_LENGTH);
+    pWest.add(lMax, gbcWest);
+    pWest.add(tMax, gbcWest);
+    gbcWest.gridy = gbcWest.gridy + 1;
+    final JLabel lMin = new JLabel(MIN_VALUE);
+    final JTextField tMin = new JTextField(SETTINGS_LENGTH);
+    pWest.add(lMin, gbcWest);
+    pWest.add(tMin, gbcWest);
+    gbcWest.gridy = gbcWest.gridy + 1;
+    final JLabel lRate = new JLabel(RATE);
+    final JTextField tRate = new JTextField(SETTINGS_LENGTH);
+    pWest.add(lRate, gbcWest);
+    pWest.add(tRate, gbcWest);
     //Center Panel
     final JPanel pCenter = new JPanel(new BorderLayout());
     //Inner North Panel
@@ -117,6 +133,20 @@ public class DrawGraphViewImpl implements DrawGraphView {
     pSouth.add(bLoad);
     pSouth.add(bSave);
     pSouth.add(bPlot);
+    //Graph frame
+    final JPanel pSouthGraph = new JPanel(new FlowLayout());
+    final JButton bZoomIn = new JButton(ZOOM_IN);
+    final JButton bZoomOut = new JButton(ZOOM_OUT);
+    final JButton bUp = new JButton(UP);
+    final JButton bLeft = new JButton(LEFT);
+    final JButton bRight = new JButton(RIGHT);
+    final JButton bDown = new JButton(DOWN);
+    pSouthGraph.add(bZoomIn);
+    pSouthGraph.add(bZoomOut);
+    pSouthGraph.add(bUp);
+    pSouthGraph.add(bLeft);
+    pSouthGraph.add(bRight);
+    pSouthGraph.add(bDown);
     this.inputFrame.getMainPanel().add(pNorth, BorderLayout.NORTH);
     this.inputFrame.getMainPanel().add(pWest, BorderLayout.WEST);
     this.inputFrame.getMainPanel().add(pCenter, BorderLayout.CENTER);
@@ -166,7 +196,11 @@ public class DrawGraphViewImpl implements DrawGraphView {
       
       @Override
       public void actionPerformed(ActionEvent e) {
-        observer.newExpression(tMathExpression.getText());
+        try {
+          observer.newGraph(tMathExpression.getText(), Integer.parseInt(tMax.getText()), Integer.parseInt(tMin.getText()), Integer.parseInt(tRate.getText()));
+        } catch (NumberFormatException exception){
+          JOptionPane.showMessageDialog(inputFrame, "Integer settings please...");
+        }
       }
     });
   }
@@ -189,9 +223,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
   @Override
   public void plotGraph(List<Segment2D> segments) {
     final JPanel graphPanel = new JPanel() {
-      /**
-       * 
-       */
+
       private static final long serialVersionUID = 1L;      
       
       private Point center;
@@ -203,15 +235,12 @@ public class DrawGraphViewImpl implements DrawGraphView {
       
       public void paintComponent(Graphics g) {
         for(final Segment2D segment : segments) {
-          final Point2D pointA = segment.getA();
-          final Point2D pointB = segment.getB();
-          g.drawLine((int)(pointA.getX()*this.center.getX()+this.center.getX()), (int)(pointA.getY()*-this.center.getY()+this.center.getY()),
-              (int)(pointB.getX()*this.center.getX()+this.center.getX()), (int)(pointB.getY()*-this.center.getY()+this.center.getY()));
+          g.drawLine((int)(segment.getA().getX()*this.center.getX()+this.center.getX()), (int)(segment.getA().getY()*-this.center.getY()+this.center.getY()),
+              (int)(segment.getB().getX()*this.center.getX()+this.center.getX()), (int)(segment.getB().getY()*-this.center.getY()+this.center.getY()));
         }
       }
     };
     this.graphFrame.add(graphPanel, BorderLayout.CENTER);
-    this.graphFrame.setVisible(true);
   }
   
   private JPanel gridButtonsPanel(int rows, int cols, List<String> labels) {
