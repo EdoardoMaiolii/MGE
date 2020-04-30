@@ -10,11 +10,11 @@ public interface Segment2D {
 
 	Color getColor();
 
-	public static Segment2D fromPoints(final Point2D a, final Point2D b) {
+	static Segment2D fromPoints(final Point2D a, final Point2D b) {
 		return new Segment2DImpl(a, b);
 	}
 
-	public static Segment2D fromPoints(final Point2D a, final Point2D b, final Color color) {
+	static Segment2D fromPoints(final Point2D a, final Point2D b, final Color color) {
 		return new Segment2DImpl(a, b, color);
 	}
 

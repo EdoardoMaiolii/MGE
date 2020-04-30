@@ -16,11 +16,11 @@ public interface Point3D {
 
 	Point3D changeScale(double currentScale, double newScale);
 
-	public static Point3D origin() {
+	static Point3D origin() {
 		return new Point3DImpl(0, 0, 0);
 	}
 	
-	public static Point3D fromDoubles(final double x, final double y, final double z) {
+	static Point3D fromDoubles(final double x, final double y, final double z) {
 		return new Point3DImpl(x, y, z);
 	}
 

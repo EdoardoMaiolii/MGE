@@ -16,7 +16,7 @@ public interface Segment3D {
 	
 	Segment2D render();
 	
-	public static Segment3D fromPoints(final Point3D a, final Point3D b) {
+	static Segment3D fromPoints(final Point3D a, final Point3D b) {
 		return new Segment3DImpl(a, b);
 	}
 
