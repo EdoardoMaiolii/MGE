@@ -23,20 +23,19 @@ public class Segment2DImpl implements Segment2D {
 	}
 
 	// package protected
-	Segment2DImpl(Point2D a, Point2D b, Color color) {
+	Segment2DImpl(final Point2D a, final Point2D b, final Color color) {
 		super();
 		this.a = a;
 		this.b = b;
 		this.color = color;
 	}
-	
-	Segment2DImpl(Point2D a, Point2D b) {
+
+	Segment2DImpl(final Point2D a, final Point2D b) {
 		this(a, b, Color.black);
 	}
 
 	@Override
 	public Color getColor() {
-		// TODO Auto-generated method stub
 		return this.color;
 	}
 }

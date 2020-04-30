@@ -5,7 +5,7 @@ public class Point2DImpl implements Point2D {
 	private final double y;
 
 	// package protected
-	Point2DImpl(double x, double y) {
+	Point2DImpl(final double x, final double y) {
 		this.x = x;
 		this.y = y;
 	}

@@ -14,30 +14,29 @@ public class ModelVisualizerImpl implements ModelVisualizer {
 	private Point3D translation = Point3D.origin();
 
 	@Override
-	public void setModel(List<Segment3D> model) {
+	public void setModel(final List<Segment3D> model) {
 		this.model = model;
 	}
 
 	@Override
-	public void setRotationXY(double rotationXY) {
+	public void setRotationXY(final double rotationXY) {
 		this.rotationXY = rotationXY;
 	}
 
 	@Override
-	public void setRotationYZ(double rotationYZ) {
+	public void setRotationYZ(final double rotationYZ) {
 		this.rotationYZ = rotationYZ;
 	}
 
 	@Override
-	public void setTranslation(Point3D translation) {
+	public void setTranslation(final Point3D translation) {
 		this.translation = translation;
 	}
 
 	@Override
 	public List<Segment2D> render() {
-		return this.model.stream()
+		return this.model.stream().map(el -> el.rotated(this.rotationXY, this.rotationYZ))
 				.map(el -> el.translated(this.translation.getX(), this.translation.getY(), this.translation.getZ()))
-				.map(el -> el.rotated(this.rotationXY, this.rotationYZ)).map(el -> el.render())
-				.collect(Collectors.toList());
+				.map(el -> el.render()).collect(Collectors.toList());
 	}
 }

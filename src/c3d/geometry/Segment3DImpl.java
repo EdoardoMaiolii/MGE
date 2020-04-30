@@ -18,23 +18,23 @@ public class Segment3DImpl implements Segment3D {
 	}
 
 	// package proteted
-	Segment3DImpl(Point3D a, Point3D b, Color color) {
+	Segment3DImpl(final Point3D a, final Point3D b, final Color color) {
 		this.a = a;
 		this.b = b;
 		this.color = color;
 	}
 
-	Segment3DImpl(Point3D a, Point3D b) {
+	Segment3DImpl(final Point3D a, final Point3D b) {
 		this(a, b, Color.black);
 	}
 
 	@Override
-	public Segment3D translated(double x, double y, double z) {
+	public Segment3D translated(final double x, final double y, final double z) {
 		return new Segment3DImpl(this.getA().translate(x, y, z), this.getB().translate(x, y, z));
 	}
 
 	@Override
-	public Segment3D rotated(double angleXY, double angleYZ) {
+	public Segment3D rotated(final double angleXY, final double angleYZ) {
 		return new Segment3DImpl(this.getA().rotated(angleXY, angleYZ), this.getB().rotated(angleXY, angleYZ));
 	}
 

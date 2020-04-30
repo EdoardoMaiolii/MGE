@@ -11,7 +11,7 @@ public class Point3DImpl implements Point3D {
 	private static final Point2D focalPoint = Point2D.origin();
 
 	// packace protected
-	Point3DImpl(double x, double y, double z) {
+	Point3DImpl(final double x, final double y, final double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -43,22 +43,22 @@ public class Point3DImpl implements Point3D {
 	}
 
 	@Override
-	public Point3D translate(double x, double y, double z) {
+	public Point3D translate(final double x, final double y, final double z) {
 		return new Point3DImpl(this.x + x, this.y + y, this.z + z);
 	}
 
 	@Override
-	public Point3D rotated(double angleXY, double angleYZ) {
+	public Point3D rotated(final double angleXY, final double angleYZ) {
 		return this.rotatedXY(angleXY).rotatedYZ(angleYZ);
 	}
 
 	@Override
 	public Point2D render() {
 		if (this.cachedRender == null) {
-			double finalX = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getY()), pointOfView).getZero();
+			final double finalX = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getY()), pointOfView).getZero();
 
-			Line finalLine = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getZ()), focalPoint);
-			double finalY = finalLine.solveFor(finalX);
+			final Line finalLine = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getZ()), focalPoint);
+			final double finalY = finalLine.solveFor(finalX);
 
 			this.cachedRender = Point2D.fromDoubles(finalX, finalY);
 		}

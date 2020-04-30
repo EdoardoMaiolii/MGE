@@ -6,7 +6,7 @@ public interface Point2D {
 
 	double getY();
 
-	public static Point2D fromDoubles(double x, double y) {
+	public static Point2D fromDoubles(final double x, final double y) {
 		return new Point2DImpl(x, y);
 	}
 

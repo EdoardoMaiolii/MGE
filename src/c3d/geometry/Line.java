@@ -10,7 +10,7 @@ public interface Line {
 
 	double solveFor(double x);
 	
-	public static Line fromPoints(Point2D a, Point2D b) {
+	public static Line fromPoints(final Point2D a, final Point2D b) {
 		return new LineImpl(a, b);
 	}
 

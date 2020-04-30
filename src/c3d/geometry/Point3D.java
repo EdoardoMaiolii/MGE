@@ -18,7 +18,7 @@ public interface Point3D {
 		return new Point3DImpl(0, 0, 0);
 	}
 	
-	public static Point3D fromDoubles(double x, double y, double z) {
+	public static Point3D fromDoubles(final double x, final double y, final double z) {
 		return new Point3DImpl(x, y, z);
 	}
 
