@@ -9,8 +9,8 @@ public interface Line {
 	double getZero();
 
 	double solveFor(double x);
-	
-	public static Line fromPoints(Point2D a, Point2D b) {
+
+	static Line fromPoints(final Point2D a, final Point2D b) {
 		return new LineImpl(a, b);
 	}
 

@@ -1,16 +1,20 @@
 package c3d.geometry;
 
+import java.util.function.Function;
+
 public interface Point2D {
 
 	double getX();
 
 	double getY();
 
-	public static Point2D fromDoubles(double x, double y) {
+	Point2D transformed(Function<Double, Double> transformation);
+
+	static Point2D fromDoubles(final double x, final double y) {
 		return new Point2DImpl(x, y);
 	}
 
-	public static Point2D origin() {
+	static Point2D origin() {
 		return fromDoubles(0, 0);
 	}
 

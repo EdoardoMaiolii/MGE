@@ -6,7 +6,7 @@ import c3d.geometry.Point3D;
 import c3d.geometry.Segment2D;
 import c3d.geometry.Segment3D;
 
-public interface ModelVisualizer {
+public interface MeshVisualizer {
 
 	void setModel(List<Segment3D> model);
 

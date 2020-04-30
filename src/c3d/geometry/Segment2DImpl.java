@@ -1,6 +1,7 @@
 package c3d.geometry;
 
 import java.awt.Color;
+import java.util.function.Function;
 
 public class Segment2DImpl implements Segment2D {
 	private final Point2D a;
@@ -23,20 +24,24 @@ public class Segment2DImpl implements Segment2D {
 	}
 
 	// package protected
-	Segment2DImpl(Point2D a, Point2D b, Color color) {
+	Segment2DImpl(final Point2D a, final Point2D b, final Color color) {
 		super();
 		this.a = a;
 		this.b = b;
 		this.color = color;
 	}
-	
-	Segment2DImpl(Point2D a, Point2D b) {
+
+	Segment2DImpl(final Point2D a, final Point2D b) {
 		this(a, b, Color.black);
 	}
 
 	@Override
 	public Color getColor() {
-		// TODO Auto-generated method stub
 		return this.color;
+	}
+
+	@Override
+	public Segment2D transformed(Function<Double, Double> transformation) {
+		return new Segment2DImpl(this.a.transformed(transformation), this.b.transformed(transformation));
 	}
 }

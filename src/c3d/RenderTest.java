@@ -34,12 +34,12 @@ public class RenderTest extends Canvas {
 
 		var set = Arrays.asList(ab, bd, cd, ca);
 
-		ModelVisualizer visualizer = new ModelVisualizerImpl();// .render(set, new Point3DImpl(0, 600, 200),
-																		// 0, 0);
+		MeshVisualizer visualizer = new MeshVisualizerImpl();
+
 		visualizer.setModel(set);
 
-		visualizer.setRotationXY(10);
-		visualizer.setTranslation(Point3D.fromDoubles(0, 0, 100));
+		// visualizer.setRotationXY(10);
+		// visualizer.setTranslation(Point3D.fromDoubles(0, -400, 100));
 		var set2 = visualizer.render();
 
 		RenderTest dr = new RenderTest(set2);
@@ -57,14 +57,8 @@ public class RenderTest extends Canvas {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		output.forEach(el -> g.drawLine((int) el.getA()
-				.getX() + 200,
-				(int) el.getA()
-						.getY() + 200,
-				(int) el.getB()
-						.getX() + 200,
-				(int) el.getB()
-						.getY() + 200));
+		output.forEach(el -> g.drawLine((int) el.getA().getX() * 200 + 200, (int) el.getA().getY() * 200 + 200,
+				(int) el.getB().getX() * 200 + 200, (int) el.getB().getY() * 200 + 200));
 	}
 
 	RenderTest(List<Segment2D> model) {

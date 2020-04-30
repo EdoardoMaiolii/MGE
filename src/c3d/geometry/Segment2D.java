@@ -1,6 +1,7 @@
 package c3d.geometry;
 
 import java.awt.Color;
+import java.util.function.Function;
 
 public interface Segment2D {
 
@@ -10,10 +11,13 @@ public interface Segment2D {
 
 	Color getColor();
 
-	public static Segment2D fromPoints(Point2D a, Point2D b) {
+	Segment2D transformed(Function<Double, Double> transformation);
+
+	static Segment2D fromPoints(final Point2D a, final Point2D b) {
 		return new Segment2DImpl(a, b);
 	}
-	public static Segment2D fromPoints(Point2D a, Point2D b, Color color) {
+
+	static Segment2D fromPoints(final Point2D a, final Point2D b, final Color color) {
 		return new Segment2DImpl(a, b, color);
 	}
 
