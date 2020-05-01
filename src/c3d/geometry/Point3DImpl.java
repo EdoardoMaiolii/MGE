@@ -12,10 +12,6 @@ public class Point3DImpl implements Point3D {
 	private final double x;
 	private final double y;
 	private final double z;
-	private Point2D cachedRender;
-
-	private static final Point2D defaultPointOfView = Point2D.fromDoubles(0, -600);
-	private static final Point2D focalPoint = Point2D.origin();
 
 	// packace protected
 	Point3DImpl(final double x, final double y, final double z) {
@@ -60,28 +56,14 @@ public class Point3DImpl implements Point3D {
 	}
 
 	@Override
-	public Point2D render(Point2D pointOfView) {
-		if (this.cachedRender == null) {
-			final double finalX = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getY()), defaultPointOfView)
-					.getZero();
-
-			final Line heightLine = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getZ()), focalPoint);
-			final double finalY = heightLine.solveFor(finalX);
-
-			this.cachedRender = Point2D.fromDoubles(finalX, finalY);
-		}
-		return this.cachedRender;
-	}
-
-	@Override
-	public Point2D render() {
-		return this.render(defaultPointOfView);
-	}
-
-	@Override
 	public Point3D transformed(Function<Double, Double> transformation) {
 		return new Point3DImpl(transformation.apply(this.x), transformation.apply(this.y),
 				transformation.apply(this.z));
+	}
+
+	@Override
+	public Point3D translated(Point3D vector) {
+		return new Point3DImpl(this.getX() + vector.getX(), this.getY() + vector.getY(), this.getZ() + vector.getZ());
 	}
 
 }

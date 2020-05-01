@@ -13,11 +13,9 @@ public interface Segment3D {
 
 	Segment3D translated(double x, double y, double z);
 
+	Segment3D translated(Point3D vector);
+
 	Segment3D rotated(double angleXY, double angleYZ);
-
-	Segment2D render();
-
-	Segment2D render(Point2D pointOfView);
 
 	Segment3D transformed(Function<Double, Double> transformation);
 

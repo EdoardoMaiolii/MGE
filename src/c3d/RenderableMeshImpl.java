@@ -12,9 +12,10 @@ public class RenderableMeshImpl implements RenderableMesh {
     @Override
     public List<Segment2D> render(RenderParameters params) {
         return this.mesh.getSegments().stream().map(seg -> seg.rotated(params.rotationXY(), params.rotationYZ()))
-                .map(seg -> seg.translated(params.translation().getX(), params.translation().getY(),
-                        params.translation().getZ()))
-                .map(seg -> seg.render()).collect(Collectors.toList());
+                .map(seg -> seg.translated(params.translation()))
+                .map(seg -> Segment2D.fromPoints(Point3DRenderer.fromPoint(seg.getA()).render(params.pointOfView()),
+                        Point3DRenderer.fromPoint(seg.getB()).render(params.pointOfView())))
+                .collect(Collectors.toList());
     }
 
     RenderableMeshImpl(Mesh mesh) {

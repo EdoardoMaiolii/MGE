@@ -14,9 +14,7 @@ public interface Point3D {
 
 	Point3D translated(double x, double y, double z);
 
-	Point2D render();
-
-	Point2D render(Point2D pointOfView);
+	Point3D translated(Point3D vector);
 
 	Point3D transformed(Function<Double, Double> transformation);
 
