@@ -189,6 +189,54 @@ public class DrawGraphViewImpl implements DrawGraphView {
         }
       }
     });
+    
+    bZoomIn.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        observer.zoomIn();
+      }
+    });
+    
+    bZoomOut.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        observer.zoomOut();
+      }
+    });
+    
+    bUp.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        observer.moveUp();
+      }
+    });
+    
+    bLeft.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        observer.moveLeft();
+      }
+    });
+    
+    bRight.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        observer.moveRight();
+      }
+    });
+    
+    bDown.addActionListener(new ActionListener() {
+      
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        observer.moveDown();
+      }
+    });
   }
   
   @Override

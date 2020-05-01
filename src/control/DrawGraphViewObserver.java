@@ -8,4 +8,16 @@ public interface DrawGraphViewObserver {
 
   void save();
 
+  void zoomIn();
+
+  void zoomOut();
+
+  void moveUp();
+
+  void moveLeft();
+
+  void moveRight();
+
+  void moveDown();
+
 }
