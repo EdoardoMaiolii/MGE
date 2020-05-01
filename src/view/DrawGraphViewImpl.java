@@ -21,14 +21,12 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import c3d.geometry.Point2D;
 import c3d.geometry.Segment2D;
 import control.DrawGraphViewObserver;
 import model.Constants;
 import model.Digits;
 import model.MathFunctions;
 import model.Punctuation;
-import model.Settings;
 import model.Variables;
 
 public class DrawGraphViewImpl implements DrawGraphView {
@@ -74,14 +72,12 @@ public class DrawGraphViewImpl implements DrawGraphView {
   private final Set<JButton> inputButtons = new HashSet<>();
   
   public DrawGraphViewImpl() {
-    //North Panel
     final JPanel pNorth = new JPanel(new FlowLayout());
     final JLabel lMathExpression = new JLabel(MATH_EXPRESSION_NAME);
     final JTextField tMathExpression = new JTextField(MATH_EXPRESSION_LENGTH);
     pNorth.setBorder(new TitledBorder(NORTH_PANEL_TITLE));
     pNorth.add(lMathExpression);
     pNorth.add(tMathExpression);
-    //West Panel
     final JPanel pWest = new JPanel(new GridBagLayout());
     final GridBagConstraints gbcWest = new GridBagConstraints();
     pWest.setBorder(new TitledBorder(WEST_PANEL_NAME));
@@ -100,32 +96,24 @@ public class DrawGraphViewImpl implements DrawGraphView {
     final JTextField tRate = new JTextField(SETTINGS_LENGTH);
     pWest.add(lRate, gbcWest);
     pWest.add(tRate, gbcWest);
-    //Center Panel
     final JPanel pCenter = new JPanel(new BorderLayout());
-    //Inner North Panel
     final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, Variables.names());
     pInnerNorth.setBorder(new TitledBorder(INNER_NORTH_PANEL_NAME));
-    //Inner West Panel
     final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, MathFunctions.names());
     pInnerWest.setBorder(new TitledBorder(INNER_WEST_PANEL_NAME));
-    //Inner Center Panel
     final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, Digits.names());
     pInnerCenter.setBorder(new TitledBorder(INNER_CENTER_PANEL_NAME));
-    //Inner East Panel
     final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, Constants.names());
     pInnerEast.setBorder(new TitledBorder(INNER_EAST_PANEL_NAME));
-    //Inner South Panel
     final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, Punctuation.names());
     pCenter.add(pInnerNorth, BorderLayout.NORTH);
     pCenter.add(pInnerWest, BorderLayout.WEST);
     pCenter.add(pInnerCenter, BorderLayout.CENTER);
     pCenter.add(pInnerEast, BorderLayout.EAST);
     pCenter.add(pInnerSouth, BorderLayout.SOUTH);
-    //East Panel
     final JPanel pEast = new JPanel(new FlowLayout());
     final JButton bClear = new JButton(CLEAR);
     pEast.add(bClear);
-    //South Panel
     final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     final JButton bLoad = new JButton(LOAD);
     final JButton bSave = new JButton(SAVE);
@@ -133,7 +121,6 @@ public class DrawGraphViewImpl implements DrawGraphView {
     pSouth.add(bLoad);
     pSouth.add(bSave);
     pSouth.add(bPlot);
-    //Graph frame
     final JPanel pSouthGraph = new JPanel(new FlowLayout());
     final JButton bZoomIn = new JButton(ZOOM_IN);
     final JButton bZoomOut = new JButton(ZOOM_OUT);
@@ -178,8 +165,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
       
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        
+          observer.load();
       }
     });
     
@@ -187,8 +173,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
       
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        
+        observer.save();
       }
     });
     
@@ -198,6 +183,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
       public void actionPerformed(ActionEvent e) {
         try {
           observer.newGraph(tMathExpression.getText(), Integer.parseInt(tMax.getText()), Integer.parseInt(tMin.getText()), Integer.parseInt(tRate.getText()));
+          graphFrame.setVisible(true);
         } catch (NumberFormatException exception){
           JOptionPane.showMessageDialog(inputFrame, "Integer settings please...");
         }
