@@ -1,5 +1,8 @@
 package view;
 
+import c3d.geometry.Segment2D;
+import control.DrawGraphViewObserver;
+
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -21,8 +24,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import c3d.geometry.Segment2D;
-import control.DrawGraphViewObserver;
 import model.Constants;
 import model.Digits;
 import model.MathFunctions;
@@ -142,12 +143,12 @@ public class DrawGraphViewImpl implements DrawGraphView {
     this.inputFrame.setResizable(true);
     this.inputFrame.pack();
     
-    for(final JButton jb : this.inputButtons) {
+    for (final JButton jb : this.inputButtons) {
       jb.addActionListener(new ActionListener() {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-          tMathExpression.setText(tMathExpression.getText()+jb.getText());
+          tMathExpression.setText(tMathExpression.getText() + jb.getText());
         }
  
       });
@@ -182,9 +183,10 @@ public class DrawGraphViewImpl implements DrawGraphView {
       @Override
       public void actionPerformed(ActionEvent e) {
         try {
-          observer.newGraph(tMathExpression.getText(), Integer.parseInt(tMax.getText()), Integer.parseInt(tMin.getText()), Integer.parseInt(tRate.getText()));
+          observer.newGraph(tMathExpression.getText(), 
+              Integer.parseInt(tMax.getText()), Integer.parseInt(tMin.getText()), Integer.parseInt(tRate.getText()));
           graphFrame.setVisible(true);
-        } catch (NumberFormatException exception){
+        } catch (NumberFormatException exception) {
           JOptionPane.showMessageDialog(inputFrame, "Integer settings please...");
         }
       }
@@ -256,21 +258,18 @@ public class DrawGraphViewImpl implements DrawGraphView {
   
   @Override
   public void plotGraph(List<Segment2D> segments) {
+    
+    final Point center = new Point((int)GRAPH_PANEL_SIZE / 2, (int)GRAPH_PANEL_SIZE / 2);
+    
     final JPanel graphPanel = new JPanel() {
 
-      private static final long serialVersionUID = 1L;      
-      
-      private Point center;
-      
-      public void JPanel() {
-        this.center = new Point((int)GRAPH_PANEL_SIZE/2, (int)GRAPH_PANEL_SIZE/2);
-        this.setPreferredSize(new Dimension(GRAPH_PANEL_SIZE, GRAPH_PANEL_SIZE));        
-      }
+      private static final long serialVersionUID = 1L;              
       
       public void paintComponent(Graphics g) {
-        for(final Segment2D segment : segments) {
-          g.drawLine((int)(segment.getA().getX()*this.center.getX()+this.center.getX()), (int)(segment.getA().getY()*-this.center.getY()+this.center.getY()),
-              (int)(segment.getB().getX()*this.center.getX()+this.center.getX()), (int)(segment.getB().getY()*-this.center.getY()+this.center.getY()));
+        this.setPreferredSize(new Dimension(GRAPH_PANEL_SIZE, GRAPH_PANEL_SIZE));
+        for (final Segment2D segment : segments) {
+          g.drawLine((int)(segment.getA().getX() * center.getX() + center.getX()), (int)(segment.getA().getY() * -center.getY() + center.getY()),
+              (int)(segment.getB().getX() * center.getX() + center.getX()), (int)(segment.getB().getY() * -center.getY() + center.getY()));
         }
       }
     };
@@ -284,16 +283,15 @@ public class DrawGraphViewImpl implements DrawGraphView {
     gbc.gridx = 0;
     gbc.gridy = 0;    
     gbc.fill = GridBagConstraints.HORIZONTAL;
-    for(int i=0; i<rows; i++) {
-      for(int j=0; j<cols; j++) {
-        if(labelsIterator.hasNext()) {
+    for (int i = 0; i < rows; i++) {
+      for (int j = 0; j < cols; j++) {
+        if (labelsIterator.hasNext()) {
           final JButton jb = new JButton(labelsIterator.next());
           gbc.gridx = j;
           gbc.gridy = i;
           panel.add(jb, gbc);
           this.inputButtons.add(jb);
-        }
-        else {
+        } else {
           break;
         }
       }
