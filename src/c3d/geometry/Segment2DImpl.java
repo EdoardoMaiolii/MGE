@@ -42,6 +42,7 @@ public class Segment2DImpl implements Segment2D {
 
 	@Override
 	public Segment2D transformed(Function<Double, Double> transformation) {
-		return new Segment2DImpl(this.a.transformed(transformation), this.b.transformed(transformation));
+		return new Segment2DImpl(this.a.transformed(transformation), this.b.transformed(transformation),
+				this.getColor());
 	}
 }

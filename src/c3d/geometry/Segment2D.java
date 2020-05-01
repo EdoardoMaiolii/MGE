@@ -14,7 +14,7 @@ public interface Segment2D {
 	Segment2D transformed(Function<Double, Double> transformation);
 
 	static Segment2D fromPoints(final Point2D a, final Point2D b) {
-		return new Segment2DImpl(a, b);
+		return fromPoints(a, b, Color.BLACK);
 	}
 
 	static Segment2D fromPoints(final Point2D a, final Point2D b, final Color color) {

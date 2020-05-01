@@ -20,7 +20,11 @@ public interface Segment3D {
 	Segment3D transformed(Function<Double, Double> transformation);
 
 	static Segment3D fromPoints(final Point3D a, final Point3D b) {
-		return new Segment3DImpl(a, b);
+		return fromPoints(a, b, Color.BLACK);
+	}
+
+	static Segment3D fromPoints(final Point3D a, final Point3D b, Color color) {
+		return new Segment3DImpl(a, b, color);
 	}
 
 }
