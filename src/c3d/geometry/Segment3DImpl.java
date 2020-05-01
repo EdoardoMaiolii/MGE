@@ -36,13 +36,14 @@ public class Segment3DImpl implements Segment3D {
 
 	@Override
 	public Segment3D translated(final double x, final double y, final double z) {
-		return new Segment3DImpl(this.getA().translated(x, y, z), this.getB().translated(x, y, z), this.getColor());
+		return new Segment3DImpl(this.getA().translated(x, y, z), this.getB().translated(x, y, z),
+				this.getColor());
 	}
 
 	@Override
 	public Segment3D rotated(final double angleXY, final double angleYZ) {
-		return new Segment3DImpl(this.getA().rotated(angleXY, angleYZ), this.getB().rotated(angleXY, angleYZ),
-				this.getColor());
+		return new Segment3DImpl(this.getA().rotated(angleXY, angleYZ),
+				this.getB().rotated(angleXY, angleYZ), this.getColor());
 	}
 
 	@Override
@@ -52,12 +53,13 @@ public class Segment3DImpl implements Segment3D {
 
 	@Override
 	public Segment3D transformed(Function<Double, Double> transformation) {
-		return new Segment3DImpl(this.a.transformed(transformation), this.b.transformed(transformation),
-				this.getColor());
+		return new Segment3DImpl(this.a.transformed(transformation),
+				this.b.transformed(transformation), this.getColor());
 	}
 
 	@Override
 	public Segment3D translated(Point3D vector) {
-		return new Segment3DImpl(this.getA().translated(vector), this.getB().translated(vector), this.getColor());
+		return new Segment3DImpl(this.getA().translated(vector), this.getB().translated(vector),
+				this.getColor());
 	}
 }
