@@ -38,7 +38,7 @@ public class MeshVisualizerImpl implements MeshVisualizer {
 
 	@Override
 	public List<Segment2D> render() {
-		return this.mesh.render(new RenderParameters() {
+		return RenderableMesh.fromMesh(this.mesh).render(new RenderParameters() {
 
 			@Override
 			public double rotationXY() {

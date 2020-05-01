@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Function;
 
 import c3d.geometry.Point3D;
-import c3d.geometry.Segment2D;
 import c3d.geometry.Segment3D;
 
 public interface Mesh {
@@ -13,9 +12,9 @@ public interface Mesh {
 
 	Mesh translated(Point3D vector);
 
-	double getScale();
+	List<Segment3D> getSegments();
 
-	List<Segment2D> render(RenderParameters params);
+	double getScale();
 
 	static Mesh fromSegments(final List<Segment3D> segments) {
 		return new MeshImpl(segments);
