@@ -1,8 +1,6 @@
 package io;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.Arrays;
-import com.amihaiemil.eoyaml.*;
 import org.junit.jupiter.api.Test;
 import c3d.Mesh;
 import c3d.geometry.Point3D;
@@ -14,9 +12,6 @@ class MeshWriterTest {
 
     @Test
     void test() throws IOException {
-
-        final var segmentsNodeBuilder = Yaml.createYamlSequenceBuilder();
-        var boh = segmentsNodeBuilder.add("test").build();
 
         Point3D a = Point3D.fromDoubles(-100, -100, 0);
         Point3D b = Point3D.fromDoubles(100, -100, 0);

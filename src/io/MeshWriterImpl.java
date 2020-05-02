@@ -21,35 +21,43 @@ public class MeshWriterImpl implements MeshWriter {
 
     @Override
     public void write(final String path) throws IOException {
+        // set up data for later steps
         final List<Point3D> uniquePoints = mesh.getSegments().stream()
                 .flatMap((final Segment3D seg) -> Stream.of(seg.getA(), seg.getB())).distinct()
                 .collect(Collectors.toList());
         final Map<Point3D, String> pointToNames = IntStream.range(0, uniquePoints.size()).boxed()
                 .collect(Collectors.toMap(i -> uniquePoints.get(i), i -> Integer.toString(i)));
 
-        final var pointsNodeBuilder = Yaml.createYamlSequenceBuilder();
-        IntStream.range(0, uniquePoints.size()).mapToObj(i -> this.pointYaml(uniquePoints.get(i), Integer.toString(i)))
-                .peek(i -> System.out.println(i)).forEach(i -> pointsNodeBuilder.add(i));
-        final YamlNode pointsNode = pointsNodeBuilder.build();
+        // build points node
+        var pointsNodeBuilder = Yaml.createYamlMappingBuilder();
+        for (int i = 0; i < uniquePoints.size(); i++) {
+            pointsNodeBuilder = pointsNodeBuilder.add(Integer.toString(i), this.pointYaml(uniquePoints.get(i)));
+        }
+        final var pointsNode = pointsNodeBuilder.build();
 
-        final var segmentsNodeBuilder = Yaml.createYamlSequenceBuilder();
-        mesh.getSegments().stream().map(seg -> this.segmentYaml(seg, pointToNames::get))
-                .forEach(node -> segmentsNodeBuilder.add(node));
+        // build segments node
+        final Set<YamlNode> segments = mesh.getSegments().stream().map(seg -> this.segmentYaml(seg, pointToNames::get))
+                .collect(Collectors.toSet());
+        var segmentsNodeBuilder = Yaml.createYamlSequenceBuilder();
+        for (final YamlNode seg : segments) {
+            segmentsNodeBuilder = segmentsNodeBuilder.add(seg);
+        }
+        final var segmentsNode = segmentsNodeBuilder.build();
 
-        final YamlNode segmentsNode = segmentsNodeBuilder.build();
-
+        // build complete node
         final YamlNode completeNode = Yaml.createYamlMappingBuilder().add("points", pointsNode)
                 .add("segments", segmentsNode).build();
 
+        // write to file
         Files.write(Paths.get(path), completeNode.toString().getBytes());
     }
 
-    YamlNode pointYaml(final Point3D point, final String name) {
-        return Yaml.createYamlMappingBuilder().add("name", name).add("x", Double.toString(point.getX()))
+    YamlMapping pointYaml(final Point3D point) {
+        return Yaml.createYamlMappingBuilder().add("x", Double.toString(point.getX()))
                 .add("y", Double.toString(point.getY())).add("z", Double.toString(point.getZ())).build();
     }
 
-    YamlNode segmentYaml(final Segment3D segment, final Function<Point3D, String> mapping) {
+    YamlMapping segmentYaml(final Segment3D segment, final Function<Point3D, String> mapping) {
         return Yaml.createYamlMappingBuilder().add("a", mapping.apply(segment.getA()))
                 .add("b", mapping.apply(segment.getB())).add("color", this.colorYaml(segment.getColor())).build();
     }
