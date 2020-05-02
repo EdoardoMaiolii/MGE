@@ -8,7 +8,7 @@ import c3d.geometry.Segment3D;
 import java.awt.Color;
 import java.io.IOException;
 
-class MeshWriterTest {
+class IOTest {
 
     @Test
     void test() throws IOException {
@@ -27,5 +27,8 @@ class MeshWriterTest {
 
         MeshWriter writer = MeshWriter.fromMesh(Mesh.fromSegments(set));
         writer.write("C:\\users\\eliau\\desktop\\test.yml");
+        MeshLoader loader = new MeshLoaderImpl();
+        loader.load("C:\\users\\eliau\\desktop\\test.yml");
     }
 }
+
