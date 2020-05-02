@@ -26,7 +26,7 @@ class IOTest {
         var set = Arrays.asList(ab, bd, cd, ca);
 
         MeshWriter writer = MeshWriter.fromMesh(Mesh.fromSegments(set));
-        writer.write("C:\\users\\eliau\\desktop\\test.yml");
+        //writer.write("C:\\users\\eliau\\desktop\\test.yml");
         MeshLoader loader = new MeshLoaderImpl();
         loader.load("C:\\users\\eliau\\desktop\\test.yml");
     }
