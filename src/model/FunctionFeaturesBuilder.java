@@ -1,9 +1,8 @@
 package model;
 import java.util.Optional;
 
-import function.*;
 import libraries.*;
-
+import function.*;
 public class FunctionFeaturesBuilder {
 	private Optional<AlgebricFunctionImpl<?>> function;
 	private Optional<Pair<Double,Double>> interval;
