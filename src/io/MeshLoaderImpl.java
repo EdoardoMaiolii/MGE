@@ -24,8 +24,7 @@ public class MeshLoaderImpl implements MeshLoader{
   private final List<Segment3D> segments = new LinkedList<>();
   
   @Override
-  public Mesh load(String path) {
-    try {
+  public Mesh load(String path) throws FileNotFoundException, IOException {
       final YamlMapping mesh = Yaml.createYamlInput(new File(path)).readYamlMapping();
       final YamlMapping yamlPoints = mesh.yamlMapping("points");
       final YamlSequence yamlSegments = mesh.yamlSequence("segments");
@@ -37,13 +36,6 @@ public class MeshLoaderImpl implements MeshLoader{
         final Color color = toColor(yamlSegments.yamlMapping(i).yamlMapping("color"));
         this.segments.add(Segment3D.fromPoints(pointA, pointB, color));
       }
-    } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
     return Mesh.fromSegments(this.segments);
   }
 
