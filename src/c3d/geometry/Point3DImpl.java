@@ -4,84 +4,98 @@ import java.util.function.Function;
 
 public class Point3DImpl implements Point3D {
 
-	@Override
-	public String toString() {
-		return "Point3DImpl [x=" + x + ", y=" + y + ", z=" + z + "]";
-	}
+    @Override
+    public String toString() {
+        return "Point3DImpl [x=" + x + ", y=" + y + ", z=" + z + "]";
+    }
 
-	private final double x;
-	private final double y;
-	private final double z;
-	private Point2D cachedRender;
+    private final double x;
+    private final double y;
+    private final double z;
 
-	private static final Point2D defaultPointOfView = Point2D.fromDoubles(0, -600);
-	private static final Point2D focalPoint = Point2D.origin();
+    // packace protected
+    Point3DImpl(final double x, final double y, final double z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
 
-	// packace protected
-	Point3DImpl(final double x, final double y, final double z) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-	}
+    @Override
+    public double getX() {
+        return x;
+    }
 
-	@Override
-	public double getX() {
-		return x;
-	}
+    @Override
+    public double getY() {
+        return y;
+    }
 
-	@Override
-	public double getY() {
-		return y;
-	}
+    @Override
+    public double getZ() {
+        return z;
+    }
 
-	@Override
-	public double getZ() {
-		return z;
-	}
+    private Point3DImpl rotatedXY(final double angle) {
+        return new Point3DImpl(this.getX() * Math.cos(angle) - this.getY() * Math.sin(angle),
+                this.getX() * Math.sin(angle) + this.getY() * Math.cos(angle), this.getZ());
+    }
 
-	private Point3DImpl rotatedXY(final double angle) {
-		return new Point3DImpl(this.getX() * Math.cos(angle) - this.getY() * Math.sin(angle),
-				this.getX() * Math.sin(angle) + this.getY() * Math.cos(angle), this.getZ());
-	}
+    private Point3DImpl rotatedYZ(final double angle) {
+        return new Point3DImpl(this.getX(), this.getY() * Math.cos(angle) - this.getZ() * Math.sin(angle),
+                this.getY() * Math.sin(angle) + this.getZ() * Math.cos(angle));
+    }
 
-	private Point3DImpl rotatedYZ(final double angle) {
-		return new Point3DImpl(this.getX(), this.getY() * Math.cos(angle) - this.getZ() * Math.sin(angle),
-				this.getY() * Math.sin(angle) + this.getZ() * Math.cos(angle));
-	}
+    @Override
+    public Point3D translated(final double x, final double y, final double z) {
+        return new Point3DImpl(this.x + x, this.y + y, this.z + z);
+    }
 
-	@Override
-	public Point3D translated(final double x, final double y, final double z) {
-		return new Point3DImpl(this.x + x, this.y + y, this.z + z);
-	}
+    @Override
+    public Point3D rotated(final double angleXY, final double angleYZ) {
+        return this.rotatedXY(angleXY).rotatedYZ(angleYZ);
+    }
 
-	@Override
-	public Point3D rotated(final double angleXY, final double angleYZ) {
-		return this.rotatedXY(angleXY).rotatedYZ(angleYZ);
-	}
+    @Override
+    public Point3D transformed(final Function<Double, Double> transformation) {
+        return new Point3DImpl(transformation.apply(this.x), transformation.apply(this.y),
+                transformation.apply(this.z));
+    }
 
-	@Override
-	public Point2D render(Point2D pointOfView) {
-		if (this.cachedRender == null) {
-			final double finalX = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getY()), defaultPointOfView)
-					.getZero();
+    @Override
+    public Point3D translated(final Point3D vector) {
+        return new Point3DImpl(this.getX() + vector.getX(), this.getY() + vector.getY(), this.getZ() + vector.getZ());
+    }
 
-			final Line heightLine = Line.fromPoints(Point2D.fromDoubles(this.getX(), this.getZ()), focalPoint);
-			final double finalY = heightLine.solveFor(finalX);
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(x);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(y);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(z);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
 
-			this.cachedRender = Point2D.fromDoubles(finalX, finalY);
-		}
-		return this.cachedRender;
-	}
-
-	@Override
-	public Point2D render() {
-		return this.render(defaultPointOfView);
-	}
-
-	@Override
-	public Point3D transformed(Function<Double, Double> transformation) {
-		return new Point3DImpl(transformation.apply(this.x), transformation.apply(this.y),
-				transformation.apply(this.z));
-	}
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        final Point3DImpl other = (Point3DImpl) obj;
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+            return false;
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+            return false;
+        if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
+            return false;
+        return true;
+    }
 
 }

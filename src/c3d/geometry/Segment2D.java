@@ -5,20 +5,50 @@ import java.util.function.Function;
 
 public interface Segment2D {
 
-	Point2D getA();
+    /**
+     * 
+     * @return the first point
+     */
+    Point2D getA();
 
-	Point2D getB();
+    /**
+     * 
+     * @return the second point
+     */
+    Point2D getB();
 
-	Color getColor();
+    /**
+     * 
+     * @return the color
+     */
+    Color getColor();
 
-	Segment2D transformed(Function<Double, Double> transformation);
+    /**
+     * 
+     * @param transformation the transformation to apply to each point
+     * @return a new Segment2D, with the transformation applied
+     */
+    Segment2D transformed(Function<Double, Double> transformation);
 
-	static Segment2D fromPoints(final Point2D a, final Point2D b) {
-		return new Segment2DImpl(a, b);
-	}
+    /**
+     * 
+     * @param a the first point of the new segment
+     * @param b the second point of the new segment
+     * @return a new Segment2D, with the color black
+     */
+    static Segment2D fromPoints(final Point2D a, final Point2D b) {
+        return fromPoints(a, b, Color.BLACK);
+    }
 
-	static Segment2D fromPoints(final Point2D a, final Point2D b, final Color color) {
-		return new Segment2DImpl(a, b, color);
-	}
+    /**
+     * 
+     * @param a     the first point of the new segment
+     * @param b     the second point of the new segment
+     * @param color the color of the new segment
+     * @return a new Segment2D, with the provided color
+     */
+    static Segment2D fromPoints(final Point2D a, final Point2D b, final Color color) {
+        return new Segment2DImpl(a, b, color);
+    }
 
 }
