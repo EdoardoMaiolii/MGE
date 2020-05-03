@@ -84,6 +84,6 @@ public enum Constants implements MathEnum {
 
     @Override
     public String getLabel() {
-        return getSyntax().toLowerCase();
+        return this.name().toLowerCase();
     }
 };
