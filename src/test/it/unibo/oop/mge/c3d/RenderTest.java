@@ -19,7 +19,7 @@ public class RenderTest extends Canvas {
     /**
      *
      */
-    private static final int screenSize = 200;
+    private static final int SCREEN_SIZE = 200;
     /**
      * 
      */
@@ -33,9 +33,9 @@ public class RenderTest extends Canvas {
         final Point3D c = Point3D.fromDoubles(-100, 100, 0);
         final Point3D d = Point3D.fromDoubles(100, 100, 0);
 
-        final Segment3D ab = Segment3D.fromPoints(a, b, Color.RED);
-        final Segment3D bd = Segment3D.fromPoints(b, d);
-        final Segment3D cd = Segment3D.fromPoints(c, d);
+        final Segment3D ab = Segment3D.fromPoints(a, b);
+        final Segment3D bd = Segment3D.fromPoints(b, d, Color.RED);
+        final Segment3D cd = Segment3D.fromPoints(c, d, Color.GREEN);
         final Segment3D ca = Segment3D.fromPoints(c, a);
 
         final var set = Arrays.asList(ab, bd, cd, ca);
@@ -44,7 +44,7 @@ public class RenderTest extends Canvas {
 
         visualizer.setMesh(set);
 
-        visualizer.setTranslation(Point3D.fromDoubles(0, 0, 20));
+        visualizer.setTranslation(Point3D.fromDoubles(80, 50, -30));
         final var output = visualizer.render();
 
         final RenderTest dr = new RenderTest(output);
@@ -65,7 +65,7 @@ public class RenderTest extends Canvas {
         output.stream()
                 .map(seg -> Segment2D.fromPoints(Point2D.fromDoubles(seg.getA().getX(), -seg.getA().getY()),
                         Point2D.fromDoubles(seg.getB().getX(), -seg.getB().getY()), seg.getColor()))
-                .map(el -> el.transformed(coord -> coord * screenSize + screenSize)).forEach(el -> {
+                .map(el -> el.transformed(coord -> coord * SCREEN_SIZE + SCREEN_SIZE)).forEach(el -> {
                     System.out.println(el.getColor());
                     g.setColor(el.getColor());
                     g.drawLine((int) el.getA().getX(), (int) el.getA().getY(), (int) el.getB().getX(),

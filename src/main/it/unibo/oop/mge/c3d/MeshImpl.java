@@ -19,7 +19,8 @@ public class MeshImpl implements Mesh {
     @Override
     public final double getScale() {
         return segments.stream().flatMap(seg -> Stream.of(seg.getA(), seg.getB()))
-                .flatMapToDouble(point -> DoubleStream.of(point.getX(), point.getY())).max().orElse(1);
+                .flatMapToDouble(point -> DoubleStream.of(point.getX(), point.getY(), point.getZ()))
+                .map(el -> Math.abs(el)).filter(el -> el != 0).max().orElse(1);
     }
 
     @Override
