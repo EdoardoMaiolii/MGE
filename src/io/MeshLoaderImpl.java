@@ -18,18 +18,17 @@ import c3d.Mesh;
 import c3d.geometry.Point3D;
 import c3d.geometry.Segment3D;
 
-public class MeshLoaderImpl implements MeshLoader{
+public class MeshLoaderImpl implements MeshLoader {
 
   private final Map<YamlNode, Point3D> points = new HashMap<>();
   private final List<Segment3D> segments = new LinkedList<>();
-  
   @Override
-  public Mesh load(String path) throws FileNotFoundException, IOException {
+  public Mesh load(final String path) throws FileNotFoundException, IOException {
       final YamlMapping mesh = Yaml.createYamlInput(new File(path)).readYamlMapping();
       final YamlMapping yamlPoints = mesh.yamlMapping("points");
       final YamlSequence yamlSegments = mesh.yamlSequence("segments");
       yamlPoints.keys().stream()
-                       .forEach(e -> this.points.put(e, toPoint(yamlPoints.yamlMapping(e))));      
+                       .forEach(e -> this.points.put(e, toPoint(yamlPoints.yamlMapping(e))));
       for (int i = 0; i < yamlSegments.size(); i++) {
         final Point3D pointA = this.points.get(yamlSegments.yamlMapping(i).value("a"));
         final Point3D pointB = this.points.get(yamlSegments.yamlMapping(i).value("b"));
@@ -42,9 +41,7 @@ public class MeshLoaderImpl implements MeshLoader{
   private Point3D toPoint(final YamlMapping coords) {
     return Point3D.fromDoubles(coords.doubleNumber("x"), coords.doubleNumber("y"), coords.doubleNumber("z"));
   }
-  
   private Color toColor(final YamlMapping color) {
     return new Color(color.integer("r"), color.integer("g"), color.integer("b"));
   }
-  
 }

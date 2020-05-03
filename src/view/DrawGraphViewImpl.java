@@ -2,6 +2,11 @@ package view;
 
 import c3d.geometry.Segment2D;
 import control.DrawGraphViewObserver;
+import libraries.Constants;
+import libraries.Digits;
+import libraries.MathFunctions;
+import libraries.Punctuation;
+import libraries.Variables;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -23,12 +28,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-
-import model.Constants;
-import model.Digits;
-import model.MathFunctions;
-import model.Punctuation;
-import model.Variables;
 
 public class DrawGraphViewImpl implements DrawGraphView {
   private static final String INPUT_FRAME_NAME = "Mathematical Graphic Engine";
@@ -194,77 +193,63 @@ public class DrawGraphViewImpl implements DrawGraphView {
     });
     bUp.addActionListener(new ActionListener() {
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         observer.moveUp();
       }
     });
-    
     bLeft.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         observer.moveLeft();
       }
     });
-    
     bRight.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         observer.moveRight();
       }
     });
-    
     bDown.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         observer.moveDown();
       }
     });
   }
-  
   @Override
   public void start() {
     this.inputFrame.setVisible(true);
   }
-  
   @Override
-  public void setObserver(DrawGraphViewObserver observer) {
+  public void setObserver(final DrawGraphViewObserver observer) {
     this.observer = observer;
   }
-  
   @Override
   public void expressionIncorrect() {
     JOptionPane.showMessageDialog(this.inputFrame, "Enter a valid expression please...");
   }
-  
   @Override
-  public void plotGraph(List<Segment2D> segments) {
-    
-    final Point center = new Point((int)GRAPH_PANEL_SIZE / 2, (int)GRAPH_PANEL_SIZE / 2);
-    
+  public void plotGraph(final List<Segment2D> segments) {
+    final Point center = new Point((int) GRAPH_PANEL_SIZE / 2, (int) GRAPH_PANEL_SIZE / 2);
     final JPanel graphPanel = new JPanel() {
 
-      private static final long serialVersionUID = 1L;              
-      
-      public void paintComponent(Graphics g) {
+      private static final long serialVersionUID = 1L;
+      public void paintComponent(final Graphics g) {
         this.setPreferredSize(new Dimension(GRAPH_PANEL_SIZE, GRAPH_PANEL_SIZE));
         for (final Segment2D segment : segments) {
-          g.drawLine((int)(segment.getA().getX() * center.getX() + center.getX()), (int)(segment.getA().getY() * -center.getY() + center.getY()),
-              (int)(segment.getB().getX() * center.getX() + center.getX()), (int)(segment.getB().getY() * -center.getY() + center.getY()));
+          g.drawLine((int) (segment.getA().getX() * center.getX() + center.getX()), (int) (segment.getA().getY() * -center.getY() + center.getY()),
+              (int) (segment.getB().getX() * center.getX() + center.getX()), (int) (segment.getB().getY() * -center.getY() + center.getY()));
         }
       }
     };
     this.graphFrame.add(graphPanel, BorderLayout.CENTER);
   }
-  
-  private JPanel gridButtonsPanel(int rows, int cols, List<String> labels) {
+  private JPanel gridButtonsPanel(final int rows, final int cols, final List<String> labels) {
     final Iterator<String> labelsIterator = labels.iterator();
     final JPanel panel = new JPanel(new GridBagLayout());
     final GridBagConstraints gbc = new GridBagConstraints();
     gbc.gridx = 0;
-    gbc.gridy = 0;    
+    gbc.gridy = 0;
     gbc.fill = GridBagConstraints.HORIZONTAL;
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
@@ -281,5 +266,4 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
     return panel;
   }
-  
 }
