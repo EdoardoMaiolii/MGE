@@ -15,11 +15,11 @@ public final class Segment3DYamlBridge {
         return new Segment3DYamlBridge(segment);
     }
 
-    private Segment3DYamlBridge(final Segment3D Segment) {
-        this.segment = Segment;
+    private Segment3DYamlBridge(final Segment3D segment) {
+        this.segment = segment;
     }
 
-    YamlMapping segmentYaml(final Function<Point3D, String> mapping) {
+    public YamlMapping segmentYaml(final Function<Point3D, String> mapping) {
         return Yaml.createYamlMappingBuilder().add("a", mapping.apply(segment.getA()))
                 .add("b", mapping.apply(segment.getB()))
                 .add("color", ColorYamlNodeConverter.of(segment.getColor()).colorYaml()).build();

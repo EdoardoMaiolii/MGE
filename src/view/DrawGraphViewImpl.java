@@ -96,15 +96,15 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         pWest.add(lRate, gbcWest);
         pWest.add(tRate, gbcWest);
         final JPanel pCenter = new JPanel(new BorderLayout());
-        final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, Variables.names());
+        final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, Variables.names(), this.inputButtons);
         pInnerNorth.setBorder(new TitledBorder(INNER_NORTH_PANEL_NAME));
-        final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, MathFunctions.names());
+        final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, MathFunctions.names(), this.inputButtons);
         pInnerWest.setBorder(new TitledBorder(INNER_WEST_PANEL_NAME));
-        final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, Digits.names());
+        final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, Digits.names(), this.inputButtons);
         pInnerCenter.setBorder(new TitledBorder(INNER_CENTER_PANEL_NAME));
-        final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, Constants.names());
+        final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, Constants.names(), this.inputButtons);
         pInnerEast.setBorder(new TitledBorder(INNER_EAST_PANEL_NAME));
-        final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, Punctuation.names());
+        final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, Punctuation.names(), this.inputButtons);
         pCenter.add(pInnerNorth, BorderLayout.NORTH);
         pCenter.add(pInnerWest, BorderLayout.WEST);
         pCenter.add(pInnerCenter, BorderLayout.CENTER);
@@ -174,7 +174,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
                             Double.parseDouble(tMax.getText()), Double.parseDouble(tMin.getText()), Double.parseDouble(tRate.getText()));
                     graphFrame.setVisible(true);
                 } catch (NumberFormatException exception) {
-                    JOptionPane.showMessageDialog(inputFrame, "Integer settings please...");
+                    JOptionPane.showMessageDialog(inputFrame, "Invalid settings...");
                 }
             }
         });

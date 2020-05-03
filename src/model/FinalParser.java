@@ -1,6 +1,7 @@
 package model;
 
+import function.AlgebricFunctionImpl;
+
 public interface FinalParser {
-	AlgebricFunction<?> resolveFunction(String fstring);
-	
+    AlgebricFunctionImpl<?> resolveFunction(String fstring);
 }

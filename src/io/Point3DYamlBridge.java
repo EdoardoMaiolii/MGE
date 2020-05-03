@@ -16,7 +16,7 @@ public final class Point3DYamlBridge {
         this.point = point;
     }
 
-    YamlMapping pointYaml() {
+    public YamlMapping pointYaml() {
         return Yaml.createYamlMappingBuilder().add("x", Double.toString(point.getX()))
                 .add("y", Double.toString(point.getY())).add("z", Double.toString(point.getZ())).build();
     }

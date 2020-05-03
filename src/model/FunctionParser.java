@@ -1,8 +1,10 @@
 package model;
 
+import function.AlgebricFunctionImpl;
+
 public interface FunctionParser {
 	
-	public static AlgebricFunction<?> parse(String fstring) {
+	public static AlgebricFunctionImpl<?> parse(String fstring) {
 		return FunctionParserImpl.parseString(fstring);
 	}
 }
