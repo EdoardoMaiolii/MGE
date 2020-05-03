@@ -1,10 +1,10 @@
-package model;
-
+package libraries;
 import java.util.Arrays;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum Constants {
+public enum Constants implements MathEnum{
 	E(2.71),//2.7182818284 nepero
 	PI(3.14),//3.1415926535 pigreco
 	PHI(1.61),//1.6180339887 rapporto aureo
@@ -20,22 +20,25 @@ public enum Constants {
 	
 	private final Double value;
 	
+	public static boolean contains(String name) {
+		return getListOfEnum().contains(name);
+	}
+	
+	public static List<String> getListOfEnum(){
+		return Arrays.asList(values()).stream().map(i ->i.getSyntax()).collect(Collectors.toList());
+	}
+	
 	Constants(Double value) {
 		this.value = value;
 	}
 	
-	public Double getValue() {
+	public Double resolve() {
 		return value;
 	}	
-	public String getName() {
+	public String getLabel() {
 		return this.name();
 	}
 	public String getSyntax() {
-		return this.name().toLowerCase();
+		return this.name();
 	}
-	public static List<String> names(){
-      return Arrays.asList(Constants.values()).stream()
-                                              .map(e -> e.getName())
-                                              .collect(Collectors.toList());
-    }
 };

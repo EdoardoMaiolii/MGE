@@ -12,7 +12,6 @@ public interface Line {
      * @return the y-intercept of the line
      */
     double getQ();
-
     /**
      * 
      * @return the zero of the line

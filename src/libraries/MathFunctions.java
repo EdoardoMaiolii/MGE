@@ -1,9 +1,9 @@
-package model;
+package libraries;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum MathFunctions {
+public enum MathFunctions implements MathEnum{
 	SUM(2,"+") {
 		@Override
 		protected Double calculate(List<Double> parameters) {
@@ -28,13 +28,13 @@ public enum MathFunctions {
 			return parameters.get(0) / parameters.get(1);
 		}
 	},
-	POW(2,"pow") { //base-exponent
+	POW(2,"pow") {
 		@Override
 		protected Double calculate(List<Double> parameters) {
 			return Math.pow(parameters.get(0), parameters.get(1));
 		}
 	},
-	EXP(1,"exp") { //base-exponent
+	EXP(1,"exp") {
 		@Override
 		protected Double calculate(List<Double> parameters) {
 			return Math.exp(parameters.get(0));
@@ -46,19 +46,19 @@ public enum MathFunctions {
 			return Math.sqrt(parameters.get(0));
 		}
 	},
-	LOG(2,"log") { //base-argument
+	LOG(2,"log") {
 		@Override
 		protected Double calculate(List<Double> parameters) {
 			return Math.log(parameters.get(1))/Math.log(parameters.get(0));
 		}
 	},
-	LN(1,"ln") { //base-argument
+	LN(1,"ln") {
 		@Override
 		protected Double calculate(List<Double> parameters) {
-			return Math.log(Math.log(parameters.get(0)));
+			return Math.log(parameters.get(0));
 		}
 	},
-	RTN(2,"rtn") { //index-argument
+	RTN(2,"rtn") {
 		@Override
 		protected Double calculate(List<Double> parameters) {
 			return Math.pow(parameters.get(1), 1/parameters.get(0));
@@ -138,11 +138,19 @@ public enum MathFunctions {
 	};
 	
 	private final int nParameters;
-	private final String name;
+	private final String mylabel;
 	
-	MathFunctions(int nPar , String name) {
+	MathFunctions(int nPar , String label) {
 		this.nParameters = nPar;
-		this.name = name;
+		this.mylabel = label;
+	}
+	
+	public static boolean contains(String name) {
+		return getListOfEnum().contains(name);
+	};
+	
+	public static List<String> getListOfEnum(){
+		return Arrays.asList(values()).stream().map(i ->i.getSyntax()).collect(Collectors.toList());
 	}
 	
 	public int getNParameters() {
@@ -150,11 +158,11 @@ public enum MathFunctions {
 	}
 	
 	public String getSyntax() {
-		return this.name().toLowerCase();
+		return this.name();
 	}
 	
-	public String getName() {
-		return this.name;
+	public String getLabel() {
+		return mylabel;
 	}
 	public Double resolve(List<Double> list) {
 		if (list.size() == nParameters)
@@ -162,12 +170,6 @@ public enum MathFunctions {
 		else 
 			return null;
 	}
-	
-	public static List<String> names(){
-      return Arrays.asList(MathFunctions.values()).stream()
-                                              .map(e -> e.getName())
-                                              .collect(Collectors.toList());
-    }
 	
 	protected abstract Double calculate(List<Double> parameters);
 }

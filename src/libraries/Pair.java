@@ -1,4 +1,4 @@
-package model;
+package libraries;
 public class Pair<X,Y> {
 	
 	private final X fst;

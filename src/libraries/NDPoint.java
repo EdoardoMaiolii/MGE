@@ -13,6 +13,6 @@ public class NDPoint {
 	}
 	
 	public String toString() {
-		return values.toString();
+		return values.toString()+"\n";
 	}
 }

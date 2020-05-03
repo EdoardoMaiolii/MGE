@@ -1,36 +1,36 @@
-import java.util.List;
+package model;
 import java.util.Optional;
 
-import functions.*;
+import function.*;
 import libraries.*;
 
 public class FunctionFeaturesBuilder {
-	private Optional<AlgebricFunction<?>> function;
-	private Optional<List<Pair<Double,Double>>> intervals;
+	private Optional<AlgebricFunctionImpl<?>> function;
+	private Optional<Pair<Double,Double>> interval;
 	private Optional<Double> rate;
 	
 	private Boolean ready() {
-		return function.isPresent() && intervals.isPresent() && rate.isPresent();
+		return function.isPresent() && interval.isPresent() && rate.isPresent();
 	}
 	private void printError() {
 		System.out.println("Error using FunctionFeaturesBuilder");
 	}
 	
-	public FunctionFeaturesBuilder setFunction(AlgebricFunction<?> function) {
+	public FunctionFeaturesBuilder setFunction(AlgebricFunctionImpl<?> function) {
 			this.function = Optional.of(function);
 			return this;
 	}
-	public FunctionFeaturesBuilder setIntervals(List<Pair<Double,Double>> intervals) {
-			this.intervals = Optional.of(intervals);
+	public FunctionFeaturesBuilder setIntervals(Pair<Double,Double> interval) {
+			this.interval = Optional.of(interval);
 			return this;
 	}
 	public FunctionFeaturesBuilder setRate(Double rate) {
 			this.rate = Optional.of(rate);
 			return this;	
 	}
-	public FunctionFeatures build() {
+	public FunctionFeaturesImpl build() {
 		if (ready())
-			return new FunctionFeatures(function.get(),intervals.get(),rate.get());
+			return new FunctionFeaturesImpl(function.get(),interval.get(),rate.get());
 		else {
 			printError();
 			return null;
