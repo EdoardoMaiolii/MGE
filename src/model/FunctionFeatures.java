@@ -1,29 +1,29 @@
 package model;
 import java.util.List;
 import c3d.geometry.*;
-import libraries.NDPoint;
+import libraries.PointNDImpl;
 
 public interface FunctionFeatures {
 	/**
 	 * 
 	 * @return get the points belong to the domain
 	 */
-	public List<NDPoint> getPointsInDomain();
+	public List<PointNDImpl> getPointsInDomain();
 	/**
 	 * 
 	 * @return get the points that not belong to the domain
 	 */
-	public List<NDPoint> getPointsOutOfDomain();
+	public List<PointNDImpl> getPointsOutOfDomain();
 	/**
 	 * 
 	 * @return get the Absolute Max of the function in the interval
 	 */
-	public NDPoint getAbsoluteMax();
+	public PointNDImpl getAbsoluteMax();
 	/**
 	 * 
 	 * @return get the Absolute Min of the function in the interval
 	 */
-	public NDPoint getAbsoluteMin();
+	public PointNDImpl getAbsoluteMin();
 	/**
 	 * 
 	 * @return get the Poligonal Model of the Function in the interval

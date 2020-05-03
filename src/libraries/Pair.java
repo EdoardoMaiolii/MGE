@@ -1,9 +1,9 @@
 package libraries;
-public class Pair<X,Y> {
+public class Pair<X, Y> {
 	
 	private final X fst;
 	private final Y snd;
-	public Pair(X fst, Y snd) {
+	public Pair(final X fst, final Y snd) {
 		super();
 		this.fst = fst;
 		this.snd = snd;
