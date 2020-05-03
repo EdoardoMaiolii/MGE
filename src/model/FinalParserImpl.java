@@ -1,8 +1,13 @@
 package model;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import function.AlgebricFunctionFactory;
+import function.AlgebricFunctionImpl;
+import libraries.Constants;
+import libraries.Pair;
+import libraries.MathFunctions;
 
 public class FinalParserImpl implements FinalParser{
 
@@ -47,7 +52,7 @@ public class FinalParserImpl implements FinalParser{
 			throw new java.lang.IllegalArgumentException();
 	}
 	
-	public AlgebricFunction<?> resolveFunction(String fstring)   {//piccola implementazione del controllo dell'errore
+	public AlgebricFunctionImpl<?> resolveFunction(String fstring)   {//piccola implementazione del controllo dell'errore
 		int k=0;
 		if(Character.isDigit(fstring.charAt(k))) {
 			//checkAllDigits(fstring);
