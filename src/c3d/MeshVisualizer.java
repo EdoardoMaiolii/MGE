@@ -8,23 +8,59 @@ import c3d.geometry.Segment3D;
 
 public interface MeshVisualizer {
 
-	void setMesh(List<Segment3D> segments);
+    /**
+     * 
+     * @param segments the segments to render
+     */
+    void setMesh(List<Segment3D> segments);
 
-	void setRotationXY(double rotationXY);
+    /**
+     * 
+     * @param rotationXY the rotation to apply in the axis XY
+     */
+    void setRotationXY(double rotationXY);
 
-	double getRotationXY();
+    /**
+     * 
+     * @return the current rotation in the axis XY
+     */
+    double getRotationXY();
 
-	void setRotationYZ(double rotationYZ);
+    /**
+     * 
+     * @param rotationYZ the rotation to apply in the axis YZ
+     */
+    void setRotationYZ(double rotationYZ);
 
-	double getRotationYZ();
+    /**
+     * 
+     * @return the current rotation in the axis YZ
+     */
+    double getRotationYZ();
 
-	void setTranslation(Point3D translation);
+    /**
+     * 
+     * @param translation the translation to apply
+     */
+    void setTranslation(Point3D translation);
 
-	Point3D getTranslation();
+    /**
+     * 
+     * @return the current translation
+     */
+    Point3D getTranslation();
 
-	List<Segment2D> render();
+    /**
+     * 
+     * @return the rendered segments
+     */
+    List<Segment2D> render();
 
-	static MeshVisualizer create() {
-		return new MeshVisualizerImpl();
-	}
+    /**
+     * 
+     * @return a new MeshVisualizer
+     */
+    static MeshVisualizer create() {
+        return new MeshVisualizerImpl();
+    }
 }
