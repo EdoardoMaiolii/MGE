@@ -65,13 +65,11 @@ public class DrawGraphViewImpl implements DrawGraphView {
   private static final int INNER_EAST_PANEL_COLUMNS = 2;
   private static final int INNER_SOUTH_PANEL_ROWS = 1;
   private static final int INNER_SOUTH_PANEL_COLUMNS = 4;
-  private static final int GRAPH_PANEL_SIZE = (int)java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2;
-  
+  private static final int GRAPH_PANEL_SIZE = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
   private DrawGraphViewObserver observer;
   private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
   private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
   private final Set<JButton> inputButtons = new HashSet<>();
-  
   public DrawGraphViewImpl() {
     final JPanel pNorth = new JPanel(new FlowLayout());
     final JLabel lMathExpression = new JLabel(MATH_EXPRESSION_NAME);
@@ -118,7 +116,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
     final JButton bLoad = new JButton(LOAD);
     final JButton bSave = new JButton(SAVE);
-    final JButton bPlot = new JButton(PLOT);   
+    final JButton bPlot = new JButton(PLOT);
     pSouth.add(bLoad);
     pSouth.add(bSave);
     pSouth.add(bPlot);
@@ -142,46 +140,37 @@ public class DrawGraphViewImpl implements DrawGraphView {
     this.inputFrame.getMainPanel().add(pSouth, BorderLayout.SOUTH);
     this.inputFrame.setResizable(true);
     this.inputFrame.pack();
-    
     for (final JButton jb : this.inputButtons) {
       jb.addActionListener(new ActionListener() {
 
         @Override
-        public void actionPerformed(ActionEvent e) {
+        public void actionPerformed(final ActionEvent e) {
           tMathExpression.setText(tMathExpression.getText() + jb.getText());
         }
  
       });
     }
-    
     bClear.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         tMathExpression.setText("");
       }
     });
-    
     bLoad.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
           observer.load();
       }
     });
-    
     bSave.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         observer.save();
       }
     });
-    
     bPlot.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         try {
           observer.newGraph(tMathExpression.getText(), 
               Integer.parseInt(tMax.getText()), Integer.parseInt(tMin.getText()), Integer.parseInt(tRate.getText()));
@@ -191,25 +180,19 @@ public class DrawGraphViewImpl implements DrawGraphView {
         }
       }
     });
-    
     bZoomIn.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         observer.zoomIn();
       }
     });
-    
     bZoomOut.addActionListener(new ActionListener() {
-      
       @Override
-      public void actionPerformed(ActionEvent e) {
+      public void actionPerformed(final ActionEvent e) {
         observer.zoomOut();
       }
     });
-    
     bUp.addActionListener(new ActionListener() {
-      
       @Override
       public void actionPerformed(ActionEvent e) {
         observer.moveUp();
