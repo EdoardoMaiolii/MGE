@@ -9,17 +9,17 @@ public class Segment2DImpl implements Segment2D {
     private final Color color;
 
     @Override
-    public Point2D getA() {
+    public final Point2D getA() {
         return a;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Segment2DImpl [a=" + a + ", b=" + b + "]";
     }
 
     @Override
-    public Point2D getB() {
+    public final Point2D getB() {
         return b;
     }
 
@@ -36,18 +36,18 @@ public class Segment2DImpl implements Segment2D {
     }
 
     @Override
-    public Color getColor() {
+    public final Color getColor() {
         return this.color;
     }
 
     @Override
-    public Segment2D transformed(final Function<Double, Double> transformation) {
+    public final Segment2D transformed(final Function<Double, Double> transformation) {
         return new Segment2DImpl(this.a.transformed(transformation), this.b.transformed(transformation),
                 this.getColor());
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((a == null) ? 0 : a.hashCode());
@@ -57,29 +57,38 @@ public class Segment2DImpl implements Segment2D {
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final Segment2DImpl other = (Segment2DImpl) obj;
         if (a == null) {
-            if (other.a != null)
+            if (other.a != null) {
                 return false;
-        } else if (!a.equals(other.a))
+            }
+        } else if (!a.equals(other.a)) {
             return false;
+        }
         if (b == null) {
-            if (other.b != null)
+            if (other.b != null) {
                 return false;
-        } else if (!b.equals(other.b))
+            }
+        } else if (!b.equals(other.b)) {
             return false;
+        }
         if (color == null) {
-            if (other.color != null)
+            if (other.color != null) {
                 return false;
-        } else if (!color.equals(other.color))
+            }
+        } else if (!color.equals(other.color)) {
             return false;
+        }
         return true;
     }
 }

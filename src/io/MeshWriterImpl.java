@@ -11,7 +11,7 @@ public class MeshWriterImpl implements MeshWriter {
     private final Mesh mesh;
 
     @Override
-    public void write(final String path) throws IOException {
+    public final void write(final String path) throws IOException {
 
         // write to file
         Files.write(Paths.get(path), MeshYamlRepresentation.of(this.mesh).toYamlString().getBytes());

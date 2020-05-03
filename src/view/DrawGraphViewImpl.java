@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-public class DrawGraphViewImpl implements DrawGraphView {
+public final class DrawGraphViewImpl implements DrawGraphView {
     private static final String INPUT_FRAME_NAME = "Mathematical Graphic Engine";
     private static final String GRAPH_FRAME_NAME = "Graph";
     private static final String NORTH_PANEL_TITLE = "Math Expression";
@@ -69,6 +69,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
     private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
     private final Set<JButton> inputButtons = new HashSet<>();
+
     public DrawGraphViewImpl() {
         final JPanel pNorth = new JPanel(new FlowLayout());
         final JLabel lMathExpression = new JLabel(MATH_EXPRESSION_NAME);
@@ -214,18 +215,22 @@ public class DrawGraphViewImpl implements DrawGraphView {
             }
         });
     }
+
     @Override
     public void start() {
         this.inputFrame.setVisible(true);
     }
+
     @Override
     public void setObserver(final DrawGraphViewObserver observer) {
         this.observer = observer;
     }
+
     @Override
     public void expressionIncorrect() {
         JOptionPane.showMessageDialog(this.inputFrame, "Enter a valid expression please...");
     }
+
     @Override
     public void plotGraph(final List<Segment2D> segments) {
         final Point center = new Point((int) GRAPH_PANEL_SIZE / 2, (int) GRAPH_PANEL_SIZE / 2);
@@ -242,6 +247,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
         };
         this.graphFrame.add(graphPanel, BorderLayout.CENTER);
     }
+
     private JPanel gridButtonsPanel(final int rows, final int cols, final List<String> labels, final Set<JButton> buttons) {
         final Iterator<String> labelsIterator = labels.iterator();
         final JPanel panel = new JPanel(new GridBagLayout());
