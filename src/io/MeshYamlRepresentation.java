@@ -10,7 +10,7 @@ import c3d.Mesh;
 import c3d.geometry.Point3D;
 import c3d.geometry.Segment3D;
 
-public class MeshYamlRepresentation {
+public final class MeshYamlRepresentation {
     private final Mesh mesh;
 
     public static MeshYamlRepresentation of(final Mesh mesh) {
@@ -39,8 +39,7 @@ public class MeshYamlRepresentation {
 
         // build segments node
         final Set<YamlNode> segments = mesh.getSegments().stream()
-                .map(seg -> Segment3DYamlBridge.of(seg).segmentYaml(pointToNames::get))
-                .collect(Collectors.toSet());
+                .map(seg -> Segment3DYamlBridge.of(seg).segmentYaml(pointToNames::get)).collect(Collectors.toSet());
         var segmentsNodeBuilder = Yaml.createYamlSequenceBuilder();
         for (final YamlNode seg : segments) {
             segmentsNodeBuilder = segmentsNodeBuilder.add(seg);

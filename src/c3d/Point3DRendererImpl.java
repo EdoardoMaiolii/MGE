@@ -6,13 +6,13 @@ import c3d.geometry.Point3D;
 
 public class Point3DRendererImpl implements Point3DRenderer {
 
-    private Point3D point;
+    private final Point3D point;
 
     private static final Point2D defaultPointOfView = Point2D.fromDoubles(0, -600);
     private static final Point2D focalPoint = Point2D.origin();
 
     @Override
-    public Point2D render(Point2D pointOfView) {
+    public final Point2D render(final Point2D pointOfView) {
         final double finalX = Line
                 .fromPoints(Point2D.fromDoubles(this.point.getX(), this.point.getY()), defaultPointOfView).getZero();
 
@@ -22,7 +22,7 @@ public class Point3DRendererImpl implements Point3DRenderer {
         return Point2D.fromDoubles(finalX, finalY);
     }
 
-    Point3DRendererImpl(Point3D point) {
+    Point3DRendererImpl(final Point3D point) {
         this.point = point;
     }
 

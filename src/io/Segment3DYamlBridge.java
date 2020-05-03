@@ -2,12 +2,13 @@ package io;
 
 import java.util.function.Function;
 
-import com.amihaiemil.eoyaml.*;
+import com.amihaiemil.eoyaml.Yaml;
+import com.amihaiemil.eoyaml.YamlMapping;
 
 import c3d.geometry.Point3D;
 import c3d.geometry.Segment3D;
 
-public class Segment3DYamlBridge {
+public final class Segment3DYamlBridge {
     private final Segment3D segment;
 
     public static Segment3DYamlBridge of(final Segment3D segment) {

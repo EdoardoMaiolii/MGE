@@ -13,27 +13,27 @@ public class Point2DImpl implements Point2D {
     }
 
     @Override
-    public double getX() {
+    public final double getX() {
         return x;
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Point2DImpl [x=" + x + ", y=" + y + "]";
     }
 
     @Override
-    public double getY() {
+    public final double getY() {
         return y;
     }
 
     @Override
-    public Point2D transformed(final Function<Double, Double> transformation) {
+    public final Point2D transformed(final Function<Double, Double> transformation) {
         return new Point2DImpl(transformation.apply(this.x), transformation.apply(this.y));
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         long temp;
@@ -45,18 +45,23 @@ public class Point2DImpl implements Point2D {
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final Point2DImpl other = (Point2DImpl) obj;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
             return false;
-        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+        }
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) {
             return false;
+        }
         return true;
     }
 }

@@ -1,22 +1,22 @@
 package c3d.geometry;
 
 public class LineImpl implements Line {
-    double m;
-    double q;
-    double zero;
+    private double m;
+    private double q;
+    private double zero;
 
     @Override
-    public double getM() {
+    public final double getM() {
         return m;
     }
 
     @Override
-    public double getQ() {
+    public final double getQ() {
         return q;
     }
 
     @Override
-    public double getZero() {
+    public final double getZero() {
         return zero;
     }
 
@@ -39,12 +39,12 @@ public class LineImpl implements Line {
     }
 
     @Override
-    public double solveFor(final double x) {
+    public final double solveFor(final double x) {
         return this.m * x + this.q;
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         long temp;
@@ -58,20 +58,26 @@ public class LineImpl implements Line {
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final LineImpl other = (LineImpl) obj;
-        if (Double.doubleToLongBits(m) != Double.doubleToLongBits(other.m))
+        if (Double.doubleToLongBits(m) != Double.doubleToLongBits(other.m)) {
             return false;
-        if (Double.doubleToLongBits(q) != Double.doubleToLongBits(other.q))
+        }
+        if (Double.doubleToLongBits(q) != Double.doubleToLongBits(other.q)) {
             return false;
-        if (Double.doubleToLongBits(zero) != Double.doubleToLongBits(other.zero))
+        }
+        if (Double.doubleToLongBits(zero) != Double.doubleToLongBits(other.zero)) {
             return false;
+        }
         return true;
     }
 

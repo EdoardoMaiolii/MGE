@@ -5,7 +5,7 @@ import java.util.function.Function;
 public class Point3DImpl implements Point3D {
 
     @Override
-    public String toString() {
+    public final String toString() {
         return "Point3DImpl [x=" + x + ", y=" + y + ", z=" + z + "]";
     }
 
@@ -21,17 +21,17 @@ public class Point3DImpl implements Point3D {
     }
 
     @Override
-    public double getX() {
+    public final double getX() {
         return x;
     }
 
     @Override
-    public double getY() {
+    public final double getY() {
         return y;
     }
 
     @Override
-    public double getZ() {
+    public final double getZ() {
         return z;
     }
 
@@ -46,28 +46,28 @@ public class Point3DImpl implements Point3D {
     }
 
     @Override
-    public Point3D translated(final double x, final double y, final double z) {
+    public final Point3D translated(final double x, final double y, final double z) {
         return new Point3DImpl(this.x + x, this.y + y, this.z + z);
     }
 
     @Override
-    public Point3D rotated(final double angleXY, final double angleYZ) {
+    public final Point3D rotated(final double angleXY, final double angleYZ) {
         return this.rotatedXY(angleXY).rotatedYZ(angleYZ);
     }
 
     @Override
-    public Point3D transformed(final Function<Double, Double> transformation) {
+    public final Point3D transformed(final Function<Double, Double> transformation) {
         return new Point3DImpl(transformation.apply(this.x), transformation.apply(this.y),
                 transformation.apply(this.z));
     }
 
     @Override
-    public Point3D translated(final Point3D vector) {
+    public final Point3D translated(final Point3D vector) {
         return new Point3DImpl(this.getX() + vector.getX(), this.getY() + vector.getY(), this.getZ() + vector.getZ());
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final int prime = 31;
         int result = 1;
         long temp;
@@ -81,20 +81,26 @@ public class Point3DImpl implements Point3D {
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
+    public final boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         final Point3DImpl other = (Point3DImpl) obj;
-        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x))
+        if (Double.doubleToLongBits(x) != Double.doubleToLongBits(other.x)) {
             return false;
-        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y))
+        }
+        if (Double.doubleToLongBits(y) != Double.doubleToLongBits(other.y)) {
             return false;
-        if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z))
+        }
+        if (Double.doubleToLongBits(z) != Double.doubleToLongBits(other.z)) {
             return false;
+        }
         return true;
     }
 

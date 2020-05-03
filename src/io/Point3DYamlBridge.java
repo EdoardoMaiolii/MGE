@@ -1,10 +1,11 @@
 package io;
 
-import com.amihaiemil.eoyaml.*;
+import com.amihaiemil.eoyaml.Yaml;
+import com.amihaiemil.eoyaml.YamlMapping;
 
 import c3d.geometry.Point3D;
 
-public class Point3DYamlBridge {
+public final class Point3DYamlBridge {
     private final Point3D point;
 
     public static Point3DYamlBridge of(final Point3D point) {
