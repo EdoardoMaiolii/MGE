@@ -1,5 +1,4 @@
 package model;
-import dringa.AlgebricFunction;
 
 public interface FunctionParser {
 	

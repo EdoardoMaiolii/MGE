@@ -1,11 +1,9 @@
 package model;
-import dringa.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dringa.MathFunctions;
 
 
 public class RealParserImpl implements RealParser{

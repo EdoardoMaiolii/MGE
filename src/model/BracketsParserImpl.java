@@ -2,7 +2,6 @@ package model;
 
 import java.util.*;
 
-import dringa.Pair;
 public class BracketsParserImpl implements BracketsParser{//class that resolve brackets -->only one method public
 	private RealParser funcRewritten;
 	private Pair<Integer,Integer> num_par;
