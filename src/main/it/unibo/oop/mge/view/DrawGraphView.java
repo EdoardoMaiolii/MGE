@@ -1,0 +1,13 @@
+package it.unibo.oop.mge.view;
+
+import java.util.List;
+
+import it.unibo.oop.mge.c3d.geometry.Segment2D;
+import it.unibo.oop.mge.control.DrawGraphViewObserver;
+
+public interface DrawGraphView {
+    void start();
+    void setObserver(DrawGraphViewObserver observer);
+    void expressionIncorrect();
+    void plotGraph(List<Segment2D> segments);
+}
