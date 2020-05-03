@@ -3,8 +3,12 @@ package io;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.*;
-import com.amihaiemil.eoyaml.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
+import com.amihaiemil.eoyaml.Yaml;
+import com.amihaiemil.eoyaml.YamlNode;
 
 import c3d.Mesh;
 import c3d.geometry.Point3D;
@@ -21,7 +25,7 @@ public final class MeshYamlRepresentation {
         this.mesh = mesh;
     }
 
-    String toYamlString() {
+    public String toYamlString() {
         // set up data for later steps
         final List<Point3D> uniquePoints = mesh.getSegments().stream()
                 .flatMap((final Segment3D seg) -> Stream.of(seg.getA(), seg.getB())).distinct()
