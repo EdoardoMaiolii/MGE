@@ -1,7 +1,7 @@
 package control;
 
 public interface DrawGraphViewObserver {
-    void newGraph(String function, int max, int min, int rate);
+    void newGraph(String function, double min, double max, double rate);
     void load();
     void save();
     void zoomIn();

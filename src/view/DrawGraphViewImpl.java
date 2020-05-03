@@ -171,7 +171,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
             public void actionPerformed(final ActionEvent e) {
                 try {
                     observer.newGraph(tMathExpression.getText(), 
-                            Integer.parseInt(tMax.getText()), Integer.parseInt(tMin.getText()), Integer.parseInt(tRate.getText()));
+                            Double.parseDouble(tMax.getText()), Double.parseDouble(tMin.getText()), Double.parseDouble(tRate.getText()));
                     graphFrame.setVisible(true);
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(inputFrame, "Integer settings please...");
