@@ -1,8 +1,11 @@
 package model;
+import dringa.*;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import dringa.MathFunctions;
 
 
 public class RealParserImpl implements RealParser{
@@ -58,39 +61,33 @@ public class RealParserImpl implements RealParser{
 		return oT+'('+fP+','+sP+')';
 	}
 	
-
-	private boolean check_par(String currentString) {
-		int parAperte= countParentesi(currentString).getFst();
-		int parChiuse= countParentesi(currentString).getSnd();
-		if(parAperte-parChiuse==0) 
+	
+	private boolean check_brutale(String currentString) { //caso stringa 9 nella somma si deve fermare al 2
+		final Pair<Integer,Integer> numBrackets =BracketsUtility.countBrackets(currentString);
+		if(numBrackets.getFst()==numBrackets.getSnd()+1)
 			return true;
 		else return false;
 	} 
-	private boolean check_brutale(String currentString) { //caso stringa 9 nella somma si vede fermare al 2
-		int parAperte= countParentesi(currentString).getFst();
-		int parChiuse= countParentesi(currentString).getSnd();
-		if(parAperte==parChiuse+1)
-			return true;
-		else return false;
-	} 
+	
 	private boolean leftCond(int k,int posOp) {
 		currentString=fstring.substring(k, posOp);
 
 		if(check_brutale(currentString)) {
 			return false;
 		}
-		else if(check_par(currentString) && opMap.containsKey(fstring.charAt(k))) {
+		else if(BracketsUtility.checkBrackets(currentString) && opMap.containsKey(fstring.charAt(k))) {
 			return false;
 		}
 		else return true;
 	}
+	
 	private boolean rightCond(int k,int posOp) {
 		currentString=fstring.substring(posOp, k);
 
 		if(status && (fstring.charAt(k)=='(' || fstring.charAt(k)==')')) {
 			return false;
 		}
-		else if(check_par(currentString) && opMap.containsKey(fstring.charAt(k))) {
+		else if(BracketsUtility.checkBrackets(currentString) && opMap.containsKey(fstring.charAt(k))) {
 			return false;
 		}
 		else if(opMap.containsKey(fstring.charAt(k))) {
@@ -138,29 +135,17 @@ public class RealParserImpl implements RealParser{
 				numMul--;
 			}
 			else {
-			for(k=0;!op2.contains(fstring.charAt(k));k++);
-			subOpMul(fstring.charAt(k),k);
-			numSum--;
+				for(k=0;!op2.contains(fstring.charAt(k));k++);
+				subOpMul(fstring.charAt(k),k);
+				numSum--;
 			}
 		}
  		return fstring;
 	}
+	
 	public void setString(String str) {
 		this.fstring=str;
 		this.flength=str.length();
 	}
-	
-	
-	private Pair<Integer,Integer> countParentesi(String str){
-		int parAperte=0,parChiuse=0;
-		for(int k=0;k<str.length();k++) {
-			if(str.charAt(k)=='(')
-				parAperte++;
-			else if(str.charAt(k)==')')
-				parChiuse++;
-		}
-		return new Pair<Integer,Integer>(parAperte,parChiuse);
-	}
-
 
 }

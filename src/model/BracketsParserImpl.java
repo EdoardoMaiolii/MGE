@@ -1,46 +1,27 @@
 package model;
+
 import java.util.*;
+
+import dringa.Pair;
 public class BracketsParserImpl implements BracketsParser{//class that resolve brackets -->only one method public
-	RealParser funcRewritten;
-	Pair<Integer,Integer> num_par;
-	String fstring;
-	List<Pair<Integer,Integer>> brackets_place= new ArrayList<>();
-	List<Integer> distances= new ArrayList<>();
-	Pair<Integer,Integer> currentPosPar=null;
+	private RealParser funcRewritten;
+	private Pair<Integer,Integer> num_par;
+	private String fstring;
+	private List<Pair<Integer,Integer>> brackets_place= new ArrayList<>();
+	private Pair<Integer,Integer> currentPosPar=null;
 	
 	public BracketsParserImpl(String str) {
 		this.fstring=str;
 	}
 
-	private Pair<Integer,Integer> countParentesi(String str){
-		int parAperte=0,parChiuse=0;
-		for(int k=0;k<str.length();k++) {
-			if(str.charAt(k)=='(')
-				parAperte++;
-			else if(str.charAt(k)==')')
-				parChiuse++;
-		}
-		return new Pair<Integer,Integer>(parAperte,parChiuse);
-	}
-	
-	
-	private int endParentesi(String str) {
-		Pair<Integer,Integer> p;
-		for(int k=1;k<str.length();k++) {
-			p=countParentesi(str.substring(0, k+1));
-			if(p.getFst()==p.getSnd())
-				return k;
-		}
-		return 0;
-	}
 	
 	private void  listAdder() {
 		brackets_place.clear();
-		num_par=countParentesi(fstring);
+		num_par=BracketsUtility.countBrackets(fstring);
 		if(num_par.getFst()!=0) {//ci sono delle parentesi
 			for(int k=0;k<fstring.length();k++) {
 				if(fstring.charAt(k)=='(') {
-					int fine_par=k+endParentesi(fstring.substring(k, fstring.length()));
+					int fine_par=k+BracketsUtility.endBracket(fstring.substring(k, fstring.length()));
 					Pair<Integer,Integer> local = new Pair<Integer,Integer>(k,fine_par);
 						brackets_place.add(local);
 				}
@@ -71,8 +52,7 @@ public class BracketsParserImpl implements BracketsParser{//class that resolve b
 				
 			}
 		}
-		return result;
-		
+		return result;	
 	}
 	
 	private String getString() {
@@ -89,15 +69,13 @@ public class BracketsParserImpl implements BracketsParser{//class that resolve b
 		else return fstring;
 	}
 	
-	/*
-	public List<Pair<Integer,Integer>> getList(){
-		return brackets_place;
+	private void checkError() {
+		if(!BracketsUtility.checkBrackets(fstring))
+			throw new java.lang.IllegalArgumentException();
 	}
-	public void setString(String str) {
-		this.fstring=str;
-	}
-	*/
-	public String resolvePar() {
+	
+	public String resolveBrackets() {
+		checkError();
 		funcRewritten = new RealParserImpl(fstring);
 		String rewritten;
 		String local ;
