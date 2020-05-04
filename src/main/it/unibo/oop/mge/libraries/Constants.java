@@ -67,7 +67,15 @@ public enum Constants implements MathEnum {
         return  getListFromEnum()
                 .contains(name);
     }
-
+    public static Constants getMathFunctionFromSyntax(final String syntax) {
+        return Constants.valueOf(Arrays.asList(values())
+               .stream()
+               .map(i -> new Pair<String, String>(i.name(), i.getSyntax()))
+               .filter(i -> i.getSnd().equals(syntax))
+               .findFirst()
+               .get()
+               .getFst());
+    }
     Constants(final Double value) {
         this.value = value;
     }
