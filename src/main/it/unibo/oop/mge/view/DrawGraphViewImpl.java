@@ -2,6 +2,7 @@ package it.unibo.oop.mge.view;
 
 import it.unibo.oop.mge.c3d.geometry.Segment2D;
 import it.unibo.oop.mge.control.DrawGraphViewObserver;
+import it.unibo.oop.mge.control.PlotFunctionPanel;
 import it.unibo.oop.mge.libraries.Constants;
 import it.unibo.oop.mge.libraries.Digits;
 import it.unibo.oop.mge.libraries.MathFunctions;
@@ -9,12 +10,9 @@ import it.unibo.oop.mge.libraries.Punctuation;
 import it.unibo.oop.mge.libraries.Variables;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashSet;
@@ -138,8 +136,9 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         this.inputFrame.getMainPanel().add(pCenter, BorderLayout.CENTER);
         this.inputFrame.getMainPanel().add(pEast, BorderLayout.EAST);
         this.inputFrame.getMainPanel().add(pSouth, BorderLayout.SOUTH);
-        this.inputFrame.setResizable(true);
+        //this.graphFrame.getMainPanel().add(pSouthGraph, BorderLayout.EAST);
         this.inputFrame.pack();
+        this.graphFrame.pack();
         for (final JButton jb : this.inputButtons) {
             jb.addActionListener(new ActionListener() {
                 @Override
@@ -172,6 +171,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
                 try {
                     observer.newGraph(tMathExpression.getText(), 
                             Double.parseDouble(tMax.getText()), Double.parseDouble(tMin.getText()), Double.parseDouble(tRate.getText()));
+                    graphFrame.pack();
                     graphFrame.setVisible(true);
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(inputFrame, "Invalid settings...");
@@ -233,19 +233,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
 
     @Override
     public void plotGraph(final List<Segment2D> segments) {
-        final Point center = new Point((int) GRAPH_PANEL_SIZE / 2, (int) GRAPH_PANEL_SIZE / 2);
-        final JPanel graphPanel = new JPanel() {
-
-            private static final long serialVersionUID = 1L;
-            public void paintComponent(final Graphics g) {
-                this.setPreferredSize(new Dimension(GRAPH_PANEL_SIZE, GRAPH_PANEL_SIZE));
-                for (final Segment2D segment : segments) {
-                    g.drawLine((int) (segment.getA().getX() * center.getX() + center.getX()), (int) (segment.getA().getY() * -center.getY() + center.getY()),
-                            (int) (segment.getB().getX() * center.getX() + center.getX()), (int) (segment.getB().getY() * -center.getY() + center.getY()));
-                }
-            }
-        };
-        this.graphFrame.add(graphPanel, BorderLayout.CENTER);
+        this.graphFrame.add(new PlotFunctionPanel(GRAPH_PANEL_SIZE, segments), BorderLayout.CENTER);
     }
 
     private JPanel gridButtonsPanel(final int rows, final int cols, final List<String> labels, final Set<JButton> buttons) {
