@@ -2,9 +2,8 @@ package it.unibo.oop.mge.view;
 
 import it.unibo.oop.mge.c3d.geometry.Segment2D;
 import it.unibo.oop.mge.control.DrawGraphViewObserver;
-import it.unibo.oop.mge.libraries.Constants;
 import it.unibo.oop.mge.libraries.Digits;
-import it.unibo.oop.mge.libraries.MathFunctions;
+import it.unibo.oop.mge.libraries.GetLabelsFromMathEnum;
 import it.unibo.oop.mge.libraries.Punctuation;
 import it.unibo.oop.mge.libraries.Variables;
 
@@ -95,11 +94,11 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         final JPanel pCenter = new JPanel(new BorderLayout());
         final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, Variables.names(), this.inputButtons);
         pInnerNorth.setBorder(new TitledBorder(INNER_NORTH_PANEL_NAME));
-        final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, MathFunctions.names(), this.inputButtons);
+        final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, GetLabelsFromMathEnum.getLabelFromMathFunctions(), this.inputButtons);
         pInnerWest.setBorder(new TitledBorder(INNER_WEST_PANEL_NAME));
         final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, Digits.names(), this.inputButtons);
         pInnerCenter.setBorder(new TitledBorder(INNER_CENTER_PANEL_NAME));
-        final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, Constants.names(), this.inputButtons);
+        final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, GetLabelsFromMathEnum.getLabelFromConstants(), this.inputButtons);
         pInnerEast.setBorder(new TitledBorder(INNER_EAST_PANEL_NAME));
         final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, Punctuation.names(), this.inputButtons);
         pCenter.add(pInnerNorth, BorderLayout.NORTH);
