@@ -10,4 +10,5 @@ public interface DrawGraphView {
     void setObserver(DrawGraphViewObserver observer);
     void expressionIncorrect();
     void plotGraph(List<Segment2D> segments);
+    void updateGraph(List<Segment2D> newSegments);
 }

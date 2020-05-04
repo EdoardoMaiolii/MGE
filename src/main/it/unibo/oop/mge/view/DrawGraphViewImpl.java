@@ -61,6 +61,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private DrawGraphViewObserver observer;
     private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
     private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
+    private PlotFunctionPanel functionPanel;
     private final Set<JButton> inputButtons = new HashSet<>();
 
     public DrawGraphViewImpl() {
@@ -228,7 +229,13 @@ public final class DrawGraphViewImpl implements DrawGraphView {
 
     @Override
     public void plotGraph(final List<Segment2D> segments) {
-        this.graphFrame.add(new PlotFunctionPanel(GRAPH_PANEL_SIZE, segments), BorderLayout.NORTH);
+        this.functionPanel = new PlotFunctionPanel(GRAPH_PANEL_SIZE, segments);
+        this.graphFrame.add(this.functionPanel, BorderLayout.NORTH);
+    }
+
+    @Override
+    public void updateGraph(final List<Segment2D> newSegments) {
+        this.functionPanel.updateSegments(newSegments);
     }
 
     private JPanel gridButtonsPanel(final int rows, final int cols, final List<String> labels, final Set<JButton> buttons) {

@@ -41,7 +41,8 @@ public class DrawGraphApp implements DrawGraphViewObserver {
                 .build();
         this.visualizerMeshes.add(Mesh.fromSegments(ff.getPolygonalModel()));
         this.visualizerMeshes.add(Mesh.fromSegments(ff.getPoligonalAxis()));
-        this.refreshVisualizer();
+        this.view.plotGraph(MeshDrawerBuilder.create().add(visualizerMeshes.get(0)).translation(visualizerTranslation)
+                .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
     }
 
     public static void main(final String[] args) {
@@ -49,7 +50,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     }
 
     private void refreshVisualizer() {
-        this.view.plotGraph(MeshDrawerBuilder.create().add(visualizerMeshes.get(0)).translation(visualizerTranslation)
+        this.view.updateGraph(MeshDrawerBuilder.create().add(visualizerMeshes.get(0)).translation(visualizerTranslation)
                 .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
     }
 
