@@ -122,7 +122,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
             final var y = (Math.abs(interval.getFst() - interval.getSnd())) / rate + 1;
             return Stream.concat(getRealSegmentList(points, i -> i).filter(i -> i.getA().getY() == i.getB().getY()),
                     getRealSegmentList(points, i -> (int) ((i % x) * y + i / x))
-                            .filter(i -> i.getA().getY() == i.getB().getY()))
+                            .filter(i -> i.getA().getX() == i.getB().getX()))
                     .collect(Collectors.toList());
         default:
             return null;
@@ -135,7 +135,8 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
                 Point3D.fromDoubles(interval.getSnd(), 0, 0), Color.GREEN);
         Segment3D axisY = Segment3D.fromPoints(Point3D.fromDoubles(0, interval.getFst(), 0),
                 Point3D.fromDoubles(0, interval.getSnd(), 0), Color.ORANGE);
-        Segment3D axisZ = Segment3D.fromPoints(Point3D.fromDoubles(0, 0, -30), Point3D.fromDoubles(0, 0, +30),
+        Segment3D axisZ = Segment3D.fromPoints(Point3D.fromDoubles(0, 0, this.getAbsoluteMin().getCoordinates().get(2)), 
+                Point3D.fromDoubles(0, 0, this.getAbsoluteMax().getCoordinates().get(2)),
                 Color.BLUE);
         return List.of(axisX, axisY, axisZ);
     }
