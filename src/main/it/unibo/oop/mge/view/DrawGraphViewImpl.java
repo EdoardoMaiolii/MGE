@@ -2,7 +2,6 @@ package it.unibo.oop.mge.view;
 
 import it.unibo.oop.mge.c3d.geometry.Segment2D;
 import it.unibo.oop.mge.control.DrawGraphViewObserver;
-import it.unibo.oop.mge.control.PlotFunctionPanel;
 import it.unibo.oop.mge.libraries.Constants;
 import it.unibo.oop.mge.libraries.Digits;
 import it.unibo.oop.mge.libraries.MathFunctions;

@@ -1,4 +1,4 @@
-package it.unibo.oop.mge.control;
+package it.unibo.oop.mge.view;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
