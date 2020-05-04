@@ -2,10 +2,7 @@ package it.unibo.oop.mge.view;
 
 import it.unibo.oop.mge.c3d.geometry.Segment2D;
 import it.unibo.oop.mge.control.DrawGraphViewObserver;
-import it.unibo.oop.mge.libraries.Digits;
 import it.unibo.oop.mge.libraries.GetLabelsFromEnum;
-import it.unibo.oop.mge.libraries.Punctuation;
-import it.unibo.oop.mge.libraries.Variables;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -92,15 +89,15 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         pWest.add(lRate, gbcWest);
         pWest.add(tRate, gbcWest);
         final JPanel pCenter = new JPanel(new BorderLayout());
-        final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, Variables.names(), this.inputButtons);
+        final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromVariables(), this.inputButtons);
         pInnerNorth.setBorder(new TitledBorder(INNER_NORTH_PANEL_NAME));
         final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromMathFunctions(), this.inputButtons);
         pInnerWest.setBorder(new TitledBorder(INNER_WEST_PANEL_NAME));
-        final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, Digits.names(), this.inputButtons);
+        final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromDigits(), this.inputButtons);
         pInnerCenter.setBorder(new TitledBorder(INNER_CENTER_PANEL_NAME));
         final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromConstants(), this.inputButtons);
         pInnerEast.setBorder(new TitledBorder(INNER_EAST_PANEL_NAME));
-        final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, Punctuation.names(), this.inputButtons);
+        final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromPunctuation(), this.inputButtons);
         pCenter.add(pInnerNorth, BorderLayout.NORTH);
         pCenter.add(pInnerWest, BorderLayout.WEST);
         pCenter.add(pInnerCenter, BorderLayout.CENTER);
