@@ -135,7 +135,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         this.inputFrame.getMainPanel().add(pCenter, BorderLayout.CENTER);
         this.inputFrame.getMainPanel().add(pEast, BorderLayout.EAST);
         this.inputFrame.getMainPanel().add(pSouth, BorderLayout.SOUTH);
-        //this.graphFrame.getMainPanel().add(pSouthGraph, BorderLayout.EAST);
+        this.graphFrame.getMainPanel().add(pSouthGraph, BorderLayout.SOUTH);
         this.inputFrame.pack();
         this.graphFrame.pack();
         for (final JButton jb : this.inputButtons) {
@@ -232,7 +232,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
 
     @Override
     public void plotGraph(final List<Segment2D> segments) {
-        this.graphFrame.add(new PlotFunctionPanel(GRAPH_PANEL_SIZE, segments), BorderLayout.CENTER);
+        this.graphFrame.add(new PlotFunctionPanel(GRAPH_PANEL_SIZE, segments), BorderLayout.NORTH);
     }
 
     private JPanel gridButtonsPanel(final int rows, final int cols, final List<String> labels, final Set<JButton> buttons) {
