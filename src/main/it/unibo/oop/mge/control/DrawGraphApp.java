@@ -40,6 +40,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
                 .setRate(rate)
                 .build();
         this.visualizerMeshes.add(Mesh.fromSegments(ff.getPolygonalModel()));
+        this.visualizerMeshes.add(Mesh.fromSegments(ff.getPoligonalAxis()));
         this.refreshVisualizer();
     }
 

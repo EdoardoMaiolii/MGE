@@ -1,4 +1,5 @@
 package it.unibo.oop.mge.model;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -96,11 +97,17 @@ public class FunctionFeaturesImpl implements FunctionFeatures{
 		case 2 : {
 			var x = (Math.abs(interval.getFst()- interval.getSnd()))/rate+1;
 			var y = (Math.abs(interval.getFst()- interval.getSnd()))/rate+1;
-			var tmp1 = getRealSegmentList(points, i->i).filter(i -> i.getA().getX()==i.getB().getX()).collect(Collectors.toList());
-			var tmp2 = getRealSegmentList(points,i->(int)((i%x)*y+i/x)).filter(i -> i.getA().getX()==i.getB().getX()).collect(Collectors.toList());
 			return Stream.concat(getRealSegmentList(points, i->i).filter(i -> i.getA().getY()==i.getB().getY()), getRealSegmentList(points,i->(int)((i%x)*y+i/x)).filter(i -> i.getA().getY()==i.getB().getY())).collect(Collectors.toList());
 		}
 		default : return null;
 		}
 	}
+
+    @Override
+    public List<Segment3D> getPoligonalAxis() {
+        Segment3D axisX = Segment3D.fromPoints(Point3D.fromDoubles(interval.getFst(), 0, 0),Point3D.fromDoubles(interval.getSnd(), 0, 0),Color.GREEN);
+        Segment3D axisY = Segment3D.fromPoints(Point3D.fromDoubles(0, interval.getFst(), 0),Point3D.fromDoubles(0, interval.getSnd(), 0),Color.ORANGE);
+        Segment3D axisZ = Segment3D.fromPoints(Point3D.fromDoubles(0, 0, -30),Point3D.fromDoubles(0, 0, +30),Color.BLUE);
+        return List.of(axisX,axisY,axisZ);
+    }
 }

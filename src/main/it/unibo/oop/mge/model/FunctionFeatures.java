@@ -30,4 +30,9 @@ public interface FunctionFeatures {
      * @return get the Poligonal Model of the Function in the interval
      */
     List<Segment3D> getPolygonalModel();
+    /**
+     * 
+     * @return get the Poligonal Model of the Axis
+     */
+    List<Segment3D> getPoligonalAxis();
 }
