@@ -29,8 +29,11 @@ public class PlotFunctionPanel extends JPanel {
     public final void paintComponent(final Graphics g) {
         super.paintComponent(g);
         for (final Segment2D segment : this.segments) {
-            g.drawLine((int) (segment.getA().getX() * this.center.getX() + this.center.getX()), (int) (segment.getA().getY() * -this.center.getY() + this.center.getY()),
-                    (int) (segment.getB().getX() * this.center.getX() + this.center.getX()), (int) (segment.getB().getY() * -this.center.getY() + this.center.getY()));
+            g.setColor(segment.getColor());
+            g.drawLine((int) (segment.getA().getX() * this.center.getX() + this.center.getX()),
+                    (int) (segment.getA().getY() * -this.center.getY() + this.center.getY()),
+                    (int) (segment.getB().getX() * this.center.getX() + this.center.getX()),
+                    (int) (segment.getB().getY() * -this.center.getY() + this.center.getY()));
         }
     }
 

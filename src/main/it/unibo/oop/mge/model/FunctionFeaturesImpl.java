@@ -8,9 +8,12 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import it.unibo.oop.mge.c3d.geometry.*;
-import it.unibo.oop.mge.function.*;
-import it.unibo.oop.mge.libraries.*;
+import it.unibo.oop.mge.c3d.geometry.Point3D;
+import it.unibo.oop.mge.c3d.geometry.Segment3D;
+import it.unibo.oop.mge.function.AlgebricFunctionImpl;
+import it.unibo.oop.mge.libraries.Pair;
+import it.unibo.oop.mge.libraries.PointND;
+import it.unibo.oop.mge.libraries.PointNDImpl;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
     private AlgebricFunctionImpl<?> function;

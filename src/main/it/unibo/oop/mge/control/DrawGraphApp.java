@@ -13,7 +13,7 @@ import it.unibo.oop.mge.model.FunctionFeaturesBuilder;
 import it.unibo.oop.mge.model.FunctionFeaturesImpl;
 import it.unibo.oop.mge.model.FunctionParser;
 import it.unibo.oop.mge.view.DrawGraphView;
-import it.unibo.oop.mge.view.DrawGraphViewImpl;;
+import it.unibo.oop.mge.view.DrawGraphViewImpl;
 
 public class DrawGraphApp implements DrawGraphViewObserver {
 
@@ -64,69 +64,69 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     }
 
     @Override
-    public void zoomIn() {
+    public final void zoomIn() {
         this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, -10, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void zoomOut() {
+    public final void zoomOut() {
         this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 10, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void moveUp() {
+    public final void moveUp() {
         this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, -10));
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void moveLeft() {
+    public final void moveLeft() {
         this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(10, 0, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void moveRight() {
+    public final void moveRight() {
         this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(-10, 0, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void moveDown() {
+    public final void moveDown() {
         this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, 10));
         this.refreshVisualizer();
     }
 
     @Override
-    public void increaseXY() {
+    public final void increaseXY() {
         this.visualizerRotationXY += .26;
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void decreaseXY() {
+    public final void decreaseXY() {
         this.visualizerRotationXY -= .26;
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void increaseYZ() {
+    public final void increaseYZ() {
         this.visualizerRotationYZ += .26;
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void decreaseYZ() {
+    public final void decreaseYZ() {
         this.visualizerRotationYZ -= .26;
         this.refreshVisualizer();
 
