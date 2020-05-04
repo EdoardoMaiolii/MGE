@@ -34,8 +34,11 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     @Override
     public final void newGraph(final String function, final double max, final double min, final double rate) {
-        FunctionFeaturesImpl ff = new FunctionFeaturesBuilder().setFunction(FunctionParser.parse(function))
-                .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).build();
+        FunctionFeaturesImpl ff = new FunctionFeaturesBuilder()
+                .setFunction(FunctionParser.parse(function))
+                .setIntervals(new Pair<Double, Double>(min, max))
+                .setRate(rate)
+                .build();
         this.visualizerMeshes.add(Mesh.fromSegments(ff.getPolygonalModel()));
         this.refreshVisualizer();
     }
