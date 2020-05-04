@@ -1,6 +1,5 @@
 package it.unibo.oop.mge.c3d;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
