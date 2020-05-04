@@ -1,86 +1,105 @@
 package it.unibo.oop.mge.control;
 
-import it.unibo.oop.mge.model.*;
-import it.unibo.oop.mge.view.DrawGraphView;
-import it.unibo.oop.mge.view.DrawGraphViewImpl;
+import java.util.ArrayList;
+import java.util.List;
+
 import it.unibo.oop.mge.c3d.Mesh;
 import it.unibo.oop.mge.c3d.MeshDrawerBuilder;
-import it.unibo.oop.mge.c3d.MeshVisualizerImpl;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
-import it.unibo.oop.mge.libraries.*;;
+import it.unibo.oop.mge.libraries.Pair;
+import it.unibo.oop.mge.model.DrawGraph;
+import it.unibo.oop.mge.model.DrawGraphImpl;
+import it.unibo.oop.mge.model.FunctionFeaturesBuilder;
+import it.unibo.oop.mge.model.FunctionFeaturesImpl;
+import it.unibo.oop.mge.model.FunctionParser;
+import it.unibo.oop.mge.view.DrawGraphView;
+import it.unibo.oop.mge.view.DrawGraphViewImpl;;
 
-public class DrawGraphApp implements DrawGraphViewObserver{
+public class DrawGraphApp implements DrawGraphViewObserver {
 
-  private final DrawGraph model;
-  private final DrawGraphView view;
-  
-  public DrawGraphApp() {
-    this.model = new DrawGraphImpl();
-    this.view = new DrawGraphViewImpl();
-    this.view.setObserver(this);
-    this.view.start();
-  }
-  
-  @Override
-  public void newGraph(String function, double max, double min, double rate) {
-      FunctionFeaturesImpl ff = new FunctionFeaturesBuilder()
-                      .setFunction(FunctionParser.parse(function))
-                      .setIntervals(new Pair<Double,Double>(min,max))
-                      .setRate(rate)
-                      .build();
-        this.view.plotGraph(MeshDrawerBuilder.create().add(Mesh.fromSegments(ff.getPolygonalModel())).build().render().getSegments());
-  }
-  
-  public static void main(String[] args) {
-    new DrawGraphApp();
-  }
+    private final DrawGraph model;
+    private final DrawGraphView view;
+    private Point3D visualizerTranslation = Point3D.origin();
+    private double visualizerRotationXY;
+    private double visualizerRotationYZ;
+    private final List<Mesh> visualizerMeshes;
 
-@Override
-public void load() {
-    // TODO Auto-generated method stub
-    
-}
+    public DrawGraphApp() {
+        this.visualizerMeshes = new ArrayList<>();
+        this.model = new DrawGraphImpl();
+        this.view = new DrawGraphViewImpl();
+        this.view.setObserver(this);
+        this.view.start();
+    }
 
-@Override
-public void save() {
-    // TODO Auto-generated method stub
-    
-}
+    @Override
+    public final void newGraph(final String function, final double max, final double min, final double rate) {
+        FunctionFeaturesImpl ff = new FunctionFeaturesBuilder().setFunction(FunctionParser.parse(function))
+                .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).build();
+        this.visualizerMeshes.add(Mesh.fromSegments(ff.getPolygonalModel()));
+        this.refreshVisualizer();
+    }
 
-@Override
-public void zoomIn() {
-    // TODO Auto-generated method stub
-    
-}
+    public static void main(final String[] args) {
+        new DrawGraphApp();
+    }
 
-@Override
-public void zoomOut() {
-    // TODO Auto-generated method stub
-    
-}
+    private void refreshVisualizer() {
+        this.view.plotGraph(MeshDrawerBuilder.create().add(visualizerMeshes.get(0)).translation(visualizerTranslation)
+                .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
+    }
 
-@Override
-public void moveUp() {
-    // TODO Auto-generated method stub
-    
-}
+    @Override
+    public void load() {
+        // TODO Auto-generated method stub
 
-@Override
-public void moveLeft() {
-    // TODO Auto-generated method stub
-    
-}
+    }
 
-@Override
-public void moveRight() {
-    // TODO Auto-generated method stub
-    
-}
+    @Override
+    public void save() {
+        // TODO Auto-generated method stub
 
-@Override
-public void moveDown() {
-    // TODO Auto-generated method stub
-    
-}
+    }
+
+    @Override
+    public void zoomIn() {
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, -10, 0));
+        this.refreshVisualizer();
+
+    }
+
+    @Override
+    public void zoomOut() {
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 10, 0));
+        this.refreshVisualizer();
+
+    }
+
+    @Override
+    public void moveUp() {
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, -10));
+        this.refreshVisualizer();
+
+    }
+
+    @Override
+    public void moveLeft() {
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(10, 0, 0));
+        this.refreshVisualizer();
+
+    }
+
+    @Override
+    public void moveRight() {
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(-10, 0, 0));
+        this.refreshVisualizer();
+
+    }
+
+    @Override
+    public void moveDown() {
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, 10));
+        this.refreshVisualizer();
+    }
 
 }
