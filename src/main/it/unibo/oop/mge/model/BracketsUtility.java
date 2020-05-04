@@ -20,12 +20,12 @@ public class BracketsUtility {
 		else return false;
 	} 
 	
-	public static int endBracket(final String str) { //return the close Bracket of the first openBracket instance
+	public static int endBracket(final String str,int offset) { //return the close Bracket of the first openBracket instance
 		Pair<Integer,Integer> p;
-		for(int k=1;k<str.length();k++) {
+ 		for(int k=1;k<str.length();k++) {
 			p=countBrackets(str.substring(0, k+1));
 			if(p.getFst()==p.getSnd())
-				return k;
+				return k+offset;
 		}
 		return 0;
 	}

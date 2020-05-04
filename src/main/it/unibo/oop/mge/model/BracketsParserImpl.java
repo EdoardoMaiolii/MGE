@@ -34,7 +34,13 @@ public class BracketsParserImpl implements BracketsParser { //class that resolve
             IntStream.range(0, fstring.length())
                        .filter(i -> fstring.charAt(i) == '(')
                        .forEach(i -> bracketsPlace.add(new Pair<Integer,Integer>(i,
-                                     BracketsUtility.endBracket(fstring.substring(i)))));
+                                     BracketsUtility.endBracket(fstring.substring(i),i))));
+                                     
+           /*
+            List<Integer> ciao = IntStream.range(0, fstring.length())
+                    .filter(i -> fstring.charAt(i) == '(').mapToObj(i -> (int) i).collect(Collectors.toList());
+            List<Integer> p = ciao;
+            */
     	}
     }
 
