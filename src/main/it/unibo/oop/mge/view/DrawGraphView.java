@@ -7,8 +7,12 @@ import it.unibo.oop.mge.control.DrawGraphViewObserver;
 
 public interface DrawGraphView {
     void start();
+
     void setObserver(DrawGraphViewObserver observer);
+
     void expressionIncorrect();
+
     void plotGraph(List<Segment2D> segments);
+
     void updateGraph(List<Segment2D> newSegments);
 }

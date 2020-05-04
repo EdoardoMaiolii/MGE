@@ -45,6 +45,10 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private static final String LEFT = "LEFT";
     private static final String RIGHT = "RIGHT";
     private static final String DOWN = "DOWN";
+    private static final String INCREASE_XY = "INCREASE XY";
+    private static final String DECREASE_XY = "DECREASE XY";
+    private static final String INCREASE_YZ = "INCREASE YZ";
+    private static final String DECREASE_YZ = "DECREASE_YZ";
     private static final int MATH_EXPRESSION_LENGTH = 70;
     private static final int SETTINGS_LENGTH = 20;
     private static final int INNER_NORTH_PANEL_ROWS = 1;
@@ -121,12 +125,20 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         final JButton bLeft = new JButton(LEFT);
         final JButton bRight = new JButton(RIGHT);
         final JButton bDown = new JButton(DOWN);
+        final JButton bIncreaseXY = new JButton(INCREASE_XY);
+        final JButton bDecreaseXY = new JButton(DECREASE_XY);
+        final JButton bIncreaseYZ = new JButton(INCREASE_YZ);
+        final JButton bDecreaseYZ = new JButton(DECREASE_YZ);
         pSouthGraph.add(bZoomIn);
         pSouthGraph.add(bZoomOut);
         pSouthGraph.add(bUp);
         pSouthGraph.add(bLeft);
         pSouthGraph.add(bRight);
         pSouthGraph.add(bDown);
+        pSouthGraph.add(bIncreaseXY);
+        pSouthGraph.add(bDecreaseXY);
+        pSouthGraph.add(bIncreaseYZ);
+        pSouthGraph.add(bDecreaseYZ);
         this.inputFrame.getMainPanel().add(pNorth, BorderLayout.NORTH);
         this.inputFrame.getMainPanel().add(pWest, BorderLayout.WEST);
         this.inputFrame.getMainPanel().add(pCenter, BorderLayout.CENTER);
@@ -208,6 +220,30 @@ public final class DrawGraphViewImpl implements DrawGraphView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 observer.moveDown();
+            }
+        });
+        bIncreaseXY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                observer.increaseXY();
+            }
+        });
+        bDecreaseXY.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                observer.decreaseXY();
+            }
+        });
+        bIncreaseYZ.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                observer.increaseYZ();
+            }
+        });
+        bDecreaseYZ.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                observer.decreaseYZ();
             }
         });
     }

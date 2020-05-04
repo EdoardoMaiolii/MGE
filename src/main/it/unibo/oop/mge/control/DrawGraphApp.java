@@ -107,4 +107,28 @@ public class DrawGraphApp implements DrawGraphViewObserver {
         this.refreshVisualizer();
     }
 
+    @Override
+    public void increaseXY() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void decreaseXY() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void increaseYZ() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void decreaseYZ() {
+        // TODO Auto-generated method stub
+        
+    }
+
 }
