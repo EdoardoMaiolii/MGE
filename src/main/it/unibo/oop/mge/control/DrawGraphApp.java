@@ -3,7 +3,10 @@ package it.unibo.oop.mge.control;
 import it.unibo.oop.mge.model.*;
 import it.unibo.oop.mge.view.DrawGraphView;
 import it.unibo.oop.mge.view.DrawGraphViewImpl;
+import it.unibo.oop.mge.c3d.Mesh;
+import it.unibo.oop.mge.c3d.MeshDrawerBuilder;
 import it.unibo.oop.mge.c3d.MeshVisualizerImpl;
+import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.libraries.*;;
 
 public class DrawGraphApp implements DrawGraphViewObserver{
@@ -25,9 +28,7 @@ public class DrawGraphApp implements DrawGraphViewObserver{
                       .setIntervals(new Pair<Double,Double>(min,max))
                       .setRate(rate)
                       .build();
-      var mesh = new MeshVisualizerImpl();
-      mesh.setMesh(ff.getPolygonalModel());
-      view.plotGraph(mesh.render());
+        this.view.plotGraph(MeshDrawerBuilder.create().add(Mesh.fromSegments(ff.getPolygonalModel())).build().render().getSegments());
   }
   
   public static void main(String[] args) {
