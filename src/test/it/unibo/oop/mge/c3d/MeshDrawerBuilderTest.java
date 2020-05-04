@@ -28,7 +28,7 @@ class MeshDrawerBuilderTest {
 
     @Test
     void test() {
-        var a = MeshDrawerBuilder.create().add(mesh).add(mesh).build().render();
+        final var a = MeshDrawerBuilder.create().add(mesh).add(mesh).build().render().getSegments();
     }
 
 }
