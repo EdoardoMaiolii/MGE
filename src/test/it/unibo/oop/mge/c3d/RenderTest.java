@@ -40,12 +40,14 @@ public class RenderTest extends Canvas {
 
         final var set = Arrays.asList(ab, bd, cd, ca);
 
-        final MeshVisualizer visualizer = MeshVisualizer.create();
-
-        visualizer.setMesh(set);
-
-        visualizer.setTranslation(Point3D.fromDoubles(80, 50, -30));
-        final var output = visualizer.render();
+//        final MeshVisualizer visualizer = MeshVisualizer.create();
+//
+//        visualizer.setMesh(set);
+//
+//        visualizer.setTranslation(Point3D.fromDoubles(80, 50, -30));
+//        final var output = visualizer.render();
+        var output = MeshDrawerBuilder.create().add(Mesh.fromSegments(set))
+                .translation(Point3D.fromDoubles(0, 0, -30)).build().render().getSegments();
 
         final RenderTest dr = new RenderTest(output);
         final JFrame frame = new JFrame("My Drawing");

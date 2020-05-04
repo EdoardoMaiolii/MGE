@@ -13,7 +13,7 @@ public class MeshDrawerBuilderImpl implements MeshDrawerBuilder {
     private final double rotationYZ;
     private final Point3D translation;
 
-    public MeshDrawerBuilderImpl(final List<Mesh> meshes, final double rotationXY, final double rotationYZ,
+    MeshDrawerBuilderImpl(final List<Mesh> meshes, final double rotationXY, final double rotationYZ,
             final Point3D translation) {
         super();
         this.meshes = meshes;

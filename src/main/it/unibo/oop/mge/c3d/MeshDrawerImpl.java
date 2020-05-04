@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import it.unibo.oop.mge.c3d.geometry.Point2D;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
+import it.unibo.oop.mge.c3d.geometry.Segment2D;
 
 public class MeshDrawerImpl implements MeshDrawer {
     private final List<Mesh> meshes;
@@ -55,7 +56,8 @@ public class MeshDrawerImpl implements MeshDrawer {
                         return MeshDrawerImpl.pointOfView;
                     }
 
-                }).stream()).collect(Collectors.toList()));
+                }).stream()).map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
+                        .collect(Collectors.toList()));
 
     }
 }
