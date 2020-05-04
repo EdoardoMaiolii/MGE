@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class GetLabelsFromMathEnum {
-    private GetLabelsFromMathEnum() { };
+public final class GetLabelsFromEnum {
+    private GetLabelsFromEnum() { };
     public static List<String> getLabelFromConstants() {
         return Constants.getListFromEnum();
     }
@@ -18,5 +18,14 @@ public final class GetLabelsFromMathEnum {
         List<String> list = MathFunctions.getListFromEnum();
         operators.forEach((a, b) -> list.set(list.indexOf(a), b));
         return list;
+    }
+    public static List<String> getLabelFromDigits() {
+        return Digits.getListFromEnum();
+    }
+    public static List<String> getLabelFromPunctuation() {
+        return Punctuation.getListFromEnum();
+    }
+    public static List<String> getLabelFromVariables() {
+        return Variables.getListFromEnum();
     }
 }

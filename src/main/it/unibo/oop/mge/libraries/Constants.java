@@ -58,11 +58,14 @@ public enum Constants implements MathEnum {
     private final Double value;
 
     public static List<String> getListFromEnum() {
-        return Arrays.asList(values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList());
+        return Arrays.asList(values())
+               .stream().map(i -> i.getSyntax())
+               .collect(Collectors.toList());
     }
 
     public static boolean contains(final String name) {
-        return  getListFromEnum().contains(name);
+        return  getListFromEnum()
+                .contains(name);
     }
 
     Constants(final Double value) {

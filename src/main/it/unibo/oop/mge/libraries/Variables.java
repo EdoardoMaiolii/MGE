@@ -23,9 +23,13 @@ public enum Variables {
 		return this.name;
 	}
 	
-	public static List<String> names(){
+	protected static List<String> getListFromEnum() {
 	  return Arrays.asList(Variables.values()).stream()
 	                                          .map(e -> e.getName())
 	                                          .collect(Collectors.toList());
+	}
+	
+	public static Boolean constains(String name) {
+	     return getListFromEnum().contains(name);
 	}
 }

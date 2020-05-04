@@ -27,8 +27,8 @@ public enum Digits {
 		return this.name;
 	}
 	
-	public static List<String> names(){
-      return Arrays.asList(Digits.values()).stream()
+	protected static List<String> getListFromEnum() {
+	    return Arrays.asList(Digits.values()).stream()
                                               .map(e -> e.getName())
                                               .collect(Collectors.toList());
     }

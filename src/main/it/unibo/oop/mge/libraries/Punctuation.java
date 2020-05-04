@@ -21,8 +21,8 @@ public enum Punctuation {
 		return this.name;
 	}
 	
-	public static List<String> names(){
-      return Arrays.asList(Punctuation.values()).stream()
+	protected static List<String> getListFromEnum() {
+	    return Arrays.asList(Punctuation.values()).stream()
                                               .map(e -> e.getName())
                                               .collect(Collectors.toList());
     }
