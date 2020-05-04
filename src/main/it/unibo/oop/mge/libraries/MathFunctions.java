@@ -203,8 +203,21 @@ public enum MathFunctions implements MathEnum {
         protected Double calculate(final List<Double> parameters) {
             return Math.min(parameters.get(0), parameters.get(1));
         }
+    },
+    /**
+     * 
+     */
+    SIGN(1) {
+        @Override
+        protected Double calculate(final List<Double> parameters) {
+            if (parameters.get(0)>0)
+                return 1.0;
+            else if (parameters.get(0)<0)
+                return -1.0;
+            else 
+                return 0.0;
+        }
     };
-
     private final int nParameters;
 
     MathFunctions(final int nPar) {
