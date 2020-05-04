@@ -1,6 +1,7 @@
 package it.unibo.oop.mge.libraries;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -217,7 +218,15 @@ public enum MathFunctions implements MathEnum {
     public static boolean contains(final String name) {
         return  getListFromEnum().contains(name);
     }
-
+    public static MathFunctions getMathFunctionFromSyntax(final String syntax) {
+        return MathFunctions.valueOf(Arrays.asList(values())
+               .stream()
+               .map(i -> new Pair<String, String>(i.name(), i.getSyntax()))
+               .filter(i -> i.getSnd().equals(syntax))
+               .findFirst()
+               .get()
+               .getFst());
+    }
     public int getNParameters() {
         return nParameters;
     }

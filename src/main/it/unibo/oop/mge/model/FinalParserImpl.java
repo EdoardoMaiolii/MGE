@@ -71,7 +71,7 @@ public class FinalParserImpl implements FinalParser{
 				}	
 			}
 			checkError(fstring.substring(0, k-1));
-			return AlgebricFunctionFactory.getMathFunction(MathFunctions.valueOf(fstring.substring(0, k-1)), 
+			return AlgebricFunctionFactory.getMathFunction(MathFunctions.getMathFunctionFromSyntax(fstring.substring(0, k-1)), 
 					getParameters(fstring.substring(k-1)).stream().map(i->resolveFunction(i)).collect(Collectors.toList()));
 		}
 	}
