@@ -8,7 +8,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * make the sum.
      */
-    SUM(2, "+") {
+    SUM(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return parameters.get(0) + parameters.get(1);
@@ -17,7 +17,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * make the sub.
      */
-    SOT(2, "-") {
+    SOT(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return parameters.get(0) - parameters.get(1);
@@ -26,7 +26,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    MUL(2, "*") {
+    MUL(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return parameters.get(0) * parameters.get(1);
@@ -35,7 +35,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    DIV(2, "/") {
+    DIV(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return parameters.get(0) / parameters.get(1);
@@ -44,7 +44,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    POW(2, "pow") {
+    POW(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.pow(parameters.get(0), parameters.get(1));
@@ -53,7 +53,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    EXP(1, "exp") {
+    EXP(1) {
        @Override
        protected Double calculate(final List<Double> parameters) {
            return Math.exp(parameters.get(0));
@@ -62,7 +62,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    SQRT(1, "sqrt") {
+    SQRT(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.sqrt(parameters.get(0));
@@ -71,7 +71,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    LOG(2, "log") {
+    LOG(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.log(parameters.get(1)) / Math.log(parameters.get(0));
@@ -80,7 +80,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    LN(1, "ln") {
+    LN(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.log(parameters.get(0));
@@ -89,7 +89,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    RTN(2, "rtn") {
+    RTN(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.pow(parameters.get(1), 1 / parameters.get(0));
@@ -98,7 +98,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    ABS(1, "abs") {
+    ABS(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.abs(parameters.get(0));
@@ -107,7 +107,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    SIN(1, "sin") {
+    SIN(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.sin(parameters.get(0));
@@ -116,7 +116,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    COS(1, "cos") {
+    COS(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.cos(parameters.get(0));
@@ -125,7 +125,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    ACOS(1, "acos") {
+    ACOS(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.acos(parameters.get(0));
@@ -134,7 +134,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    ASIN(1, "asin") {
+    ASIN(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.asin(parameters.get(0));
@@ -143,7 +143,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    TAN(1, "tan") {
+    TAN(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.tan(parameters.get(0));
@@ -152,7 +152,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    ATAN(1, "atan") {
+    ATAN(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.atan(parameters.get(0));
@@ -161,7 +161,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    COSH(1, "cosh") {
+    COSH(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.cosh(parameters.get(0));
@@ -170,7 +170,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */ 
-    SINH(1, "sinh") {
+    SINH(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.sinh(parameters.get(0));
@@ -179,7 +179,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    TANH(1, "tanh") {
+    TANH(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.tanh(parameters.get(0));
@@ -188,7 +188,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    MAX(2, "max") {
+    MAX(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.max(parameters.get(0), parameters.get(1));
@@ -197,7 +197,7 @@ public enum MathFunctions implements MathEnum {
     /**
      * 
      */
-    MIN(2, "min") {
+    MIN(2) {
         @Override
         protected Double calculate(final List<Double> parameters) {
             return Math.min(parameters.get(0), parameters.get(1));
@@ -205,23 +205,17 @@ public enum MathFunctions implements MathEnum {
     };
 
     private final int nParameters;
-    private final String mylabel;
 
-    MathFunctions(final int nPar, final String label) {
+    MathFunctions(final int nPar) {
         this.nParameters = nPar;
-        this.mylabel = label;
     }
 
-    private static List<String> getListFromEnum(final Function<MathFunctions, String> function) {
-        return Arrays.asList(values()).stream().map(i -> function.apply(i)).collect(Collectors.toList());
-    }
-
-    public static List<String> names() {
-        return getListFromEnum(i -> i.getLabel());
+    public static List<String> getListFromEnum() {
+        return Arrays.asList(values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList());
     }
 
     public static boolean contains(final String name) {
-        return  getListFromEnum(i -> i.getSyntax()).contains(name);
+        return  getListFromEnum().contains(name);
     }
 
     public int getNParameters() {
@@ -229,12 +223,9 @@ public enum MathFunctions implements MathEnum {
     }
 
     public String getSyntax() {
-        return this.name();
+        return this.name().toLowerCase();
     }
 
-    public String getLabel() {
-        return this.mylabel;
-    }
     public Double resolve(final List<Double> list) {
         return calculate(list);
     }

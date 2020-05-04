@@ -57,16 +57,12 @@ public enum Constants implements MathEnum {
 
     private final Double value;
 
-    private static List<String> getListFromEnum(final Function<Constants, String> function) {
-        return Arrays.asList(values()).stream().map(i -> function.apply(i)).collect(Collectors.toList());
-    }
-
-    public static List<String> names() {
-        return getListFromEnum(i -> i.getLabel());
+    public static List<String> getListFromEnum() {
+        return Arrays.asList(values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList());
     }
 
     public static boolean contains(final String name) {
-        return  getListFromEnum(i -> i.getSyntax()).contains(name);
+        return  getListFromEnum().contains(name);
     }
 
     Constants(final Double value) {
@@ -79,11 +75,6 @@ public enum Constants implements MathEnum {
 
     @Override
     public String getSyntax() {
-        return getLabel();
-    }
-
-    @Override
-    public String getLabel() {
         return this.name().toLowerCase();
     }
 };
