@@ -28,6 +28,6 @@ public interface MeshRenderer {
      * @return a new MeshRenderer
      */
     static MeshRenderer fromMesh(final Mesh mesh) {
-        return new RenderableMeshImpl(mesh);
+        return new MeshRendererImpl(mesh);
     }
 }

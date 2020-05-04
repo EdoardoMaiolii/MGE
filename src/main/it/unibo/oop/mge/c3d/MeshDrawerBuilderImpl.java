@@ -1,5 +1,6 @@
 package it.unibo.oop.mge.c3d;
 
+import java.util.Collection;
 import java.util.List;
 
 import com.google.common.collect.ImmutableList;
@@ -45,6 +46,12 @@ public class MeshDrawerBuilderImpl implements MeshDrawerBuilder {
     @Override
     public final MeshDrawer build() {
         return new MeshDrawerImpl(this.meshes, this.rotationXY, this.rotationXY, this.translation);
+    }
+
+    @Override
+    public final MeshDrawerBuilder addAll(final Collection<Mesh> meshes) {
+        return new MeshDrawerBuilderImpl(new ImmutableList.Builder<Mesh>().addAll(this.meshes).addAll(meshes).build(),
+                this.rotationXY, this.rotationYZ, this.translation);
     }
 
 }

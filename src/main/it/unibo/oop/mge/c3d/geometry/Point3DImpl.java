@@ -4,16 +4,16 @@ import java.util.function.Function;
 
 public class Point3DImpl implements Point3D {
 
+    private final double x;
+    private final double y;
+    private final double z;
+
     @Override
     public final String toString() {
         return "Point3DImpl [x=" + x + ", y=" + y + ", z=" + z + "]";
     }
 
-    private final double x;
-    private final double y;
-    private final double z;
-
-    // packace protected
+    // package protected
     Point3DImpl(final double x, final double y, final double z) {
         this.x = x;
         this.y = y;

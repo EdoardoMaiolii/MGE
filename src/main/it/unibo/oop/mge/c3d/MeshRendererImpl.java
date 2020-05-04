@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 import it.unibo.oop.mge.c3d.geometry.Segment2D;
 
-public class RenderableMeshImpl implements MeshRenderer {
+public class MeshRendererImpl implements MeshRenderer {
 
     private final Mesh mesh;
 
@@ -18,7 +18,7 @@ public class RenderableMeshImpl implements MeshRenderer {
                 .collect(Collectors.toList());
     }
 
-    RenderableMeshImpl(final Mesh mesh) {
+    MeshRendererImpl(final Mesh mesh) {
         this.mesh = mesh;
     }
 
