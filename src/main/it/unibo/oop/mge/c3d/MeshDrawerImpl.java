@@ -13,51 +13,27 @@ public class MeshDrawerImpl implements MeshDrawer {
     private final double rotationYZ;
     private final Point3D translation;
     private static double targetMeshScale = 100;
-    private static Point2D pointOfView = Point2D.fromDoubles(0, -targetMeshScale);
+    private static Point2D pointOfView = Point2D.fromDoubles(0, -2 * targetMeshScale);
 
     MeshDrawerImpl(final List<Mesh> meshes, final double rotationXY, final double rotationYZ,
             final Point3D translation) {
         super();
-        this.meshes = meshes.stream().map(this::transformMesh).collect(Collectors.toList());
+        final double scale = meshes.stream().mapToDouble(mesh -> mesh.getScale()).max().orElse(1);
+        this.meshes = meshes.stream().map((Mesh mesh) -> mesh.transformed(value -> value / scale * targetMeshScale))
+                .collect(Collectors.toList());
         this.rotationXY = rotationXY;
         this.rotationYZ = rotationYZ;
         this.translation = translation;
     }
 
-    private Mesh transformMesh(final Mesh mesh) {
-        final double currentScale = mesh.getScale();
-        return mesh.transformed(value -> value / currentScale * targetMeshScale)
-                .translated(Point3D.fromDoubles(0, targetMeshScale, 0));
-    }
-
     @Override
     public final Mesh2D render() {
-
-        return Mesh2D
-                .of(this.meshes.stream().map(MeshRenderer::fromMesh).flatMap(el -> el.render(new RenderParameters() {
-
-                    @Override
-                    public double rotationXY() {
-                        return MeshDrawerImpl.this.rotationXY;
-                    }
-
-                    @Override
-                    public double rotationYZ() {
-                        return MeshDrawerImpl.this.rotationYZ;
-                    }
-
-                    @Override
-                    public Point3D translation() {
-                        return MeshDrawerImpl.this.translation;
-                    }
-
-                    @Override
-                    public Point2D pointOfView() {
-                        return MeshDrawerImpl.pointOfView;
-                    }
-
-                }).stream()).map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
-                        .collect(Collectors.toList()));
+        return Mesh2D.of(this.meshes.stream().flatMap(mesh -> mesh.getSegments().stream())
+                .map(seg -> seg.rotated(this.rotationXY, this.rotationYZ)).map(seg -> seg.translated(this.translation))
+                .map(seg -> Segment2D.fromPoints(Point3DRenderer.fromPoint(seg.getA()).render(pointOfView),
+                        Point3DRenderer.fromPoint(seg.getB()).render(pointOfView), seg.getColor()))
+                .map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
+                .collect(Collectors.toList()));
 
     }
 }

@@ -61,7 +61,8 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private static final int INNER_EAST_PANEL_COLUMNS = 2;
     private static final int INNER_SOUTH_PANEL_ROWS = 1;
     private static final int INNER_SOUTH_PANEL_COLUMNS = 4;
-    private static final int GRAPH_PANEL_SIZE = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
+    private static final int GRAPH_PANEL_SIZE = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()
+            / 2;
     private DrawGraphViewObserver observer;
     private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
     private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
@@ -94,15 +95,20 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         pWest.add(lRate, gbcWest);
         pWest.add(tRate, gbcWest);
         final JPanel pCenter = new JPanel(new BorderLayout());
-        final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromVariables(), this.inputButtons);
+        final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS,
+                GetLabelsFromEnum.getLabelFromVariables(), this.inputButtons);
         pInnerNorth.setBorder(new TitledBorder(INNER_NORTH_PANEL_NAME));
-        final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromMathFunctions(), this.inputButtons);
+        final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS,
+                GetLabelsFromEnum.getLabelFromMathFunctions(), this.inputButtons);
         pInnerWest.setBorder(new TitledBorder(INNER_WEST_PANEL_NAME));
-        final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromDigits(), this.inputButtons);
+        final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS,
+                GetLabelsFromEnum.getLabelFromDigits(), this.inputButtons);
         pInnerCenter.setBorder(new TitledBorder(INNER_CENTER_PANEL_NAME));
-        final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromConstants(), this.inputButtons);
+        final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS,
+                GetLabelsFromEnum.getLabelFromConstants(), this.inputButtons);
         pInnerEast.setBorder(new TitledBorder(INNER_EAST_PANEL_NAME));
-        final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS, GetLabelsFromEnum.getLabelFromPunctuation(), this.inputButtons);
+        final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS,
+                GetLabelsFromEnum.getLabelFromPunctuation(), this.inputButtons);
         pCenter.add(pInnerNorth, BorderLayout.NORTH);
         pCenter.add(pInnerWest, BorderLayout.WEST);
         pCenter.add(pInnerCenter, BorderLayout.CENTER);
@@ -177,8 +183,8 @@ public final class DrawGraphViewImpl implements DrawGraphView {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 try {
-                    observer.newGraph(tMathExpression.getText(), 
-                            Double.parseDouble(tMax.getText()), Double.parseDouble(tMin.getText()), Double.parseDouble(tRate.getText()));
+                    observer.newGraph(tMathExpression.getText(), Double.parseDouble(tMax.getText()),
+                            Double.parseDouble(tMin.getText()), Double.parseDouble(tRate.getText()));
                     graphFrame.pack();
                     graphFrame.setVisible(true);
                 } catch (NumberFormatException exception) {
@@ -274,7 +280,8 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         this.functionPanel.updateSegments(newSegments);
     }
 
-    private JPanel gridButtonsPanel(final int rows, final int cols, final List<String> labels, final Set<JButton> buttons) {
+    private JPanel gridButtonsPanel(final int rows, final int cols, final List<String> labels,
+            final Set<JButton> buttons) {
         final Iterator<String> labelsIterator = labels.iterator();
         final JPanel panel = new JPanel(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();

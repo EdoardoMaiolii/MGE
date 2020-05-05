@@ -45,7 +45,7 @@ public class MeshDrawerBuilderImpl implements MeshDrawerBuilder {
 
     @Override
     public final MeshDrawer build() {
-        return new MeshDrawerImpl(this.meshes, this.rotationXY, this.rotationXY, this.translation);
+        return new MeshDrawerImpl(this.meshes, this.rotationXY, this.rotationYZ, this.translation);
     }
 
     @Override
