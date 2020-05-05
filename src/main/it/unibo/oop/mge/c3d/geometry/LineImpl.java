@@ -1,9 +1,9 @@
 package it.unibo.oop.mge.c3d.geometry;
 
 public class LineImpl implements Line {
-    private double m;
-    private double q;
-    private double zero;
+    private final double m;
+    private final double q;
+    private final double zero;
 
     @Override
     public final double getM() {
