@@ -10,10 +10,12 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -39,8 +41,8 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private static final String LOAD = "LOAD";
     private static final String SAVE = "SAVE";
     private static final String PLOT = "PLOT";
-    private static final String ZOOM_IN = "+";
-    private static final String ZOOM_OUT = "-";
+    private static final String ZOOM_IN = "ZOOM IN";
+    private static final String ZOOM_OUT = "ZOOM OUT";
     private static final String UP = "UP";
     private static final String LEFT = "LEFT";
     private static final String RIGHT = "RIGHT";
@@ -48,7 +50,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private static final String INCREASE_XY = "INCREASE XY";
     private static final String DECREASE_XY = "DECREASE XY";
     private static final String INCREASE_YZ = "INCREASE YZ";
-    private static final String DECREASE_YZ = "DECREASE_YZ";
+    private static final String DECREASE_YZ = "DECREASE YZ";
     private static final int MATH_EXPRESSION_LENGTH = 70;
     private static final int SETTINGS_LENGTH = 20;
     private static final int INNER_NORTH_PANEL_ROWS = 1;
@@ -61,13 +63,14 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private static final int INNER_EAST_PANEL_COLUMNS = 2;
     private static final int INNER_SOUTH_PANEL_ROWS = 1;
     private static final int INNER_SOUTH_PANEL_COLUMNS = 4;
+    private static final int SOUTH_GRAPH_PANEL_ROWS = 2;
+    private static final int SOUTH_GRAPH_PANEL_COUMNS = 5;
     private static final int GRAPH_PANEL_SIZE = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()
             / 2;
     private DrawGraphViewObserver observer;
     private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
     private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
     private PlotFunctionPanel functionPanel;
-    private final Set<JButton> inputButtons = new HashSet<>();
 
     public DrawGraphViewImpl() {
         final JPanel pNorth = new JPanel(new FlowLayout());
@@ -95,20 +98,25 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         pWest.add(lRate, gbcWest);
         pWest.add(tRate, gbcWest);
         final JPanel pCenter = new JPanel(new BorderLayout());
+        final List<JButton> variableButtons = buttonsFromLabels(GetLabelsFromEnum.getLabelFromVariables());
         final JPanel pInnerNorth = this.gridButtonsPanel(INNER_NORTH_PANEL_ROWS, INNER_NORTH_PANEL_COLUMNS,
-                GetLabelsFromEnum.getLabelFromVariables(), this.inputButtons);
+                variableButtons);
         pInnerNorth.setBorder(new TitledBorder(INNER_NORTH_PANEL_NAME));
+        final List<JButton> mathFunctionButtons = buttonsFromLabels(GetLabelsFromEnum.getLabelFromMathFunctions());
         final JPanel pInnerWest = this.gridButtonsPanel(INNER_WEST_PANEL_ROWS, INNER_WEST_PANEL_COLUMNS,
-                GetLabelsFromEnum.getLabelFromMathFunctions(), this.inputButtons);
+                mathFunctionButtons);
         pInnerWest.setBorder(new TitledBorder(INNER_WEST_PANEL_NAME));
+        final List<JButton> digitButtons = buttonsFromLabels(GetLabelsFromEnum.getLabelFromDigits());
         final JPanel pInnerCenter = this.gridButtonsPanel(INNER_CENTER_PANEL_ROWS, INNER_CENTER_PANEL_COLUMNS,
-                GetLabelsFromEnum.getLabelFromDigits(), this.inputButtons);
+                digitButtons);
         pInnerCenter.setBorder(new TitledBorder(INNER_CENTER_PANEL_NAME));
+        final List<JButton> constantButtons = buttonsFromLabels(GetLabelsFromEnum.getLabelFromConstants());
         final JPanel pInnerEast = this.gridButtonsPanel(INNER_EAST_PANEL_ROWS, INNER_EAST_PANEL_COLUMNS,
-                GetLabelsFromEnum.getLabelFromConstants(), this.inputButtons);
+                constantButtons);
         pInnerEast.setBorder(new TitledBorder(INNER_EAST_PANEL_NAME));
+        final List<JButton> punctuationButtons = buttonsFromLabels(GetLabelsFromEnum.getLabelFromPunctuation());
         final JPanel pInnerSouth = this.gridButtonsPanel(INNER_SOUTH_PANEL_ROWS, INNER_SOUTH_PANEL_COLUMNS,
-                GetLabelsFromEnum.getLabelFromPunctuation(), this.inputButtons);
+                punctuationButtons);
         pCenter.add(pInnerNorth, BorderLayout.NORTH);
         pCenter.add(pInnerWest, BorderLayout.WEST);
         pCenter.add(pInnerCenter, BorderLayout.CENTER);
@@ -124,27 +132,19 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         pSouth.add(bLoad);
         pSouth.add(bSave);
         pSouth.add(bPlot);
-        final JPanel pSouthGraph = new JPanel(new FlowLayout());
         final JButton bZoomIn = new JButton(ZOOM_IN);
         final JButton bZoomOut = new JButton(ZOOM_OUT);
+        final JButton bDown = new JButton(DOWN);
         final JButton bUp = new JButton(UP);
         final JButton bLeft = new JButton(LEFT);
         final JButton bRight = new JButton(RIGHT);
-        final JButton bDown = new JButton(DOWN);
         final JButton bIncreaseXY = new JButton(INCREASE_XY);
         final JButton bDecreaseXY = new JButton(DECREASE_XY);
         final JButton bIncreaseYZ = new JButton(INCREASE_YZ);
         final JButton bDecreaseYZ = new JButton(DECREASE_YZ);
-        pSouthGraph.add(bZoomIn);
-        pSouthGraph.add(bZoomOut);
-        pSouthGraph.add(bUp);
-        pSouthGraph.add(bLeft);
-        pSouthGraph.add(bRight);
-        pSouthGraph.add(bDown);
-        pSouthGraph.add(bIncreaseXY);
-        pSouthGraph.add(bDecreaseXY);
-        pSouthGraph.add(bIncreaseYZ);
-        pSouthGraph.add(bDecreaseYZ);
+        final JPanel pSouthGraph = this.gridButtonsPanel(SOUTH_GRAPH_PANEL_ROWS, SOUTH_GRAPH_PANEL_COUMNS,
+                Arrays.asList(bZoomIn, bZoomOut, bUp, bDown, bLeft, bRight, bIncreaseXY, bDecreaseXY, bIncreaseYZ,
+                        bDecreaseYZ));
         this.inputFrame.getMainPanel().add(pNorth, BorderLayout.NORTH);
         this.inputFrame.getMainPanel().add(pWest, BorderLayout.WEST);
         this.inputFrame.getMainPanel().add(pCenter, BorderLayout.CENTER);
@@ -153,7 +153,9 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         this.graphFrame.getMainPanel().add(pSouthGraph, BorderLayout.SOUTH);
         this.inputFrame.pack();
         this.graphFrame.pack();
-        for (final JButton jb : this.inputButtons) {
+        for (final JButton jb : Stream
+                .of(variableButtons, mathFunctionButtons, digitButtons, constantButtons, punctuationButtons)
+                .flatMap(Collection::stream).collect(Collectors.toList())) {
             jb.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
@@ -280,9 +282,12 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         this.functionPanel.updateSegments(newSegments);
     }
 
-    private JPanel gridButtonsPanel(final int rows, final int cols, final List<String> labels,
-            final Set<JButton> buttons) {
-        final Iterator<String> labelsIterator = labels.iterator();
+    private List<JButton> buttonsFromLabels(final List<String> labels) {
+        return labels.stream().map(lb -> new JButton(lb)).collect(Collectors.toList());
+    }
+
+    private JPanel gridButtonsPanel(final int rows, final int cols, final List<JButton> buttons) {
+        final Iterator<JButton> buttonsIterator = buttons.iterator();
         final JPanel panel = new JPanel(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -290,12 +295,10 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (labelsIterator.hasNext()) {
-                    final JButton jb = new JButton(labelsIterator.next());
+                if (buttonsIterator.hasNext()) {
                     gbc.gridx = j;
                     gbc.gridy = i;
-                    panel.add(jb, gbc);
-                    buttons.add(jb);
+                    panel.add(buttonsIterator.next(), gbc);
                 } else {
                     break;
                 }
