@@ -20,7 +20,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     private Double rate;
     private Pair<Double, Double> interval;
     private List<Character> variables = new ArrayList<>();
-    private Integer decimalPrecision;
+    private final static Integer decimalPrecision = 5;
     private List<PointND> points = new ArrayList<>();
 
     protected FunctionFeaturesImpl(final AlgebricFunctionImpl<?> function, final Pair<Double, Double> interval,
@@ -29,7 +29,6 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         this.interval = interval;
         this.rate = rate;
         this.variables = getParameters(function);
-        this.decimalPrecision = getDecimalPrecision(rate);
         this.points = calculatePoints(variables.size(), interval);
     }
 
@@ -53,15 +52,6 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
             function.getParameters().get().forEach(i -> variables.addAll(getParameters(i)));
         }
         return variables.stream().distinct().collect(Collectors.toList());
-    }
-
-    private Integer getDecimalPrecision(final Double value) {
-        var string = String.valueOf(value);
-        if (string.indexOf('.') == -1) {
-            return 0;
-        } else {
-            return (string.length() - 1) - string.indexOf('.');
-        }
     }
 
     private Stream<Segment3D> getRealSegmentList(final List<PointND> points,
