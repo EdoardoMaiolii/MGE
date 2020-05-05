@@ -133,11 +133,23 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     public final List<Segment3D> getPoligonalAxis() {
         Segment3D axisX = Segment3D.fromPoints(Point3D.fromDoubles(interval.getFst(), 0, 0),
                 Point3D.fromDoubles(interval.getSnd(), 0, 0), Color.GREEN);
-        Segment3D axisY = Segment3D.fromPoints(Point3D.fromDoubles(0, interval.getFst(), 0),
-                Point3D.fromDoubles(0, interval.getSnd(), 0), Color.ORANGE);
-        Segment3D axisZ = Segment3D.fromPoints(Point3D.fromDoubles(0, 0, this.getAbsoluteMin().getCoordinates().get(2)), 
-                Point3D.fromDoubles(0, 0, this.getAbsoluteMax().getCoordinates().get(2)),
-                Color.BLUE);
-        return List.of(axisX, axisY, axisZ);
+        switch (variables.size()) {
+        case 1: {
+            Segment3D axisY = Segment3D.fromPoints(
+                    Point3D.fromDoubles(0, this.getAbsoluteMin().getCoordinates().get(1), 0),
+                    Point3D.fromDoubles(0, this.getAbsoluteMax().getCoordinates().get(1), 0), Color.ORANGE);
+            return List.of(axisX, axisY);
+        }
+        case 2: {
+            Segment3D axisY = Segment3D.fromPoints(Point3D.fromDoubles(0, interval.getFst(), 0),
+                    Point3D.fromDoubles(0, interval.getSnd(), 0), Color.ORANGE);
+            Segment3D axisZ = Segment3D.fromPoints(
+                    Point3D.fromDoubles(0, 0, this.getAbsoluteMin().getCoordinates().get(2)),
+                    Point3D.fromDoubles(0, 0, this.getAbsoluteMax().getCoordinates().get(2)), Color.BLUE);
+            return List.of(axisX, axisY, axisZ);
+        }
+        default:
+            return null;
+        }
     }
 }
