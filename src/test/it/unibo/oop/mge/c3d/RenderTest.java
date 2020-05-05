@@ -46,7 +46,7 @@ public class RenderTest extends Canvas {
 //
 //        visualizer.setTranslation(Point3D.fromDoubles(80, 50, -30));
 //        final var output = visualizer.render();
-        var output = MeshDrawerBuilder.create().add(Mesh.fromSegments(set))
+        var output = MeshDrawerBuilder.create().add(Mesh.fromSegments(set)).rotationXY(.1).rotationYZ(.2)
                 .translation(Point3D.fromDoubles(0, 0, -30)).build().render().getSegments();
 
         final RenderTest dr = new RenderTest(output);

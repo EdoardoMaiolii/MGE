@@ -79,28 +79,28 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     @Override
     public final void moveUp() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, -10));
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, 10));
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void moveLeft() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(10, 0, 0));
-        this.refreshVisualizer();
-
-    }
-
-    @Override
-    public final void moveRight() {
         this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(-10, 0, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
+    public final void moveRight() {
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(10, 0, 0));
+        this.refreshVisualizer();
+
+    }
+
+    @Override
     public final void moveDown() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, 10));
+        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, -10));
         this.refreshVisualizer();
     }
 
