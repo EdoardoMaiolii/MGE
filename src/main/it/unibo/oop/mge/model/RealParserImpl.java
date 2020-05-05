@@ -10,7 +10,6 @@ import it.unibo.oop.mge.libraries.Pair;
 
 
 public class RealParserImpl implements RealParser{
-	boolean status=false;
 	private List<Character> op1 = Arrays.asList( '*', '/');
 	private List<Character> op2 = Arrays.asList('+', '-');
 	private String fstring,currentString;
@@ -63,41 +62,73 @@ public class RealParserImpl implements RealParser{
 	}
 	
 	
-	private boolean check_brutale(String currentString) { //caso stringa 9 nella somma si deve fermare al 2
+	private boolean check_brutaleLeft(String currentString) { //caso stringa 9 nella somma si deve fermare al 2
 		final Pair<Integer,Integer> numBrackets =BracketsUtility.countBrackets(currentString);
 		if(numBrackets.getFst()==numBrackets.getSnd()+1)
 			return true;
 		else return false;
-	} 
+	}
 	
+	private boolean check_brutaleRight(String currentString) { //caso stringa 9 nella somma si deve fermare al 2
+	                final Pair<Integer,Integer> numBrackets =BracketsUtility.countBrackets(currentString);
+	                if(numBrackets.getFst()+1==numBrackets.getSnd())
+	                        return true;
+	                else return false;
+	        } 
 	private boolean leftCond(int k,int posOp) {
 		currentString=fstring.substring(k, posOp);
 
-		if(check_brutale(currentString)) {
+		if(check_brutaleLeft(currentString)) {
 			return false;
 		}
 		else if(BracketsUtility.checkBrackets(currentString) && opMap.containsKey(fstring.charAt(k))) {
 			return false;
 		}
+                else if(fstring.charAt(k) ==  ',' && BracketsUtility.checkBrackets(currentString)) {
+                    return false;
+                }
 		else return true;
 	}
 	
 	private boolean rightCond(int k,int posOp) {
 		currentString=fstring.substring(posOp, k);
-
-		if(status && (fstring.charAt(k)=='(' || fstring.charAt(k)==')')) {
-			return false;
+		if(check_brutaleRight(currentString)) {
+		    return false;
 		}
 		else if(BracketsUtility.checkBrackets(currentString) && opMap.containsKey(fstring.charAt(k))) {
 			return false;
 		}
-		else if(opMap.containsKey(fstring.charAt(k))) {
+		else if(opMap.containsKey(fstring.charAt(k)) && BracketsUtility.checkBrackets(currentString)) {
 			return false;
+		}
+		else if(fstring.charAt(k) ==  ',' && BracketsUtility.checkBrackets(currentString)) {
+		    return false;
 		}
 		else return true;
 	}
+	private boolean checkMinus(Character ch,int posOp) { // func that add 0 if there is a minus in start of func or before bracket
+	    if(ch == '-') {
+	        if(posOp == 0){
+	                fstring = '0' + fstring;
+	                return true;
+	        }
+	        else if(fstring.charAt(posOp - 1) == '(') {
+	            fstring = fstring.substring(0, posOp) + '0' +fstring.substring(posOp);
+	            return true;
+	        }
+	        else {
+	            return false;
+	        }
+	    }
+	    else {
+	        return false;
+	    }
+	}
 
 	private void subOpMul(Character ch,int posOp) { //migliorare il programma con currentString
+	        if(checkMinus(ch,posOp)) {
+	            posOp++;
+	        }
 		int k=posOp-1;
 		String opType=opMap.get(ch).getSyntax();
 		String fParam,sParam,fStr = "",sStr = "";
@@ -107,7 +138,6 @@ public class RealParserImpl implements RealParser{
 		}
 		if(k==-1 && fstring.charAt(k+1)=='(') fParam=fstring.substring(k+2,posOp);
 		else fParam=fstring.substring(k+1, posOp);
-		status=false;
 		
  		if(k>=0) fStr=fstring.substring(0, k+1); // quello che c'era prima del primo parametro
 		k=posOp+1;
@@ -117,7 +147,6 @@ public class RealParserImpl implements RealParser{
 			k++;
 		if(fstring.charAt(k-1)==')') sParam=fstring.substring(posOp+1,k);
 		else sParam=fstring.substring(posOp+1, k);
-		status=false;
 		
 		if(k<=fstring.length()) sStr=fstring.substring(k, fstring.length()); //quello che c'e' dopo il secondo param
 		fstring=fStr+newStr(opType,fParam,sParam);

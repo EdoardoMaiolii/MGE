@@ -11,6 +11,7 @@ import it.unibo.oop.mge.libraries.MathFunctions;
 import it.unibo.oop.mge.libraries.Pair;
 
 public class FinalParserImpl implements FinalParser{
+    private static boolean isfloat = false;
 
 	private List<String> getParameters(String str){
 		int lastVirgola=0;
@@ -44,9 +45,14 @@ public class FinalParserImpl implements FinalParser{
 			throw new MathFunctionException();
 	}
 	*/
+	private void isFloat(String fstring) {
+	    if(fstring.chars().filter(i -> i == '.').count() == 1) {
+	        isfloat = true;
+	    }
+	}
 	private void checkError(String fstring) {
 		int k=0;
-		while(fstring.length()>k && Character.isDigit(fstring.charAt(k))) {
+		while(fstring.length()>k && (Character.isDigit(fstring.charAt(k)) || isfloat)) {
 			k++;
 		}
 		if(fstring.length()!=k && !MathFunctions.contains(fstring)) 
@@ -57,6 +63,7 @@ public class FinalParserImpl implements FinalParser{
 		int k=0;
 		if(Character.isDigit(fstring.charAt(k))) {
 			//checkAllDigits(fstring);
+		        isFloat(fstring);
 			checkError(fstring);
 			return AlgebricFunctionFactory.getValueFunction(Double.valueOf(fstring));
 		}
@@ -64,7 +71,7 @@ public class FinalParserImpl implements FinalParser{
 			while(fstring.charAt(k++)!='(') {//caso parametro singolo
 				if(fstring.length()==k) {
 					if(Constants.contains(fstring))
-						return AlgebricFunctionFactory.getConstantFunction(Constants.valueOf(fstring));
+						return AlgebricFunctionFactory.getConstantFunction(Constants.getMathFunctionFromSyntax(fstring));
 					if(fstring.length()==1)
 						return AlgebricFunctionFactory.getParameterFunction(fstring.charAt(0));
 					else checkError(fstring);

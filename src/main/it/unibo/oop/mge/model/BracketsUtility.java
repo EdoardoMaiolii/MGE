@@ -1,9 +1,9 @@
 package it.unibo.oop.mge.model;
 import it.unibo.oop.mge.libraries.Pair;
 
-public class BracketsUtility {
+public final class BracketsUtility {
 
-	private BracketsUtility() {}
+	private BracketsUtility() { }
 	
 	private static int countCharacter(final String str, final Character c) {
 		return (int) str.chars().mapToObj(i->(char) i).filter(i->i.equals(c)).count();
