@@ -24,6 +24,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
+import com.formdev.flatlaf.FlatIntelliJLaf;
+
 public final class DrawGraphViewImpl implements DrawGraphView {
     private static final String INPUT_FRAME_NAME = "Mathematical Graphic Engine";
     private static final String GRAPH_FRAME_NAME = "Graph";
@@ -73,6 +75,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private PlotFunctionPanel functionPanel;
 
     public DrawGraphViewImpl() {
+        FlatIntelliJLaf.install();
         final JPanel pNorth = new JPanel(new FlowLayout());
         final JLabel lMathExpression = new JLabel(MATH_EXPRESSION_NAME);
         final JTextField tMathExpression = new JTextField(MATH_EXPRESSION_LENGTH);
