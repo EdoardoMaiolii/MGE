@@ -9,9 +9,12 @@ import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.libraries.Pair;
 import it.unibo.oop.mge.model.DrawGraph;
 import it.unibo.oop.mge.model.DrawGraphImpl;
-import it.unibo.oop.mge.model.FunctionFeaturesBuilder;
+import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
 import it.unibo.oop.mge.model.FunctionFeaturesImpl;
 import it.unibo.oop.mge.model.FunctionParser;
+import it.unibo.oop.mge.optionalColor.OptionalColor;
+import it.unibo.oop.mge.optionalColor.OptionalColorBuilder;
+import it.unibo.oop.mge.optionalColor.OptionalColorBuilderImpl;
 import it.unibo.oop.mge.view.DrawGraphView;
 import it.unibo.oop.mge.view.DrawGraphViewImpl;
 
@@ -34,8 +37,10 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     @Override
     public final void newGraph(final String function, final double max, final double min, final double rate) {
-        FunctionFeaturesImpl ff = new FunctionFeaturesBuilder().setFunction(FunctionParser.parse(function))
-                .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).build();
+        var c = new OptionalColorBuilderImpl().setBlue(103).setGreen(99).build();
+        FunctionFeaturesImpl ff = new FunctionFeaturesBuilderImpl().setFunction(FunctionParser.parse(function))
+                .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).setDinamicColor(c)
+                .setDecimalPrecision(5).build();
         this.visualizerMeshes.add(Mesh.fromSegments(ff.getPolygonalModel()));
         this.visualizerMeshes.add(Mesh.fromSegments(ff.getPoligonalAxis()));
         this.view.plotGraph(MeshDrawerBuilder.create().addAll(visualizerMeshes).translation(visualizerTranslation)

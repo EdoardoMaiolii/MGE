@@ -9,22 +9,22 @@ public interface FunctionFeatures {
      * 
      * @return get the points belong to the domain
      */
-    List<PointND> getPointsInDomain();
+    List<PointND> getRealPoints();
     /**
      * 
      * @return get the points that not belong to the domain
      */
-    List<PointND> getPointsOutOfDomain();
+    List<PointND> getImmaginaryPoints();
     /**
      * 
      * @return get the Absolute Max of the function in the interval
      */
-    PointND getAbsoluteMax();
+    PointND getPointOfAbsoluteMax();
     /**
      * 
      * @return get the Absolute Min of the function in the interval
      */
-    PointND getAbsoluteMin();
+    PointND getPointOfAbsoluteMin();
     /**
      * 
      * @return get the Poligonal Model of the Function in the interval
