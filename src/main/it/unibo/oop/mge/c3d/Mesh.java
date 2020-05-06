@@ -9,6 +9,27 @@ import it.unibo.oop.mge.c3d.geometry.Segment3D;
 public interface Mesh {
     /**
      * 
+     * @param segments the list of segments to generate the mesh from
+     * @return a new mesh with the provided segments
+     */
+    static Mesh fromSegments(final List<Segment3D> segments) {
+        return new MeshImpl(segments);
+    }
+
+    /**
+     * 
+     * @return the scale of the mesh
+     */
+    double getScale();
+
+    /**
+     * 
+     * @return the list of segments
+     */
+    List<Segment3D> getSegments();
+
+    /**
+     * 
      * @param transformation the transformation to apply to each point
      * @return a new mesh, with the transformation applied
      */
@@ -20,26 +41,5 @@ public interface Mesh {
      * @return a new mesh, with the vector applied
      */
     Mesh translated(Point3D vector);
-
-    /**
-     * 
-     * @return the list of segments
-     */
-    List<Segment3D> getSegments();
-
-    /**
-     * 
-     * @return the scale of the mesh
-     */
-    double getScale();
-
-    /**
-     * 
-     * @param segments the list of segments to generate the mesh from
-     * @return a new mesh with the provided segments
-     */
-    static Mesh fromSegments(final List<Segment3D> segments) {
-        return new MeshImpl(segments);
-    }
 
 }

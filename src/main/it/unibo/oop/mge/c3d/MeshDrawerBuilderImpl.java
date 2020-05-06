@@ -29,6 +29,17 @@ public class MeshDrawerBuilderImpl implements MeshDrawerBuilder {
     }
 
     @Override
+    public final MeshDrawerBuilder addAll(final Collection<Mesh> meshes) {
+        return new MeshDrawerBuilderImpl(new ImmutableList.Builder<Mesh>().addAll(this.meshes).addAll(meshes).build(),
+                this.rotationXY, this.rotationYZ, this.translation);
+    }
+
+    @Override
+    public final MeshDrawer build() {
+        return new MeshDrawerImpl(this.meshes, this.rotationXY, this.rotationYZ, this.translation);
+    }
+
+    @Override
     public final MeshDrawerBuilder rotationXY(final double rotationXY) {
         return new MeshDrawerBuilderImpl(this.meshes, rotationXY, this.rotationYZ, this.translation);
     }
@@ -41,17 +52,6 @@ public class MeshDrawerBuilderImpl implements MeshDrawerBuilder {
     @Override
     public final MeshDrawerBuilder translation(final Point3D translation) {
         return new MeshDrawerBuilderImpl(this.meshes, this.rotationXY, this.rotationYZ, translation);
-    }
-
-    @Override
-    public final MeshDrawer build() {
-        return new MeshDrawerImpl(this.meshes, this.rotationXY, this.rotationYZ, this.translation);
-    }
-
-    @Override
-    public final MeshDrawerBuilder addAll(final Collection<Mesh> meshes) {
-        return new MeshDrawerBuilderImpl(new ImmutableList.Builder<Mesh>().addAll(this.meshes).addAll(meshes).build(),
-                this.rotationXY, this.rotationYZ, this.translation);
     }
 
 }

@@ -6,9 +6,13 @@ import it.unibo.oop.mge.c3d.geometry.Point3D;
 
 public class Point3DRendererImpl implements Point3DRenderer {
 
+    private static final Point2D FOCAL_POINT = Point2D.origin();
+
     private final Point3D point;
 
-    private static final Point2D FOCAL_POINT = Point2D.origin();
+    Point3DRendererImpl(final Point3D point) {
+        this.point = point;
+    }
 
     @Override
     public final Point2D render(final Point2D pointOfView) {
@@ -24,10 +28,6 @@ public class Point3DRendererImpl implements Point3DRenderer {
             finalY = heightLine.solveFor(finalX);
         }
         return Point2D.fromDoubles(finalX, finalY);
-    }
-
-    Point3DRendererImpl(final Point3D point) {
-        this.point = point;
     }
 
 }

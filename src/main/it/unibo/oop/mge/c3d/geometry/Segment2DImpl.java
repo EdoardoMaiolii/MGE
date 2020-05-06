@@ -8,19 +8,8 @@ public class Segment2DImpl implements Segment2D {
     private final Point2D b;
     private final Color color;
 
-    @Override
-    public final Point2D getA() {
-        return a;
-    }
-
-    @Override
-    public final String toString() {
-        return "Segment2DImpl [a=" + a + ", b=" + b + "]";
-    }
-
-    @Override
-    public final Point2D getB() {
-        return b;
+    Segment2DImpl(final Point2D a, final Point2D b) {
+        this(a, b, Color.black);
     }
 
     // package protected
@@ -29,31 +18,6 @@ public class Segment2DImpl implements Segment2D {
         this.a = a;
         this.b = b;
         this.color = color;
-    }
-
-    Segment2DImpl(final Point2D a, final Point2D b) {
-        this(a, b, Color.black);
-    }
-
-    @Override
-    public final Color getColor() {
-        return this.color;
-    }
-
-    @Override
-    public final Segment2D transformed(final Function<Double, Double> transformation) {
-        return new Segment2DImpl(this.a.transformed(transformation), this.b.transformed(transformation),
-                this.getColor());
-    }
-
-    @Override
-    public final int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((a == null) ? 0 : a.hashCode());
-        result = prime * result + ((b == null) ? 0 : b.hashCode());
-        result = prime * result + ((color == null) ? 0 : color.hashCode());
-        return result;
     }
 
     @Override
@@ -90,5 +54,41 @@ public class Segment2DImpl implements Segment2D {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public final Point2D getA() {
+        return a;
+    }
+
+    @Override
+    public final Point2D getB() {
+        return b;
+    }
+
+    @Override
+    public final Color getColor() {
+        return this.color;
+    }
+
+    @Override
+    public final int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((a == null) ? 0 : a.hashCode());
+        result = prime * result + ((b == null) ? 0 : b.hashCode());
+        result = prime * result + ((color == null) ? 0 : color.hashCode());
+        return result;
+    }
+
+    @Override
+    public final String toString() {
+        return "Segment2DImpl [a=" + a + ", b=" + b + "]";
+    }
+
+    @Override
+    public final Segment2D transformed(final Function<Double, Double> transformation) {
+        return new Segment2DImpl(this.a.transformed(transformation), this.b.transformed(transformation),
+                this.getColor());
     }
 }

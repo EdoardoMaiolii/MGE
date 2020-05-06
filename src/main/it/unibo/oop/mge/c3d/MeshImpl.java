@@ -24,6 +24,11 @@ public class MeshImpl implements Mesh {
     }
 
     @Override
+    public final List<Segment3D> getSegments() {
+        return this.segments;
+    }
+
+    @Override
     public final String toString() {
         return "MeshImpl [segments=" + segments + "]";
     }
@@ -38,10 +43,5 @@ public class MeshImpl implements Mesh {
     public final Mesh translated(final Point3D vector) {
         return new MeshImpl(this.segments.stream()
                 .map(seg -> seg.translated(vector.getX(), vector.getY(), vector.getZ())).collect(Collectors.toList()));
-    }
-
-    @Override
-    public final List<Segment3D> getSegments() {
-        return this.segments;
     }
 }

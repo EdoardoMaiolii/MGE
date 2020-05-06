@@ -5,6 +5,25 @@ import java.util.function.Function;
 public interface Point3D {
     /**
      * 
+     * @param x the x component
+     * @param y the y component
+     * @param z the z component
+     * @return a new Point3D
+     */
+    static Point3D fromDoubles(final double x, final double y, final double z) {
+        return new Point3DImpl(x, y, z);
+    }
+
+    /**
+     * 
+     * @return a new Point3D, with each component set as zero
+     */
+    static Point3D origin() {
+        return new Point3DImpl(0, 0, 0);
+    }
+
+    /**
+     * 
      * @return the value of the X component
      */
     double getX();
@@ -31,6 +50,13 @@ public interface Point3D {
 
     /**
      * 
+     * @param transformation the transformation to apply to each component
+     * @return a new Point3D, with the transformation applied
+     */
+    Point3D transformed(Function<Double, Double> transformation);
+
+    /**
+     * 
      * @param x the translation in the x axis
      * @param y the translation in the y axis
      * @param z the translation in the z axis
@@ -44,31 +70,5 @@ public interface Point3D {
      * @return a new Point3D, with the transformation applied
      */
     Point3D translated(Point3D vector);
-
-    /**
-     * 
-     * @param transformation the transformation to apply to each component
-     * @return a new Point3D, with the transformation applied
-     */
-    Point3D transformed(Function<Double, Double> transformation);
-
-    /**
-     * 
-     * @return a new Point3D, with each component set as zero
-     */
-    static Point3D origin() {
-        return new Point3DImpl(0, 0, 0);
-    }
-
-    /**
-     * 
-     * @param x the x component
-     * @param y the y component
-     * @param z the z component
-     * @return a new Point3D
-     */
-    static Point3D fromDoubles(final double x, final double y, final double z) {
-        return new Point3DImpl(x, y, z);
-    }
 
 }
