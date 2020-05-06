@@ -32,7 +32,7 @@ class MeshWriterTest {
     void test() throws IOException {
 
         MeshWriter writer = MeshWriter.fromMesh(mesh);
-        writer.write("C:\\users\\lorib\\desktop\\test.yml");
+        writer.write("C:\\users\\eliau\\desktop\\test.yml");
     }
 
     @Test

@@ -12,9 +12,7 @@ public interface DrawGraphView {
 
     void plotGraph(List<Segment2D> segments);
 
-    void updateGraph(List<Segment2D> newSegments);
-
     void expressionIncorrect();
 
-    void IOError();
+    void ioError();
 }

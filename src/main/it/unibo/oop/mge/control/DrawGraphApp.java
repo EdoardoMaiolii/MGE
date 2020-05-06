@@ -14,6 +14,7 @@ import it.unibo.oop.mge.libraries.Pair;
 import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
 import it.unibo.oop.mge.model.FunctionFeaturesImpl;
 import it.unibo.oop.mge.model.FunctionParser;
+import it.unibo.oop.mge.optionalColor.OptionalColor;
 import it.unibo.oop.mge.optionalColor.OptionalColorBuilderImpl;
 import it.unibo.oop.mge.view.DrawGraphView;
 import it.unibo.oop.mge.view.DrawGraphViewImpl;
@@ -35,18 +36,20 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     @Override
     public final void newGraph(final String function, final double max, final double min, final double rate) {
+        boolean creationSuccess = false;
         try {
-            FunctionParser.parse(function);
-            var c = new OptionalColorBuilderImpl().setBlue(103).setGreen(99).build();
-            FunctionFeaturesImpl ff = new FunctionFeaturesBuilderImpl().setFunction(FunctionParser.parse(function))
-                    .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).setDinamicColor(c)
+            OptionalColor color = new OptionalColorBuilderImpl().setBlue(103).setGreen(99).build();
+            FunctionFeaturesImpl functionFeature = new FunctionFeaturesBuilderImpl().setFunction(FunctionParser.parse(function))
+                    .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).setDinamicColor(color)
                     .setDecimalPrecision(5).build();
-            this.visualizerMeshes.add(Mesh.fromSegments(ff.getPolygonalModel()));
-            this.visualizerMeshes.add(Mesh.fromSegments(ff.getPoligonalAxis()));
-            this.view.plotGraph(MeshDrawerBuilder.create().addAll(visualizerMeshes).translation(visualizerTranslation)
-                    .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
+            this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPolygonalModel()));
+            this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPoligonalAxis()));
+            creationSuccess = true;
         } catch (IllegalArgumentException e) {
             this.view.expressionIncorrect();
+        }
+        if (creationSuccess) {
+            this.refreshVisualizer();
         }
     }
 
@@ -54,15 +57,15 @@ public class DrawGraphApp implements DrawGraphViewObserver {
         new DrawGraphApp();
     }
 
-    private void refreshVisualizer() {
-        this.view.updateGraph(MeshDrawerBuilder.create().addAll(visualizerMeshes).translation(visualizerTranslation)
-                .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
-    }
-
     @Override
     public void load(final String path) {
         final MeshLoader meshLoader = new MeshLoaderImpl();
-        //this.view.plotGraph();
+        try {
+            this.visualizerMeshes.add(meshLoader.load(path));
+            this.refreshVisualizer();
+        } catch (IOException e) {
+            this.view.ioError();
+        }
     }
 
     @Override
@@ -70,7 +73,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
         try {
             MeshWriter.fromMesh(Mesh.fromMeshes(visualizerMeshes)).write(path);
         } catch (IOException e) {
-            this.view.IOError();
+            this.view.ioError();
         }
     }
 
@@ -143,4 +146,8 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     }
 
+    private void refreshVisualizer() {
+        this.view.plotGraph(MeshDrawerBuilder.create().addAll(visualizerMeshes).translation(visualizerTranslation)
+                .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
+    }
 }

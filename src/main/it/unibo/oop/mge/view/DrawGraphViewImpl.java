@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -78,7 +79,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private DrawGraphViewObserver observer;
     private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
     private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
-    private PlotFunctionPanel functionPanel;
+    private Optional<PlotFunctionPanel> functionPanel = Optional.empty();
 
     public DrawGraphViewImpl() {
         FlatIntelliJLaf.install();
@@ -196,8 +197,6 @@ public final class DrawGraphViewImpl implements DrawGraphView {
                 try {
                     observer.newGraph(tMathExpression.getText(), Double.parseDouble(tMax.getText()),
                             Double.parseDouble(tMin.getText()), Double.parseDouble(tRate.getText()));
-                    graphFrame.pack();
-                    graphFrame.setVisible(true);
                 } catch (NumberFormatException exception) {
                     JOptionPane.showMessageDialog(inputFrame, "Invalid settings...");
                 }
@@ -277,13 +276,14 @@ public final class DrawGraphViewImpl implements DrawGraphView {
 
     @Override
     public void plotGraph(final List<Segment2D> segments) {
-        this.functionPanel = new PlotFunctionPanel(GRAPH_PANEL_SIZE, segments);
-        this.graphFrame.add(this.functionPanel, BorderLayout.NORTH);
-    }
-
-    @Override
-    public void updateGraph(final List<Segment2D> newSegments) {
-        this.functionPanel.updateSegments(newSegments);
+        if (this.functionPanel.isEmpty()) {
+            this.functionPanel = Optional.of(new PlotFunctionPanel(GRAPH_PANEL_SIZE, segments));
+            this.graphFrame.add(this.functionPanel.get(), BorderLayout.NORTH);
+            graphFrame.pack();
+            graphFrame.setVisible(true);
+        } else {
+            this.functionPanel.get().updateSegments(segments);
+        }
     }
 
     @Override
@@ -292,7 +292,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     }
 
     @Override
-    public void IOError() {
+    public void ioError() {
         JOptionPane.showMessageDialog(this.inputFrame, "Input-Output error...");
     }
 
