@@ -292,8 +292,8 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     }
 
     @Override
-    public void pathIncorrect() {
-        JOptionPane.showMessageDialog(this.inputFrame, "Error loading file...");
+    public void IOError() {
+        JOptionPane.showMessageDialog(this.inputFrame, "Input-Output error...");
     }
 
     private List<JButton> buttonsFromLabels(final List<String> labels) {

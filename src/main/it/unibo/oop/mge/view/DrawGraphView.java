@@ -16,5 +16,5 @@ public interface DrawGraphView {
 
     void expressionIncorrect();
 
-    void pathIncorrect();
+    void IOError();
 }

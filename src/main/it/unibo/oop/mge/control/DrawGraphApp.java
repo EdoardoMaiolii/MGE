@@ -1,26 +1,25 @@
 package it.unibo.oop.mge.control;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.oop.mge.c3d.Mesh;
 import it.unibo.oop.mge.c3d.MeshDrawerBuilder;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
+import it.unibo.oop.mge.io.MeshLoader;
+import it.unibo.oop.mge.io.MeshLoaderImpl;
+import it.unibo.oop.mge.io.MeshWriter;
 import it.unibo.oop.mge.libraries.Pair;
-import it.unibo.oop.mge.model.DrawGraph;
-import it.unibo.oop.mge.model.DrawGraphImpl;
 import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
 import it.unibo.oop.mge.model.FunctionFeaturesImpl;
 import it.unibo.oop.mge.model.FunctionParser;
-import it.unibo.oop.mge.optionalColor.OptionalColor;
-import it.unibo.oop.mge.optionalColor.OptionalColorBuilder;
 import it.unibo.oop.mge.optionalColor.OptionalColorBuilderImpl;
 import it.unibo.oop.mge.view.DrawGraphView;
 import it.unibo.oop.mge.view.DrawGraphViewImpl;
 
 public class DrawGraphApp implements DrawGraphViewObserver {
 
-    private final DrawGraph model;
     private final DrawGraphView view;
     private Point3D visualizerTranslation = Point3D.origin();
     private double visualizerRotationXY;
@@ -29,7 +28,6 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     public DrawGraphApp() {
         this.visualizerMeshes = new ArrayList<>();
-        this.model = new DrawGraphImpl();
         this.view = new DrawGraphViewImpl();
         this.view.setObserver(this);
         this.view.start();
@@ -37,14 +35,19 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     @Override
     public final void newGraph(final String function, final double max, final double min, final double rate) {
-        var c = new OptionalColorBuilderImpl().setBlue(103).setGreen(99).build();
-        FunctionFeaturesImpl ff = new FunctionFeaturesBuilderImpl().setFunction(FunctionParser.parse(function))
-                .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).setDinamicColor(c)
-                .setDecimalPrecision(5).build();
-        this.visualizerMeshes.add(Mesh.fromSegments(ff.getPolygonalModel()));
-        this.visualizerMeshes.add(Mesh.fromSegments(ff.getPoligonalAxis()));
-        this.view.plotGraph(MeshDrawerBuilder.create().addAll(visualizerMeshes).translation(visualizerTranslation)
-                .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
+        try {
+            FunctionParser.parse(function);
+            var c = new OptionalColorBuilderImpl().setBlue(103).setGreen(99).build();
+            FunctionFeaturesImpl ff = new FunctionFeaturesBuilderImpl().setFunction(FunctionParser.parse(function))
+                    .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).setDinamicColor(c)
+                    .setDecimalPrecision(5).build();
+            this.visualizerMeshes.add(Mesh.fromSegments(ff.getPolygonalModel()));
+            this.visualizerMeshes.add(Mesh.fromSegments(ff.getPoligonalAxis()));
+            this.view.plotGraph(MeshDrawerBuilder.create().addAll(visualizerMeshes).translation(visualizerTranslation)
+                    .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
+        } catch (IllegalArgumentException e) {
+            this.view.expressionIncorrect();
+        }
     }
 
     public static void main(final String[] args) {
@@ -58,14 +61,17 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     @Override
     public void load(final String path) {
-        // TODO Auto-generated method stub
-
+        final MeshLoader meshLoader = new MeshLoaderImpl();
+        //this.view.plotGraph();
     }
 
     @Override
     public void save(final String path) {
-        // TODO Auto-generated method stub
-
+        try {
+            MeshWriter.fromMesh(Mesh.fromMeshes(visualizerMeshes)).write(path);
+        } catch (IOException e) {
+            this.view.IOError();
+        }
     }
 
     @Override
