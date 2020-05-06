@@ -2,6 +2,7 @@ package it.unibo.oop.mge.c3d;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
@@ -14,6 +15,11 @@ public interface Mesh {
      */
     static Mesh fromSegments(final List<Segment3D> segments) {
         return new MeshImpl(segments);
+    }
+
+    static Mesh fromMeshes(final List<Mesh> meshes) {
+        return Mesh.fromSegments(
+                meshes.stream().flatMap(mesh -> mesh.getSegments().stream()).collect(Collectors.toList()));
     }
 
     /**
