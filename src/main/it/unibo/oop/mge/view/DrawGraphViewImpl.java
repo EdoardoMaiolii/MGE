@@ -65,10 +65,16 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private static final int INNER_EAST_PANEL_COLUMNS = 2;
     private static final int INNER_SOUTH_PANEL_ROWS = 1;
     private static final int INNER_SOUTH_PANEL_COLUMNS = 4;
+    private static final int EAST_PANEL_ROWS = 2;
+    private static final int EAST_PANEL_COLUMNS = 1;
+    private static final int PATH_LENGTH = 70;
+    private static final int SOUTH_PANEL_ROWS = 1;
+    private static final int SOUTH_PANEL_COLUMNS = 2;
     private static final int SOUTH_GRAPH_PANEL_ROWS = 2;
     private static final int SOUTH_GRAPH_PANEL_COUMNS = 5;
     private static final int GRAPH_PANEL_SIZE = (int) java.awt.Toolkit.getDefaultToolkit().getScreenSize().getHeight()
             / 2;
+    private static final boolean RESIZABLE_FRAME = false;
     private DrawGraphViewObserver observer;
     private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
     private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
@@ -125,16 +131,14 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         pCenter.add(pInnerCenter, BorderLayout.CENTER);
         pCenter.add(pInnerEast, BorderLayout.EAST);
         pCenter.add(pInnerSouth, BorderLayout.SOUTH);
-        final JPanel pEast = new JPanel(new FlowLayout());
         final JButton bClear = new JButton(CLEAR);
-        pEast.add(bClear);
-        final JPanel pSouth = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        final JButton bPlot = new JButton(PLOT);
+        final JPanel pEast = gridButtonsPanel(EAST_PANEL_ROWS, EAST_PANEL_COLUMNS, Arrays.asList(bPlot, bClear));
         final JButton bLoad = new JButton(LOAD);
         final JButton bSave = new JButton(SAVE);
-        final JButton bPlot = new JButton(PLOT);
-        pSouth.add(bLoad);
-        pSouth.add(bSave);
-        pSouth.add(bPlot);
+        final JPanel pSouth = gridButtonsPanel(SOUTH_PANEL_ROWS, SOUTH_PANEL_COLUMNS, Arrays.asList(bLoad, bSave));
+        final JTextField tPath = new JTextField(PATH_LENGTH);
+        pSouth.add(tPath);
         final JButton bZoomIn = new JButton(ZOOM_IN);
         final JButton bZoomOut = new JButton(ZOOM_OUT);
         final JButton bDown = new JButton(DOWN);
@@ -156,6 +160,8 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         this.graphFrame.getMainPanel().add(pSouthGraph, BorderLayout.SOUTH);
         this.inputFrame.pack();
         this.graphFrame.pack();
+        this.inputFrame.setResizable(RESIZABLE_FRAME);
+        this.graphFrame.setResizable(RESIZABLE_FRAME);
         for (final JButton jb : Stream
                 .of(variableButtons, mathFunctionButtons, digitButtons, constantButtons, punctuationButtons)
                 .flatMap(Collection::stream).collect(Collectors.toList())) {
