@@ -181,13 +181,13 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         bLoad.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                observer.load();
+                observer.load(tPath.getText());
             }
         });
         bSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
-                observer.save();
+                observer.save(tPath.getText());
             }
         });
         bPlot.addActionListener(new ActionListener() {
@@ -276,11 +276,6 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     }
 
     @Override
-    public void expressionIncorrect() {
-        JOptionPane.showMessageDialog(this.inputFrame, "Enter a valid expression please...");
-    }
-
-    @Override
     public void plotGraph(final List<Segment2D> segments) {
         this.functionPanel = new PlotFunctionPanel(GRAPH_PANEL_SIZE, segments);
         this.graphFrame.add(this.functionPanel, BorderLayout.NORTH);
@@ -289,6 +284,16 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     @Override
     public void updateGraph(final List<Segment2D> newSegments) {
         this.functionPanel.updateSegments(newSegments);
+    }
+
+    @Override
+    public void expressionIncorrect() {
+        JOptionPane.showMessageDialog(this.inputFrame, "Enter a valid expression please...");
+    }
+
+    @Override
+    public void pathIncorrect() {
+        JOptionPane.showMessageDialog(this.inputFrame, "Error loading file...");
     }
 
     private List<JButton> buttonsFromLabels(final List<String> labels) {

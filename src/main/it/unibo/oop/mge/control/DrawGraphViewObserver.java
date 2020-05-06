@@ -3,9 +3,9 @@ package it.unibo.oop.mge.control;
 public interface DrawGraphViewObserver {
     void newGraph(String function, double min, double max, double rate);
 
-    void load();
+    void load(String path);
 
-    void save();
+    void save(String path);
 
     void zoomIn();
 

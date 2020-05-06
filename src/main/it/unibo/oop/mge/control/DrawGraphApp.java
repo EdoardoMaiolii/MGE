@@ -57,13 +57,13 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     }
 
     @Override
-    public void load() {
+    public void load(final String path) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void save() {
+    public void save(final String path) {
         // TODO Auto-generated method stub
 
     }
