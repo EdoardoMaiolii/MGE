@@ -31,12 +31,12 @@ public final class MeshYamlRepresentation {
                 .flatMap((final Segment3D seg) -> Stream.of(seg.getA(), seg.getB())).distinct()
                 .collect(Collectors.toList());
         final Map<Point3D, String> pointToNames = IntStream.range(0, uniquePoints.size()).boxed()
-                .collect(Collectors.toMap(i -> uniquePoints.get(i), i -> Integer.toString(i)));
+                .collect(Collectors.toMap(uniquePoints::get, this::generatePointName));
 
         // build points node
         var pointsNodeBuilder = Yaml.createYamlMappingBuilder();
         for (int i = 0; i < uniquePoints.size(); i++) {
-            pointsNodeBuilder = pointsNodeBuilder.add(Integer.toString(i),
+            pointsNodeBuilder = pointsNodeBuilder.add(this.generatePointName(i),
                     Point3DYamlBridge.of(uniquePoints.get(i)).pointYaml());
         }
         final var pointsNode = pointsNodeBuilder.build();
@@ -56,4 +56,9 @@ public final class MeshYamlRepresentation {
 
         return completeNode.toString();
     }
+
+    private String generatePointName(final int index) {
+        return new StringBuilder().append("p").append(Integer.toString(index)).toString();
+    }
+
 }
