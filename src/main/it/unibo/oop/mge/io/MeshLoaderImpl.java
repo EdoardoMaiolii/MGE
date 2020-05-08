@@ -4,10 +4,8 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import com.amihaiemil.eoyaml.Yaml;
 import com.amihaiemil.eoyaml.YamlMapping;
@@ -31,7 +29,6 @@ public class MeshLoaderImpl implements MeshLoader {
      */
     @Override
     public final Mesh load(final String path) throws FileNotFoundException, IOException {
-        System.out.println(java.time.LocalTime.now());
         final YamlMapping mesh = Yaml.createYamlInput(new File(path)).readYamlMapping();
         final YamlMapping yamlPoints = mesh.yamlMapping("points");
         final YamlSequence yamlSegments = mesh.yamlSequence("segments");
@@ -42,7 +39,6 @@ public class MeshLoaderImpl implements MeshLoader {
             final Color color = toColor(yamlSegments.yamlMapping(i).yamlMapping("color"));
             this.segments.add(Segment3D.fromPoints(pointA, pointB, color));
         }
-        System.out.println(java.time.LocalTime.now());
         return Mesh.fromSegments(this.segments);
     }
 
