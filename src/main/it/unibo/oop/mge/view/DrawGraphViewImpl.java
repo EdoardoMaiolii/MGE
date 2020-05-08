@@ -373,9 +373,9 @@ public class DrawGraphViewImpl implements DrawGraphView {
     /**
      * Grid buttons panel.
      *
-     * @param question the rows of the grid
-     * @param name the columns of the grid
-     * @return 
+     * @param question confirmDialog's question
+     * @param name the confirmDialog's name
+     * @return the confirmDialog's boolean
      */
     private boolean confirmDialog(final String question, final String name) {
         return JOptionPane.showConfirmDialog(inputFrame, question, name,
