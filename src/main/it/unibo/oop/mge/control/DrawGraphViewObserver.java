@@ -26,4 +26,6 @@ public interface DrawGraphViewObserver {
     void increaseYZ();
 
     void decreaseYZ();
+
+    void quit();
 }

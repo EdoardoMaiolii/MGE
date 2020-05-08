@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -41,10 +42,11 @@ public class DrawGraphViewImpl implements DrawGraphView {
     private static final String MAX_VALUE = "Max";
     private static final String MIN_VALUE = "Min";
     private static final String RATE = "Rate";
+    private static final String PLOT = "PLOT";
     private static final String CLEAR = "CLEAR";
+    private static final String QUIT = "QUIT";
     private static final String LOAD = "LOAD";
     private static final String SAVE = "SAVE";
-    private static final String PLOT = "PLOT";
     private static final String ZOOM_IN = "ZOOM IN";
     private static final String ZOOM_OUT = "ZOOM OUT";
     private static final String UP = "UP";
@@ -67,7 +69,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     private static final int INNER_EAST_PANEL_COLUMNS = 2;
     private static final int INNER_SOUTH_PANEL_ROWS = 1;
     private static final int INNER_SOUTH_PANEL_COLUMNS = 4;
-    private static final int EAST_PANEL_ROWS = 2;
+    private static final int EAST_PANEL_ROWS = 3;
     private static final int EAST_PANEL_COLUMNS = 1;
     private static final int PATH_LENGTH = 70;
     private static final int SOUTH_PANEL_ROWS = 1;
@@ -136,9 +138,10 @@ public class DrawGraphViewImpl implements DrawGraphView {
         pCenter.add(pInnerCenter, BorderLayout.CENTER);
         pCenter.add(pInnerEast, BorderLayout.EAST);
         pCenter.add(pInnerSouth, BorderLayout.SOUTH);
+        final JButton bQuit = new JButton(QUIT);
         final JButton bClear = new JButton(CLEAR);
         final JButton bPlot = new JButton(PLOT);
-        final JPanel pEast = gridButtonsPanel(EAST_PANEL_ROWS, EAST_PANEL_COLUMNS, Arrays.asList(bPlot, bClear));
+        final JPanel pEast = gridButtonsPanel(EAST_PANEL_ROWS, EAST_PANEL_COLUMNS, Arrays.asList(bQuit, bClear, bPlot));
         final JButton bLoad = new JButton(LOAD);
         final JButton bSave = new JButton(SAVE);
         final JPanel pSouth = gridButtonsPanel(SOUTH_PANEL_ROWS, SOUTH_PANEL_COLUMNS, Arrays.asList(bLoad, bSave));
@@ -167,6 +170,8 @@ public class DrawGraphViewImpl implements DrawGraphView {
         this.graphFrame.pack();
         this.inputFrame.setResizable(RESIZABLE_FRAME);
         this.graphFrame.setResizable(RESIZABLE_FRAME);
+        this.inputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.graphFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         for (final JButton jb : Stream
                 .of(variableButtons, mathFunctionButtons, digitButtons, constantButtons, punctuationButtons)
                 .flatMap(Collection::stream).collect(Collectors.toList())) {
@@ -177,6 +182,14 @@ public class DrawGraphViewImpl implements DrawGraphView {
                 }
             });
         }
+        bQuit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                if (confirmDialog("Confirm quitting?", "Quit")) {
+                    observer.quit();
+                }
+            }
+        });
         bClear.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
@@ -332,7 +345,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     /**
      * Grid buttons panel.
      *
-     * @param rows the rows of the grid
+     * @param rows    the rows of the grid
      * @param columns the columns of the grid
      * @param buttons the buttons to add to the panel
      * @return the j panel with a grid of buttons
@@ -356,5 +369,16 @@ public class DrawGraphViewImpl implements DrawGraphView {
             }
         }
         return panel;
+    }
+    /**
+     * Grid buttons panel.
+     *
+     * @param question the rows of the grid
+     * @param name the columns of the grid
+     * @return 
+     */
+    private boolean confirmDialog(final String question, final String name) {
+        return JOptionPane.showConfirmDialog(inputFrame, question, name,
+                JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;
     }
 }

@@ -147,6 +147,11 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     }
 
+    @Override
+    public void quit() {
+        System.exit(0);
+    }
+
     private void refreshVisualizer() {
         this.view.plotGraph(MeshDrawerBuilder.create().addAll(visualizerMeshes).translation(visualizerTranslation)
                 .rotationXY(visualizerRotationXY).rotationYZ(visualizerRotationYZ).build().render().getSegments());
