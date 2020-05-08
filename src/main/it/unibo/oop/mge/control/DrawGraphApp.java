@@ -26,6 +26,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     private double visualizerRotationXY;
     private double visualizerRotationYZ;
     private final List<Mesh> visualizerMeshes;
+    private static double rotationDelta = 15 * Math.PI / 180;
 
     public DrawGraphApp() {
         this.visualizerMeshes = new ArrayList<>();
@@ -39,9 +40,9 @@ public class DrawGraphApp implements DrawGraphViewObserver {
         boolean creationSuccess = false;
         try {
             OptionalColor color = new OptionalColorBuilderImpl().setBlue(103).setGreen(99).build();
-            FunctionFeaturesImpl functionFeature = new FunctionFeaturesBuilderImpl().setFunction(FunctionParser.parse(function))
-                    .setIntervals(new Pair<Double, Double>(min, max)).setRate(rate).setDinamicColor(color)
-                    .setDecimalPrecision(5).build();
+            FunctionFeaturesImpl functionFeature = new FunctionFeaturesBuilderImpl()
+                    .setFunction(FunctionParser.parse(function)).setIntervals(new Pair<Double, Double>(min, max))
+                    .setRate(rate).setDinamicColor(color).setDecimalPrecision(5).build();
             this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPolygonalModel()));
             this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPoligonalAxis()));
             creationSuccess = true;
@@ -120,28 +121,28 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     @Override
     public final void increaseXY() {
-        this.visualizerRotationXY += .26;
+        this.visualizerRotationXY += rotationDelta;
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void decreaseXY() {
-        this.visualizerRotationXY -= .26;
+        this.visualizerRotationXY -= rotationDelta;
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void increaseYZ() {
-        this.visualizerRotationYZ += .26;
+        this.visualizerRotationYZ += rotationDelta;
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void decreaseYZ() {
-        this.visualizerRotationYZ -= .26;
+        this.visualizerRotationYZ -= rotationDelta;
         this.refreshVisualizer();
 
     }
