@@ -27,7 +27,8 @@ import javax.swing.border.TitledBorder;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
-public final class DrawGraphViewImpl implements DrawGraphView {
+public class DrawGraphViewImpl implements DrawGraphView {
+
     private static final String INPUT_FRAME_NAME = "Mathematical Graphic Engine";
     private static final String GRAPH_FRAME_NAME = "Graph";
     private static final String NORTH_PANEL_TITLE = "Math Expression";
@@ -81,6 +82,9 @@ public final class DrawGraphViewImpl implements DrawGraphView {
     private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
     private Optional<PlotFunctionPanel> functionPanel = Optional.empty();
 
+    /**
+     * Instantiates a new draw graph view impl.
+     */
     public DrawGraphViewImpl() {
         FlatIntelliJLaf.install();
         final JPanel pNorth = new JPanel(new FlowLayout());
@@ -264,16 +268,29 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         });
     }
 
+    /**
+     * Start the GUI.
+     */
     @Override
     public void start() {
         this.inputFrame.setVisible(true);
     }
 
+    /**
+     * Sets the observer.
+     *
+     * @param observer the new observer
+     */
     @Override
     public void setObserver(final DrawGraphViewObserver observer) {
         this.observer = observer;
     }
 
+    /**
+     * Plot a graph.
+     *
+     * @param segments the segments to be plotted
+     */
     @Override
     public void plotGraph(final List<Segment2D> segments) {
         if (this.functionPanel.isEmpty()) {
@@ -286,21 +303,41 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         }
     }
 
+    /**
+     * Shows message of expression incorrect.
+     */
     @Override
     public void expressionIncorrect() {
         JOptionPane.showMessageDialog(this.inputFrame, "Enter a valid expression please...");
     }
 
+    /**
+     * Shows message of IO error.
+     */
     @Override
     public void ioError() {
         JOptionPane.showMessageDialog(this.inputFrame, "Input-Output error...");
     }
 
+    /**
+     * Buttons from labels.
+     *
+     * @param labels the labels
+     * @return the list of buttons with given labels
+     */
     private List<JButton> buttonsFromLabels(final List<String> labels) {
         return labels.stream().map(lb -> new JButton(lb)).collect(Collectors.toList());
     }
 
-    private JPanel gridButtonsPanel(final int rows, final int cols, final List<JButton> buttons) {
+    /**
+     * Grid buttons panel.
+     *
+     * @param rows the rows of the grid
+     * @param columns the columns of the grid
+     * @param buttons the buttons to add to the panel
+     * @return the j panel with a grid of buttons
+     */
+    private JPanel gridButtonsPanel(final int rows, final int columns, final List<JButton> buttons) {
         final Iterator<JButton> buttonsIterator = buttons.iterator();
         final JPanel panel = new JPanel(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
@@ -308,7 +345,7 @@ public final class DrawGraphViewImpl implements DrawGraphView {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+            for (int j = 0; j < columns; j++) {
                 if (buttonsIterator.hasNext()) {
                     gbc.gridx = j;
                     gbc.gridy = i;

@@ -22,6 +22,14 @@ public class MeshLoaderImpl implements MeshLoader {
     private final Map<String, Point3D> points = new HashMap<>();
     private final List<Segment3D> segments = new LinkedList<>();
 
+    /**
+     * Load a mesh from file path.
+     *
+     * @param path the file path
+     * @return the mesh created from file
+     * @throws FileNotFoundException the file not found exception
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     @Override
     public final Mesh load(final String path) throws FileNotFoundException, IOException {
         final YamlMapping mesh = Yaml.createYamlInput(new File(path)).readYamlMapping();
@@ -39,10 +47,22 @@ public class MeshLoaderImpl implements MeshLoader {
         return Mesh.fromSegments(this.segments);
     }
 
+    /**
+     * Create a Point3D from given YamlMapping.
+     *
+     * @param coords the coordinates
+     * @return the point 3D
+     */
     private Point3D toPoint(final YamlMapping coords) {
         return Point3D.fromDoubles(coords.doubleNumber("x"), coords.doubleNumber("y"), coords.doubleNumber("z"));
     }
 
+    /**
+     * Create a color from given YamlMapping.
+     *
+     * @param color the color
+     * @return the color
+     */
     private Color toColor(final YamlMapping color) {
         return new Color(color.integer("r"), color.integer("g"), color.integer("b"));
     }

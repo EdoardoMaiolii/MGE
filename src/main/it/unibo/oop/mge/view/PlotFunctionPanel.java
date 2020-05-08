@@ -11,13 +11,17 @@ import it.unibo.oop.mge.c3d.geometry.Segment2D;
 
 public class PlotFunctionPanel extends JPanel {
 
-    /**
-     * 
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5244263802622065600L;
     private final Point2D center;
     private List<Segment2D> segments;
 
+    /**
+     * Instantiates a new plot function panel.
+     *
+     * @param size the size of the panel
+     * @param segments the segments to be painted
+     */
     public PlotFunctionPanel(final int size, final List<Segment2D> segments) {
         super();
         this.segments = segments;
@@ -37,6 +41,11 @@ public class PlotFunctionPanel extends JPanel {
         }
     }
 
+    /**
+     * Update segments of the graph.
+     *
+     * @param newSegments the new segments to be painted
+     */
     public final void updateSegments(final List<Segment2D> newSegments) {
         this.segments = newSegments;
         this.update(getGraphics());
