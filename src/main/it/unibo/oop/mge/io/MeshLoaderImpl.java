@@ -19,7 +19,6 @@ import it.unibo.oop.mge.c3d.geometry.Segment3D;
 
 public class MeshLoaderImpl implements MeshLoader {
 
-    private final Map<String, Point3D> points = new HashMap<>();
     private final List<Segment3D> segments = new LinkedList<>();
 
     /**
@@ -32,18 +31,18 @@ public class MeshLoaderImpl implements MeshLoader {
      */
     @Override
     public final Mesh load(final String path) throws FileNotFoundException, IOException {
+        System.out.println(java.time.LocalTime.now());
         final YamlMapping mesh = Yaml.createYamlInput(new File(path)).readYamlMapping();
         final YamlMapping yamlPoints = mesh.yamlMapping("points");
         final YamlSequence yamlSegments = mesh.yamlSequence("segments");
         for (int i = 0; i < yamlSegments.size(); i++) {
             final YamlMapping yamlSegment = yamlSegments.yamlMapping(i);
-            final Point3D pointA = this.points.computeIfAbsent(yamlSegment.string("a"),
-                    e -> toPoint(yamlPoints.yamlMapping(yamlSegment.string("a"))));
-            final Point3D pointB = this.points.computeIfAbsent(yamlSegment.string("b"),
-                    e -> toPoint(yamlPoints.yamlMapping(yamlSegment.string("b"))));
+            final Point3D pointA = toPoint(yamlPoints.yamlMapping(yamlSegment.string("a")));
+            final Point3D pointB = toPoint(yamlPoints.yamlMapping(yamlSegment.string("b")));
             final Color color = toColor(yamlSegments.yamlMapping(i).yamlMapping("color"));
             this.segments.add(Segment3D.fromPoints(pointA, pointB, color));
         }
+        System.out.println(java.time.LocalTime.now());
         return Mesh.fromSegments(this.segments);
     }
 
