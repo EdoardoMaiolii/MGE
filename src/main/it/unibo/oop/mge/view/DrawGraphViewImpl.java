@@ -170,8 +170,8 @@ public class DrawGraphViewImpl implements DrawGraphView {
         this.graphFrame.pack();
         this.inputFrame.setResizable(RESIZABLE_FRAME);
         this.graphFrame.setResizable(RESIZABLE_FRAME);
-        this.inputFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        this.graphFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        this.inputFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.graphFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         for (final JButton jb : Stream
                 .of(variableButtons, mathFunctionButtons, digitButtons, constantButtons, punctuationButtons)
                 .flatMap(Collection::stream).collect(Collectors.toList())) {
