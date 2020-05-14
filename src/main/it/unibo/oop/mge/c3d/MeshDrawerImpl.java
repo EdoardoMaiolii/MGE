@@ -10,8 +10,8 @@ import it.unibo.oop.mge.c3d.geometry.Segment2D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
 
 public class MeshDrawerImpl implements MeshDrawer {
-    private static double targetMeshScale = 100;
-    private static Point2D pointOfView = Point2D.fromDoubles(0, -2 * targetMeshScale);
+    private static final double TARGET_MESH_SCALE = 100;
+    private static final Point2D POINT_OF_VIEW = Point2D.fromDoubles(0, -2 * TARGET_MESH_SCALE);
     private final List<Mesh> meshes;
     private final double rotationXY;
     private final double rotationYZ;
@@ -22,7 +22,7 @@ public class MeshDrawerImpl implements MeshDrawer {
 
         super();
         final double scale = meshes.stream().mapToDouble(mesh -> mesh.getScale()).max().orElse(1);
-        this.meshes = meshes.stream().map((Mesh mesh) -> mesh.transformed(value -> value / scale * targetMeshScale))
+        this.meshes = meshes.stream().map((Mesh mesh) -> mesh.transformed(value -> value / scale * TARGET_MESH_SCALE))
                 .collect(Collectors.toList());
         this.rotationXY = rotationXY;
         this.rotationYZ = rotationYZ;
@@ -32,7 +32,7 @@ public class MeshDrawerImpl implements MeshDrawer {
     private Optional<Point2D> processPoint(final Point3D point) {
         final var a = point.rotated(rotationXY, rotationYZ).translated(translation);
         if (this.validPoint(a)) {
-            return Optional.of(Point3DRenderer.fromPoint(a).render(pointOfView));
+            return Optional.of(Point3DRenderer.fromPoint(a).render(POINT_OF_VIEW));
         }
         return Optional.empty();
     }
@@ -53,12 +53,12 @@ public class MeshDrawerImpl implements MeshDrawer {
     @Override
     public final Mesh2D render() {
         return Mesh2D.of(this.meshes.stream().flatMap(mesh -> mesh.getSegments().stream()).map(this::processSegment)
-                .flatMap(Optional::stream).map((Segment2D seg) -> seg.transformed(coord -> coord / targetMeshScale))
+                .flatMap(Optional::stream).map((Segment2D seg) -> seg.transformed(coord -> coord / TARGET_MESH_SCALE))
                 .collect(Collectors.toList()));
 
     }
 
     private boolean validPoint(final Point3D point) {
-        return point.getY() > pointOfView.getY();
+        return point.getY() > POINT_OF_VIEW.getY();
     }
 }
