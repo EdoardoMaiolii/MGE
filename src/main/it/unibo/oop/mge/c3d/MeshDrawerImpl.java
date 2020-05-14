@@ -30,7 +30,7 @@ public class MeshDrawerImpl implements MeshDrawer {
     }
 
     private Optional<Point2D> processPoint(final Point3D point) {
-        final var a = point.rotated(rotationXY, rotationYZ).translated(translation);
+        final Point3D a = point.rotated(rotationXY, rotationYZ).translated(translation);
         if (this.validPoint(a)) {
             return Optional.of(Point3DRenderer.fromPoint(a).render(POINT_OF_VIEW));
         }
@@ -39,8 +39,8 @@ public class MeshDrawerImpl implements MeshDrawer {
 
     private Optional<Segment2D> processSegment(final Segment3D segment) {
 
-        final var a = processPoint(segment.getA());
-        final var b = processPoint(segment.getB());
+        final Optional<Point2D> a = this.processPoint(segment.getA());
+        final Optional<Point2D> b = this.processPoint(segment.getB());
 
         if (a.isPresent() && b.isPresent()) {
             return Optional.of(Segment2D.fromPoints(a.get(), b.get(), segment.getColor()));
