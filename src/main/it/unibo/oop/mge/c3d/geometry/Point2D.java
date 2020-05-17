@@ -2,6 +2,11 @@ package it.unibo.oop.mge.c3d.geometry;
 
 import java.util.function.Function;
 
+/**
+ * 
+ * A point in 2D space.
+ *
+ */
 public interface Point2D {
 
     /**

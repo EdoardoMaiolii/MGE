@@ -8,6 +8,11 @@ import com.amihaiemil.eoyaml.YamlMapping;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
 
+/**
+ * 
+ * An object that generates a {@link YamlMapping} from a Segment3D.
+ *
+ */
 public final class Segment3DYamlBridge {
     private final Segment3D segment;
 
@@ -19,6 +24,11 @@ public final class Segment3DYamlBridge {
         this.segment = segment;
     }
 
+    /**
+     * 
+     * @param mapping the function describing how to generate a name for each point
+     * @return the new mapping
+     */
     public YamlMapping segmentYaml(final Function<Point3D, String> mapping) {
         return Yaml.createYamlMappingBuilder().add("a", mapping.apply(segment.getA()))
                 .add("b", mapping.apply(segment.getB()))

@@ -1,5 +1,10 @@
 package it.unibo.oop.mge.c3d.geometry;
 
+/**
+ * 
+ * An object representing a line in the cartesian coordinate system.
+ *
+ */
 public interface Line {
     /**
      * 

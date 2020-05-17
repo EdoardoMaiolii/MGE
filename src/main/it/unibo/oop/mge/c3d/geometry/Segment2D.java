@@ -3,6 +3,11 @@ package it.unibo.oop.mge.c3d.geometry;
 import java.awt.Color;
 import java.util.function.Function;
 
+/**
+ * 
+ * A segment in 2D space, drawn between two points and having a color.
+ *
+ */
 public interface Segment2D {
 
     /**

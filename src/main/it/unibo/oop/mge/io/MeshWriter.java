@@ -4,6 +4,11 @@ import java.io.IOException;
 
 import it.unibo.oop.mge.c3d.Mesh;
 
+/**
+ * 
+ * An object that writes a mesh to file.
+ *
+ */
 public interface MeshWriter {
     /**
      * 

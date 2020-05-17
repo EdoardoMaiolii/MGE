@@ -2,6 +2,11 @@ package it.unibo.oop.mge.io;
 
 import it.unibo.oop.mge.c3d.Mesh;
 
+/**
+ * 
+ * An object that generates the Yaml representation of a Mesh.
+ *
+ */
 public interface MeshYamlRepresentation {
     /**
      * 
