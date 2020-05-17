@@ -4,13 +4,13 @@ import it.unibo.oop.mge.c3d.geometry.Line;
 import it.unibo.oop.mge.c3d.geometry.Point2D;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 
-public class Point3DRendererImpl implements Point3DRenderer {
+public class Point3DPerspectiveImpl implements Point3DPerspective {
 
     private static final Point2D FOCAL_POINT = Point2D.origin();
 
     private final Point3D point;
 
-    Point3DRendererImpl(final Point3D point) {
+    Point3DPerspectiveImpl(final Point3D point) {
         this.point = point;
     }
 
@@ -21,7 +21,7 @@ public class Point3DRendererImpl implements Point3DRenderer {
         double finalY;
         if (this.point.getX() == 0) {
             final var mockPoint = Point3D.fromDoubles(1, this.point.getY(), this.point.getZ());
-            finalY = Point3DRenderer.fromPoint(mockPoint).render(pointOfView).getY();
+            finalY = Point3DPerspective.fromPoint(mockPoint).render(pointOfView).getY();
         } else {
             final Line heightLine = Line.fromPoints(Point2D.fromDoubles(this.point.getX(), this.point.getZ()),
                     FOCAL_POINT);

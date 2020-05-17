@@ -32,7 +32,7 @@ public class MeshDrawerImpl implements MeshDrawer {
     private Optional<Point2D> processPoint(final Point3D point) {
         final Point3D a = point.rotated(rotationXY, rotationYZ).translated(translation);
         if (this.validPoint(a)) {
-            return Optional.of(Point3DRenderer.fromPoint(a).render(POINT_OF_VIEW));
+            return Optional.of(Point3DPerspective.fromPoint(a).render(POINT_OF_VIEW));
         }
         return Optional.empty();
     }
