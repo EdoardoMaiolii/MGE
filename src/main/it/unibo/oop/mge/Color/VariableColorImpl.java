@@ -1,11 +1,11 @@
-package it.unibo.oop.mge.optionalColor;
+package it.unibo.oop.mge.Color;
 
 import java.util.Optional;
 
-public class OptionalColorImpl implements OptionalColor {
+public class VariableColorImpl implements VariableColor {
     private Optional<Integer> red, green, blue;
 
-    protected OptionalColorImpl(final Optional<Integer> red, final Optional<Integer> green,
+    protected VariableColorImpl(final Optional<Integer> red, final Optional<Integer> green,
             final Optional<Integer> blue) {
         this.red = red;
         this.green = green;

@@ -11,13 +11,15 @@ import java.util.stream.Stream;
 
 import javax.swing.colorchooser.ColorSelectionModel;
 
+import it.unibo.oop.mge.Color.ColorGenerator;
+import it.unibo.oop.mge.Color.ColorGeneratorImpl;
+import it.unibo.oop.mge.Color.VariableColor;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
 import it.unibo.oop.mge.function.AlgebricFunctionImpl;
 import it.unibo.oop.mge.libraries.Pair;
 import it.unibo.oop.mge.libraries.PointND;
 import it.unibo.oop.mge.libraries.PointNDImpl;
-import it.unibo.oop.mge.optionalColor.OptionalColor;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
     private AlgebricFunctionImpl<?> function;
@@ -31,7 +33,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     private ColorGenerator cg;
 
     protected FunctionFeaturesImpl(final AlgebricFunctionImpl<?> function, final Pair<Double, Double> interval,
-            final Double rate, final Optional<OptionalColor> opColor, final Optional<Color> staticColor,
+            final Double rate, final Optional<VariableColor> opColor, final Optional<Color> staticColor,
             final Integer decimalPrecision) {
         this.function = function;
         this.interval = interval;
@@ -42,7 +44,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         this.realPoints = getRealPoints();
         this.dimentions = variables.size() + 1;
         if (opColor.isEmpty()) {
-            this.cg = new ColorGenerator(staticColor.get());
+            this.cg = new ColorGeneratorImpl(staticColor.get());
         } else {
             var point1 = new Pair<Double, Integer>(
                     castDouble(this.getPointOfAbsoluteMin().getCoordinates().get(dimentions - 1), (i -> Math.floor(i))),
@@ -50,7 +52,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
             var point2 = new Pair<Double, Integer>(
                     castDouble(this.getPointOfAbsoluteMax().getCoordinates().get(dimentions - 1), (i -> Math.ceil(i))),
                     255);
-            this.cg = new ColorGenerator(opColor.get(), point1, point2);
+            this.cg = new ColorGeneratorImpl(opColor.get(), point1, point2);
         }
     }
 

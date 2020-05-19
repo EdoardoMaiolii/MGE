@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import it.unibo.oop.mge.Color.VariableColor;
+import it.unibo.oop.mge.Color.VariableColorBuilderImpl;
 import it.unibo.oop.mge.c3d.Mesh;
 import it.unibo.oop.mge.c3d.MeshDrawerBuilder;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
@@ -14,8 +16,6 @@ import it.unibo.oop.mge.libraries.Pair;
 import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
 import it.unibo.oop.mge.model.FunctionFeaturesImpl;
 import it.unibo.oop.mge.model.FunctionParser;
-import it.unibo.oop.mge.optionalColor.OptionalColor;
-import it.unibo.oop.mge.optionalColor.OptionalColorBuilderImpl;
 import it.unibo.oop.mge.view.DrawGraphView;
 import it.unibo.oop.mge.view.DrawGraphViewImpl;
 
@@ -39,7 +39,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     public final void newGraph(final String function, final double max, final double min, final double rate) {
         boolean creationSuccess = false;
         try {
-            OptionalColor color = new OptionalColorBuilderImpl().setBlue(103).setGreen(99).build();
+            VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
             FunctionFeaturesImpl functionFeature = new FunctionFeaturesBuilderImpl()
                     .setFunction(FunctionParser.parse(function)).setIntervals(new Pair<Double, Double>(min, max))
                     .setRate(rate).setDinamicColor(color).setDecimalPrecision(5).build();

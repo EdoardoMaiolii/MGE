@@ -210,12 +210,13 @@ public enum MathFunctions implements MathEnum {
     SIGN(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
-            if (parameters.get(0)>0)
+            if (parameters.get(0) > 0) {
                 return 1.0;
-            else if (parameters.get(0)<0)
+            } else if (parameters.get(0) < 0) {
                 return -1.0;
-            else 
+            } else {
                 return 0.0;
+            }
         }
     };
     private final int nParameters;

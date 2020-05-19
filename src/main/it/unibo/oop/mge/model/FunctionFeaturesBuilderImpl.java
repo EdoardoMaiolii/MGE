@@ -3,16 +3,16 @@ package it.unibo.oop.mge.model;
 import java.awt.Color;
 import java.util.Optional;
 
+import it.unibo.oop.mge.Color.VariableColor;
 import it.unibo.oop.mge.function.AlgebricFunctionImpl;
 import it.unibo.oop.mge.libraries.Pair;
-import it.unibo.oop.mge.optionalColor.OptionalColor;
 
 public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilder {
     private Optional<AlgebricFunctionImpl<?>> function = Optional.empty();
     private Optional<Pair<Double, Double>> interval = Optional.empty();
     private Optional<Integer> decimalPrecision = Optional.empty();
     private Optional<Double> rate = Optional.empty();
-    private Optional<OptionalColor> opColor = Optional.empty();
+    private Optional<VariableColor> opColor = Optional.empty();
     private Optional<Color> staticColor = Optional.empty();
     private Boolean builded = false;
 
@@ -60,7 +60,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     @Override
-    public FunctionFeaturesBuilder setDinamicColor(final OptionalColor opColor) {
+    public FunctionFeaturesBuilder setDinamicColor(final VariableColor opColor) {
         if (!builded && this.opColor.isEmpty()) {
             this.opColor = Optional.of(opColor);
             return this;

@@ -2,9 +2,9 @@ package it.unibo.oop.mge.model;
 
 import java.awt.Color;
 
+import it.unibo.oop.mge.Color.VariableColor;
 import it.unibo.oop.mge.function.AlgebricFunctionImpl;
 import it.unibo.oop.mge.libraries.Pair;
-import it.unibo.oop.mge.optionalColor.OptionalColor;
 
 public interface FunctionFeaturesBuilder {
 
@@ -14,7 +14,7 @@ public interface FunctionFeaturesBuilder {
 
     FunctionFeaturesBuilder setRate(Double rate);
 
-    FunctionFeaturesBuilder setDinamicColor(OptionalColor opColor);
+    FunctionFeaturesBuilder setDinamicColor(VariableColor opColor);
 
     FunctionFeaturesBuilder setStaticColor(Color color);
 
