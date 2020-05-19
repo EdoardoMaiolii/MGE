@@ -9,20 +9,19 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import javax.swing.colorchooser.ColorSelectionModel;
 
 import it.unibo.oop.mge.Color.ColorGenerator;
 import it.unibo.oop.mge.Color.ColorGeneratorImpl;
 import it.unibo.oop.mge.Color.VariableColor;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
-import it.unibo.oop.mge.function.AlgebricFunctionImpl;
+import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.libraries.Pair;
 import it.unibo.oop.mge.libraries.PointND;
 import it.unibo.oop.mge.libraries.PointNDImpl;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
-    private AlgebricFunctionImpl<?> function;
+    private AlgebricFunction<?> function;
     private Double rate;
     private Pair<Double, Double> interval;
     private List<Character> variables = new ArrayList<>();
@@ -32,7 +31,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     private int dimentions;
     private ColorGenerator cg;
 
-    protected FunctionFeaturesImpl(final AlgebricFunctionImpl<?> function, final Pair<Double, Double> interval,
+    protected FunctionFeaturesImpl(final AlgebricFunction<?> function, final Pair<Double, Double> interval,
             final Double rate, final Optional<VariableColor> opColor, final Optional<Color> staticColor,
             final Integer decimalPrecision) {
         this.function = function;
@@ -72,11 +71,12 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         }).collect(Collectors.toList());
     }
 
-    private List<Character> getParameters(final AlgebricFunctionImpl<?> function) {
+    private List<Character> getParameters(final AlgebricFunction<?> function) {
         List<Character> variables = new ArrayList<>();
         if (function.isVariable()) {
             variables.add((Character) function.getType());
         } else if (function.isMathFunction()) {
+            function.getParameters().get().forEach(i -> System.out.println("fdas"));
             function.getParameters().get().forEach(i -> variables.addAll(getParameters(i)));
         }
         return variables.stream().distinct().collect(Collectors.toList());

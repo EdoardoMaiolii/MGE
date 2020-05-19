@@ -14,7 +14,7 @@ public interface AlgebricFunctionFactory {
      * @param value is the Number
      * @return an AlgebricFunction that correspond to a Number
      */
-    static AlgebricFunctionImpl<Double> getValueFunction(Double value) {
+    static AlgebricFunction<Double> getValueFunction(Double value) {
         return new AlgebricFunctionImpl<Double>(value, Optional.empty(), Types.CONSTANT) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {
@@ -28,7 +28,7 @@ public interface AlgebricFunctionFactory {
      * @param c is the constant
      * @return an AlgebricFunction that correspond to the value of the constant
      */
-    static AlgebricFunctionImpl<Double> getConstantFunction(final Constants c) {
+    static AlgebricFunction<Double> getConstantFunction(final Constants c) {
         return getValueFunction(c.resolve());
     }
 
@@ -37,7 +37,7 @@ public interface AlgebricFunctionFactory {
      * @param name is the name if the variable
      * @return an AlgebricFunction that correspond to a variable
      */
-    static AlgebricFunctionImpl<Character> getParameterFunction(Character name) {
+    static AlgebricFunction<Character> getParameterFunction(Character name) {
         return new AlgebricFunctionImpl<Character>(name, Optional.empty(), Types.VARIABLE) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {
@@ -52,7 +52,7 @@ public interface AlgebricFunctionFactory {
      * @param pars is the parameters of the Function
      * @return an AlgebricFunction that is a Mathematical Function
      */
-    static AlgebricFunctionImpl<MathFunctions> getMathFunction(MathFunctions id, List<AlgebricFunctionImpl<?>> pars) {
+    static AlgebricFunction<MathFunctions> getMathFunction(MathFunctions id, List<AlgebricFunction<?>> pars) {
         if (id.getNParameters() != pars.size()) {
             System.out.println(
                     "Error parsing the function , wrong number of parameters of the function:" + id.getSyntax());

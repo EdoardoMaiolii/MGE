@@ -48,5 +48,5 @@ public interface AlgebricFunction<X> extends GenericFunction<X> {
      * 
      * @return an optional that could contains the parameters.
      */
-    Optional<List<AlgebricFunctionImpl<?>>> getParameters();
+    Optional<List<AlgebricFunction<?>>> getParameters();
 }
