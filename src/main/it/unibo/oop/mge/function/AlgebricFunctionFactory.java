@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import it.unibo.oop.mge.function.AlgebricFunction.Types;
 import it.unibo.oop.mge.libraries.Constants;
 import it.unibo.oop.mge.libraries.MathFunctions;
 
@@ -14,7 +15,7 @@ public interface AlgebricFunctionFactory {
      * @return an AlgebricFunction that correspond to a Number
      */
     static AlgebricFunctionImpl<Double> getValueFunction(Double value) {
-        return new AlgebricFunctionImpl<Double>(value, Optional.empty()) {
+        return new AlgebricFunctionImpl<Double>(value, Optional.empty(), Types.CONSTANT) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {
                 return this.getType();
@@ -37,7 +38,7 @@ public interface AlgebricFunctionFactory {
      * @return an AlgebricFunction that correspond to a variable
      */
     static AlgebricFunctionImpl<Character> getParameterFunction(Character name) {
-        return new AlgebricFunctionImpl<Character>(name, Optional.empty()) {
+        return new AlgebricFunctionImpl<Character>(name, Optional.empty(), Types.VARIABLE) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {
                 return values.get(pars.indexOf(this.getType()));
@@ -51,14 +52,13 @@ public interface AlgebricFunctionFactory {
      * @param pars is the parameters of the Function
      * @return an AlgebricFunction that is a Mathematical Function
      */
-    static AlgebricFunctionImpl<MathFunctions> getMathFunction(MathFunctions id,
-           List<AlgebricFunctionImpl<?>> pars) {
+    static AlgebricFunctionImpl<MathFunctions> getMathFunction(MathFunctions id, List<AlgebricFunctionImpl<?>> pars) {
         if (id.getNParameters() != pars.size()) {
             System.out.println(
                     "Error parsing the function , wrong number of parameters of the function:" + id.getSyntax());
             return null;
         }
-        return new AlgebricFunctionImpl<MathFunctions>(id, Optional.of(pars)) {
+        return new AlgebricFunctionImpl<MathFunctions>(id, Optional.of(pars), Types.MATHFUNCTION) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {
                 return this.getType().resolve(this.getParameters().get().stream().map(i -> i.resolve(pars, values))

@@ -1,34 +1,21 @@
 package it.unibo.oop.mge.function;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
-import it.unibo.oop.mge.libraries.MathFunctions;
-
-public abstract class AlgebricFunctionImpl<X> extends GenericFunctionImpl<X> implements AlgebricFunction<X> {
-    private Map<Class<?>, Types> enummap = new HashMap<>();
+abstract class AlgebricFunctionImpl<X> extends GenericFunctionImpl<X> implements AlgebricFunction<X> {
     private Optional<List<AlgebricFunctionImpl<?>>> myParameters;
+    private Types myType;
 
-    protected AlgebricFunctionImpl(final X info, final Optional<List<AlgebricFunctionImpl<?>>> parameters) {
+    protected AlgebricFunctionImpl(final X info, final Optional<List<AlgebricFunctionImpl<?>>> parameters,
+            final Types myType) {
         super(info);
-        enummap.put(Double.class, Types.CONSTANT);
-        enummap.put(Character.class, Types.VARIABLE);
-        enummap.put(MathFunctions.class, Types.MATHFUNCTION);
-        myParameters = parameters;
+        this.myParameters = parameters;
+        this.myType = myType;
     }
 
-    public final Boolean isVariable() {
-        return this.getType() instanceof Character;
-    }
-
-    public final Boolean isConstant() {
-        return this.getType() instanceof Double;
-    }
-
-    public final Boolean isMathFunction() {
-        return this.getType() instanceof MathFunctions;
+    public final Types myType() {
+        return this.myType;
     }
 
     public abstract Double resolve(List<Character> pars, List<Double> values);

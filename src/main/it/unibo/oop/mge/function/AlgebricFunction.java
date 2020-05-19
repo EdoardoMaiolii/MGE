@@ -7,36 +7,46 @@ public interface AlgebricFunction<X> extends GenericFunction<X> {
     enum Types {
         CONSTANT, VARIABLE, MATHFUNCTION;
     }
+    /**
+     * 
+     * @return the type if this AlgebricFunction.
+     */
+    Types myType();
+    /**
+     * 
+     * @return true if the function is a Variable Function.
+     */
+    default Boolean isVariable() {
+        return this.myType().equals(Types.VARIABLE);
+    }
 
     /**
      * 
-     * @return true if the function is a Variable Function
+     * @return true if the function is a Mathematical Constant Function.
      */
-    Boolean isVariable();
+    default Boolean isConstant() {
+        return this.myType().equals(Types.CONSTANT);
+    }
 
     /**
      * 
-     * @return true if the function is a Mathematical Constant Function
+     * @return true if the function is a Mathematical Function.
      */
-    Boolean isConstant();
-
-    /**
-     * 
-     * @return true if the function is a Mathematical Function
-     */
-    Boolean isMathFunction();
+    default Boolean isMathFunction() {
+        return this.myType().equals(Types.MATHFUNCTION);
+    }
 
     /**
      * 
      * @param pars   are the names of the variables
      * @param values are the values if the variables
-     * @return the value of the function
+     * @return the value of the function.
      */
-    abstract Double resolve(List<Character> pars, List<Double> values);
+    Double resolve(List<Character> pars, List<Double> values);
 
     /**
      * 
-     * @return the parameters
+     * @return an optional that could contains the parameters.
      */
     Optional<List<AlgebricFunctionImpl<?>>> getParameters();
 }
