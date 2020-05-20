@@ -13,13 +13,12 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     private Optional<Pair<Double, Double>> interval = Optional.empty();
     private Optional<Integer> decimalPrecision = Optional.empty();
     private Optional<Double> rate = Optional.empty();
-    private Optional<List<Character>> variables = Optional.empty();
     private Optional<VariableColor> opColor = Optional.empty();
     private Optional<Color> staticColor = Optional.empty();
     private Boolean builded = false;
 
     private Boolean ready() {
-        return function.isPresent() && interval.isPresent() && rate.isPresent() && variables.isPresent() && decimalPrecision.isPresent()
+        return function.isPresent() && interval.isPresent() && rate.isPresent() && decimalPrecision.isPresent()
                 && (staticColor.isPresent() || opColor.isPresent()) && (staticColor.isEmpty() || opColor.isEmpty())
                 && !builded;
     }
@@ -39,12 +38,6 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     @Override
     public FunctionFeaturesBuilder setRate(final Double rate) {
         this.rate = Optional.of(rate);
-        return this;
-    }
-
-    @Override
-    public FunctionFeaturesBuilder setVariables(final List<Character> variables) {
-        this.variables = Optional.of(variables);
         return this;
     }
 
@@ -70,7 +63,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     public FunctionFeaturesImpl build() {
         if (ready()) {
             builded = true;
-            return new FunctionFeaturesImpl(function.get(), interval.get(), rate.get(), variables.get(), opColor,
+            return new FunctionFeaturesImpl(function.get(), interval.get(), rate.get(), opColor,
                     staticColor, decimalPrecision.get());
         }
         return null;

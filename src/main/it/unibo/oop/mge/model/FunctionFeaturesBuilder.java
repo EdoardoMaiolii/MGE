@@ -1,7 +1,6 @@
 package it.unibo.oop.mge.model;
 
 import java.awt.Color;
-import java.util.List;
 
 import it.unibo.oop.mge.Color.VariableColor;
 import it.unibo.oop.mge.function.AlgebricFunction;
@@ -14,8 +13,6 @@ public interface FunctionFeaturesBuilder {
     FunctionFeaturesBuilder setIntervals(Pair<Double, Double> interval);
 
     FunctionFeaturesBuilder setRate(Double rate);
-
-    FunctionFeaturesBuilder setVariables(List<Character> variables);
 
     FunctionFeaturesBuilder setDinamicColor(VariableColor opColor);
 
