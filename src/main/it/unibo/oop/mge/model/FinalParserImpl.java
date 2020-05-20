@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.function.AlgebricFunctionFactory;
-import it.unibo.oop.mge.function.AlgebricFunctionImpl;
 import it.unibo.oop.mge.libraries.Constants;
 import it.unibo.oop.mge.libraries.MathFunctions;
 import it.unibo.oop.mge.libraries.Pair;
@@ -59,7 +59,7 @@ public class FinalParserImpl implements FinalParser{
 			throw new java.lang.IllegalArgumentException();
 	}
 	
-	public AlgebricFunctionImpl<?> resolveFunction(String fstring)   {//piccola implementazione del controllo dell'errore
+	public AlgebricFunction resolveFunction(String fstring)   {//piccola implementazione del controllo dell'errore
 		int k=0;
 		if(Character.isDigit(fstring.charAt(k))) {
 			//checkAllDigits(fstring);

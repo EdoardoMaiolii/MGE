@@ -1,6 +1,6 @@
 package it.unibo.oop.mge.model;
 
-import it.unibo.oop.mge.function.AlgebricFunctionImpl;
+import it.unibo.oop.mge.function.AlgebricFunction;
 
 public class FunctionParserImpl implements FunctionParser{
 	
@@ -9,7 +9,7 @@ public class FunctionParserImpl implements FunctionParser{
 	
 	private FunctionParserImpl() {}
 	
-	protected static AlgebricFunctionImpl<?> parseString(String str) {
+	protected static AlgebricFunction parseString(String str) {
 		peeledString = new BracketsParserImpl(str);
 		System.out.println(peeledString.resolveBrackets()); //decommentare per vedere la stringa riscritta stampata
 		return func.resolveFunction(peeledString.resolveBrackets());
