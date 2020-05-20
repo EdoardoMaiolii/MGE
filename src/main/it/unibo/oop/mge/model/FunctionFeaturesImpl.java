@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-
 import it.unibo.oop.mge.Color.ColorGenerator;
 import it.unibo.oop.mge.Color.ColorGeneratorImpl;
 import it.unibo.oop.mge.Color.VariableColor;
@@ -21,7 +20,6 @@ import it.unibo.oop.mge.libraries.PointND;
 import it.unibo.oop.mge.libraries.PointNDImpl;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
-    private AlgebricFunction<?> function;
     private Double rate;
     private Pair<Double, Double> interval;
     private List<Character> variables = new ArrayList<>();
@@ -31,15 +29,14 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     private int dimentions;
     private ColorGenerator cg;
 
-    protected FunctionFeaturesImpl(final AlgebricFunction<?> function, final Pair<Double, Double> interval,
-            final Double rate, final Optional<VariableColor> opColor, final Optional<Color> staticColor,
-            final Integer decimalPrecision) {
-        this.function = function;
+    protected FunctionFeaturesImpl(final AlgebricFunction function, final Pair<Double, Double> interval,
+            final Double rate, final List<Character> variables, final Optional<VariableColor> opColor,
+            final Optional<Color> staticColor, final Integer decimalPrecision) {
         this.interval = interval;
         this.rate = rate;
+        this.variables = variables;
         this.decimalPrecision = decimalPrecision;
-        this.variables = getParameters(function);
-        this.points = calculatePoints(variables.size(), interval);
+        this.points = calculatePoints(function, variables.size(), interval);
         this.realPoints = getRealPoints();
         this.dimentions = variables.size() + 1;
         if (opColor.isEmpty()) {
@@ -59,7 +56,8 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         return pattern.apply(Math.pow(10, decimalPrecision) * value) / Math.pow(10, decimalPrecision);
     }
 
-    private List<PointND> calculatePoints(final Integer dimentions, final Pair<Double, Double> interval) {
+    private List<PointND> calculatePoints(final AlgebricFunction function, final Integer dimentions,
+            final Pair<Double, Double> interval) {
         final int nPoint = (int) (Math.abs(interval.getFst() - interval.getSnd()) / rate);
         return IntStream.range(0, (int) Math.pow(nPoint + 1, dimentions)).<PointND>mapToObj(i -> {
             List<Double> coordinates = IntStream.range(0, dimentions).mapToDouble(
@@ -69,17 +67,6 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
             coordinates.add(function.resolve(variables, coordinates));
             return new PointNDImpl(coordinates);
         }).collect(Collectors.toList());
-    }
-
-    private List<Character> getParameters(final AlgebricFunction<?> function) {
-        List<Character> variables = new ArrayList<>();
-        if (function.isVariable()) {
-            variables.add((Character) function.getType());
-        } else if (function.isMathFunction()) {
-            function.getParameters().get().forEach(i -> System.out.println("fdas"));
-            function.getParameters().get().forEach(i -> variables.addAll(getParameters(i)));
-        }
-        return variables.stream().distinct().collect(Collectors.toList());
     }
 
     private List<Segment3D> getRealSegmentList(final List<PointND> points,
@@ -129,10 +116,10 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         case 2:
             final var x = (Math.abs(interval.getFst() - interval.getSnd())) / rate + 1;
             final var y = (Math.abs(interval.getFst() - interval.getSnd())) / rate + 1;
-            return Stream.concat(
-                    getRealSegmentList(points, i -> i).stream().filter(i -> i.getA().getY() == i.getB().getY()),
-                    getRealSegmentList(points, i -> (int) ((i % x) * y + i / x)).stream()
-                            .filter(i -> i.getA().getX() == i.getB().getX()))
+            return Stream
+                    .concat(getRealSegmentList(points, i -> i).stream().filter(i -> i.getA().getY() == i.getB().getY()),
+                            getRealSegmentList(points, i -> (int) ((i % x) * y + i / x)).stream()
+                                    .filter(i -> i.getA().getX() == i.getB().getX()))
                     .collect(Collectors.toList());
         default:
             return null;

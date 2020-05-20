@@ -3,21 +3,22 @@ package it.unibo.oop.mge.function;
 import java.util.List;
 import java.util.Optional;
 
-public interface AlgebricFunction<X> extends GenericFunction<X> {
+public interface AlgebricFunction {
     enum Types {
         CONSTANT, VARIABLE, MATHFUNCTION;
     }
     /**
      * 
-     * @return the type if this AlgebricFunction.
+     * @return the type if the AlgebricFunction.
      */
-    Types myType();
+    Types getType();
+
     /**
      * 
      * @return true if the function is a Variable Function.
      */
     default Boolean isVariable() {
-        return this.myType().equals(Types.VARIABLE);
+        return this.getType().equals(Types.VARIABLE);
     }
 
     /**
@@ -25,7 +26,7 @@ public interface AlgebricFunction<X> extends GenericFunction<X> {
      * @return true if the function is a Mathematical Constant Function.
      */
     default Boolean isConstant() {
-        return this.myType().equals(Types.CONSTANT);
+        return this.getType().equals(Types.CONSTANT);
     }
 
     /**
@@ -33,7 +34,7 @@ public interface AlgebricFunction<X> extends GenericFunction<X> {
      * @return true if the function is a Mathematical Function.
      */
     default Boolean isMathFunction() {
-        return this.myType().equals(Types.MATHFUNCTION);
+        return this.getType().equals(Types.MATHFUNCTION);
     }
 
     /**
@@ -48,5 +49,5 @@ public interface AlgebricFunction<X> extends GenericFunction<X> {
      * 
      * @return an optional that could contains the parameters.
      */
-    Optional<List<AlgebricFunction<?>>> getParameters();
+    Optional<List<AlgebricFunction>> getParameters();
 }

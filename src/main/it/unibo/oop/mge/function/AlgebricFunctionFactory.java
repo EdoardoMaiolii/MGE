@@ -14,11 +14,11 @@ public interface AlgebricFunctionFactory {
      * @param value is the Number
      * @return an AlgebricFunction that correspond to a Number
      */
-    static AlgebricFunction<Double> getValueFunction(Double value) {
-        return new AlgebricFunctionImpl<Double>(value, Optional.empty(), Types.CONSTANT) {
+    static AlgebricFunction getValueFunction(Double value) {
+        return new AlgebricFunctionImpl(Types.CONSTANT, Optional.empty()) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {
-                return this.getType();
+                return value;
             }
         };
     }
@@ -28,7 +28,7 @@ public interface AlgebricFunctionFactory {
      * @param c is the constant
      * @return an AlgebricFunction that correspond to the value of the constant
      */
-    static AlgebricFunction<Double> getConstantFunction(final Constants c) {
+    static AlgebricFunction getConstantFunction(final Constants c) {
         return getValueFunction(c.resolve());
     }
 
@@ -37,11 +37,11 @@ public interface AlgebricFunctionFactory {
      * @param name is the name if the variable
      * @return an AlgebricFunction that correspond to a variable
      */
-    static AlgebricFunction<Character> getParameterFunction(Character name) {
-        return new AlgebricFunctionImpl<Character>(name, Optional.empty(), Types.VARIABLE) {
+    static AlgebricFunction getParameterFunction(Character name) {
+        return new AlgebricFunctionImpl(Types.VARIABLE, Optional.empty()) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {
-                return values.get(pars.indexOf(this.getType()));
+                return values.get(pars.indexOf(name));
             }
         };
     }
@@ -52,16 +52,11 @@ public interface AlgebricFunctionFactory {
      * @param pars is the parameters of the Function
      * @return an AlgebricFunction that is a Mathematical Function
      */
-    static AlgebricFunction<MathFunctions> getMathFunction(MathFunctions id, List<AlgebricFunction<?>> pars) {
-        if (id.getNParameters() != pars.size()) {
-            System.out.println(
-                    "Error parsing the function , wrong number of parameters of the function:" + id.getSyntax());
-            return null;
-        }
-        return new AlgebricFunctionImpl<MathFunctions>(id, Optional.of(pars), Types.MATHFUNCTION) {
+    static AlgebricFunction getMathFunction(MathFunctions id, List<AlgebricFunction> pars) {
+        return new AlgebricFunctionImpl(Types.MATHFUNCTION, Optional.of(pars)) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {
-                return this.getType().resolve(this.getParameters().get().stream().map(i -> i.resolve(pars, values))
+                return id.resolve(this.getParameters().get().stream().map(i -> i.resolve(pars, values))
                         .collect(Collectors.toList()));
             }
         };
