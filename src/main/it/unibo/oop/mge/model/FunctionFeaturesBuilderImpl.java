@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.oop.mge.Color.VariableColor;
+import it.unibo.oop.mge.color.VariableColor;
 import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.libraries.Pair;
 

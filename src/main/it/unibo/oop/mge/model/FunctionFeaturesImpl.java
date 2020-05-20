@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-import it.unibo.oop.mge.Color.ColorGenerator;
-import it.unibo.oop.mge.Color.ColorGeneratorImpl;
-import it.unibo.oop.mge.Color.VariableColor;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
+import it.unibo.oop.mge.color.ColorGenerator;
+import it.unibo.oop.mge.color.ColorGeneratorImpl;
+import it.unibo.oop.mge.color.VariableColor;
 import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.libraries.Pair;
 

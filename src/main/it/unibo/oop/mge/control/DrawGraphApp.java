@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.oop.mge.Color.VariableColor;
-import it.unibo.oop.mge.Color.VariableColorBuilderImpl;
 import it.unibo.oop.mge.c3d.Mesh;
 import it.unibo.oop.mge.c3d.MeshDrawerBuilder;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
+import it.unibo.oop.mge.color.VariableColor;
+import it.unibo.oop.mge.color.VariableColorBuilderImpl;
 import it.unibo.oop.mge.io.MeshLoader;
 import it.unibo.oop.mge.io.MeshLoaderImpl;
 import it.unibo.oop.mge.io.MeshWriter;

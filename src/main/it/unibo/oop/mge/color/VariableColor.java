@@ -1,4 +1,4 @@
-package it.unibo.oop.mge.Color;
+package it.unibo.oop.mge.color;
 
 import java.util.Optional;
 
