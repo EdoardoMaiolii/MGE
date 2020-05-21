@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public enum MathFunction {
+public enum MathFunction implements GenericEnum {
     /**
      * make the sum.
      */
@@ -231,8 +231,7 @@ public enum MathFunction {
     }
 
     public static Optional<MathFunction> getMathFunctionFromSyntax(final String syntax) {
-        return EnumSet.allOf(MathFunction.class).stream().map(i -> new Pair<MathFunction, String>(i, i.getSyntax()))
-                .filter(i -> i.getSnd().equals(syntax)).map(i -> i.getFst()).findFirst();
+        return getListFromEnum().contains(syntax) ? Optional.of(MathFunction.valueOf(syntax.toUpperCase())) : Optional.empty();
     }
 
     public int getNParameters() {

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public enum Constant {
+public enum Constant implements GenericEnum {
     /**
      * nepero's number.
      */
@@ -62,7 +62,7 @@ public enum Constant {
     }
 
     public static Optional<Constant> getConstantFromSyntax(final String syntax) {
-        return getListFromEnum().contains(syntax) ? Optional.of(Constant.valueOf(syntax)) : Optional.empty();
+        return getListFromEnum().contains(syntax) ? Optional.of(Constant.valueOf(syntax.toUpperCase())) : Optional.empty();
     }
 
     Constant(final Double value) {

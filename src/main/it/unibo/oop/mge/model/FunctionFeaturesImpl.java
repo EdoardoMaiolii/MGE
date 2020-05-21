@@ -1,7 +1,6 @@
 package it.unibo.oop.mge.model;
 
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
