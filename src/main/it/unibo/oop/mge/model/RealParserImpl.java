@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import it.unibo.oop.mge.libraries.MathFunctions;
+import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Pair;
 
 
@@ -16,15 +16,15 @@ public class RealParserImpl implements RealParser{
 	private int flength;
 	Map<Integer,Character> posOp= new HashMap<>();
 	
-	Map<Character,MathFunctions> opMap= new HashMap<>();
+	Map<Character,MathFunction> opMap= new HashMap<>();
 	
 	public RealParserImpl(String fstring) {
 		this.fstring=fstring;
 		flength=this.fstring.length();
-		opMap.put('+', MathFunctions.SUM);
-		opMap.put('*', MathFunctions.MUL);
-		opMap.put('/', MathFunctions.DIV);
-		opMap.put('-', MathFunctions.SOT);
+		opMap.put('+', MathFunction.SUM);
+		opMap.put('*', MathFunction.MUL);
+		opMap.put('/', MathFunction.DIV);
+		opMap.put('-', MathFunction.SOT);
 		
 	}
 	

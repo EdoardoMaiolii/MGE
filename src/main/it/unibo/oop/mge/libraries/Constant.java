@@ -1,11 +1,11 @@
 package it.unibo.oop.mge.libraries;
-import java.util.Arrays;
 
+import java.util.EnumSet;
 import java.util.List;
-import java.util.function.Function;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
-public enum Constants implements MathEnum {
+public enum Constant {
     /**
      * nepero's number.
      */
@@ -21,13 +21,13 @@ public enum Constants implements MathEnum {
     /**
      * euler-mascheroni.
      */
-    EUMA(0.5772), 
+    EUMA(0.5772),
     /**
      * Embree-Trefethen.
      */
-    EMTR(0.7025), 
+    EMTR(0.7025),
     /**
-     *  plastic number.
+     * plastic number.
      */
     PLS(1.3247),
     /**
@@ -39,7 +39,7 @@ public enum Constants implements MathEnum {
      */
     FEIGSN(2.5029),
     /**
-     *  primes twins.
+     * primes twins.
      */
     PRGEM(0.6601),
     /**
@@ -58,25 +58,14 @@ public enum Constants implements MathEnum {
     private final Double value;
 
     public static List<String> getListFromEnum() {
-        return Arrays.asList(values())
-               .stream().map(i -> i.getSyntax())
-               .collect(Collectors.toList());
+        return EnumSet.allOf(Constant.class).stream().map(i -> i.getSyntax()).collect(Collectors.toList());
     }
 
-    public static boolean contains(final String name) {
-        return  getListFromEnum()
-                .contains(name);
+    public static Optional<Constant> getConstantFromSyntax(final String syntax) {
+        return getListFromEnum().contains(syntax) ? Optional.of(Constant.valueOf(syntax)) : Optional.empty();
     }
-    public static Constants getMathFunctionFromSyntax(final String syntax) {
-        return Constants.valueOf(Arrays.asList(values())
-               .stream()
-               .map(i -> new Pair<String, String>(i.name(), i.getSyntax()))
-               .filter(i -> i.getSnd().equals(syntax))
-               .findFirst()
-               .get()
-               .getFst());
-    }
-    Constants(final Double value) {
+
+    Constant(final Double value) {
         this.value = value;
     }
 
@@ -84,7 +73,6 @@ public enum Constants implements MathEnum {
         return value;
     }
 
-    @Override
     public String getSyntax() {
         return this.name().toLowerCase();
     }

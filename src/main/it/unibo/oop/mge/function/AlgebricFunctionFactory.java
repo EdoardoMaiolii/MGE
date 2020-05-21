@@ -5,8 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import it.unibo.oop.mge.function.AlgebricFunction.Types;
-import it.unibo.oop.mge.libraries.Constants;
-import it.unibo.oop.mge.libraries.MathFunctions;
+import it.unibo.oop.mge.libraries.MathFunction;
+import it.unibo.oop.mge.libraries.Constant;
 
 public interface AlgebricFunctionFactory {
     /**
@@ -28,7 +28,7 @@ public interface AlgebricFunctionFactory {
      * @param c is the constant
      * @return an AlgebricFunction that correspond to the value of the constant
      */
-    static AlgebricFunction getConstantFunction(final Constants c) {
+    static AlgebricFunction getConstantFunction(final Constant c) {
         return getValueFunction(c.resolve());
     }
 
@@ -52,7 +52,7 @@ public interface AlgebricFunctionFactory {
      * @param pars is the parameters of the Function
      * @return an AlgebricFunction that is a Mathematical Function
      */
-    static AlgebricFunction getMathFunction(MathFunctions id, List<AlgebricFunction> pars) {
+    static AlgebricFunction getMathFunction(MathFunction id, List<AlgebricFunction> pars) {
         return new AlgebricFunctionImpl(Types.MATHFUNCTION, Optional.of(pars)) {
             @Override
             public Double resolve(final List<Character> pars, final List<Double> values) {

@@ -6,8 +6,8 @@ import java.util.stream.Collectors;
 
 import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.function.AlgebricFunctionFactory;
-import it.unibo.oop.mge.libraries.Constants;
-import it.unibo.oop.mge.libraries.MathFunctions;
+import it.unibo.oop.mge.libraries.Constant;
+import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Pair;
 
 public class FinalParserImpl implements FinalParser{
@@ -55,7 +55,7 @@ public class FinalParserImpl implements FinalParser{
 		while(fstring.length()>k && (Character.isDigit(fstring.charAt(k)) || isfloat)) {
 			k++;
 		}
-		if(fstring.length()!=k && !MathFunctions.contains(fstring)) 
+		if(fstring.length()!=k && !MathFunction.contains(fstring)) 
 			throw new java.lang.IllegalArgumentException();
 	}
 	
@@ -70,15 +70,15 @@ public class FinalParserImpl implements FinalParser{
 		else {
 			while(fstring.charAt(k++)!='(') {//caso parametro singolo
 				if(fstring.length()==k) {
-					if(Constants.contains(fstring))
-						return AlgebricFunctionFactory.getConstantFunction(Constants.getMathFunctionFromSyntax(fstring));
+					if(Constant.contains(fstring))
+						return AlgebricFunctionFactory.getConstantFunction(Constant.getMathFunctionFromSyntax(fstring));
 					if(fstring.length()==1)
 						return AlgebricFunctionFactory.getParameterFunction(fstring.charAt(0));
 					else checkError(fstring);
 				}	
 			}
 			checkError(fstring.substring(0, k-1));
-			return AlgebricFunctionFactory.getMathFunction(MathFunctions.getMathFunctionFromSyntax(fstring.substring(0, k-1)), 
+			return AlgebricFunctionFactory.getMathFunction(MathFunction.getMathFunctionFromSyntax(fstring.substring(0, k-1)), 
 					getParameters(fstring.substring(k-1)).stream().map(i->resolveFunction(i)).collect(Collectors.toList()));
 		}
 	}
