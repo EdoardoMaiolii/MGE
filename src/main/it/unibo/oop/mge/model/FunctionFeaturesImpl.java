@@ -19,29 +19,32 @@ import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.libraries.Pair;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
+    private static final List<Character> VARIABLES = List.of('x', 'y');
+    private static final int MAXRGBVALUE = 255;
+    private static final int MINRGBVALUE = 0;
     private Double rate;
     private Pair<Double, Double> interval;
-    private static final List<Character> VARIABLES = List.of('x', 'y');
     private Integer decimalPrecision;
     private List<Point3D> points;
-    private List<Point3D> realPoints = new ArrayList<>();
+    private List<Point3D> realPoints;
     private ColorGenerator cg;
 
     protected FunctionFeaturesImpl(final AlgebricFunction function, final Pair<Double, Double> interval,
-            final Double rate, final Optional<VariableColor> opColor, final Optional<Color> staticColor,
+            final Double rate, final Optional<VariableColor> varColor, final Optional<Color> staticColor,
             final Integer decimalPrecision) {
         this.interval = interval;
         this.rate = rate;
         this.decimalPrecision = decimalPrecision;
-        this.points = calculatePoints(function, interval);
-        this.realPoints = getRealPoints();
-        if (opColor.isEmpty()) {
+        this.points = getPointsFromFunction(function);
+        this.realPoints = getRealPoints(points);
+        if (varColor.isEmpty()) {
             this.cg = new ColorGeneratorImpl(staticColor.get());
         } else {
-            this.cg = new ColorGeneratorImpl(opColor.get(),
-                    new Pair<Double, Integer>(castDouble(this.getPointOfAbsoluteMin().getZ(), (i -> Math.floor(i))), 0),
+            this.cg = new ColorGeneratorImpl(varColor.get(),
+                    new Pair<Double, Integer>(castDouble(this.getPointOfAbsoluteMin().getZ(), (i -> Math.floor(i))),
+                            MINRGBVALUE),
                     new Pair<Double, Integer>(castDouble(this.getPointOfAbsoluteMax().getZ(), (i -> Math.ceil(i))),
-                            255));
+                            MAXRGBVALUE));
         }
     }
 
@@ -49,14 +52,15 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         return castingFunction.apply(Math.pow(10, decimalPrecision) * value) / Math.pow(10, decimalPrecision);
     }
 
-    private List<Point3D> calculatePoints(final AlgebricFunction function, final Pair<Double, Double> interval) {
+    private List<Point3D> getPointsFromFunction(final AlgebricFunction function) {
         final int nPoint = (int) (Math.abs(interval.getFst() - interval.getSnd()) / rate);
         BiFunction<Integer, Integer, Double> myfunc = (i,
                 j) -> (((int) (i / Math.pow(nPoint + 1, j)) % (nPoint + 1)) * rate + interval.getFst());
         return IntStream.range(0, (int) Math.pow(nPoint + 1, 2)).<Point3D>mapToObj(i -> {
             final Double x = castDouble(myfunc.apply(i, 0), a -> Math.floor(a));
             final Double y = castDouble(myfunc.apply(i, 1), a -> Math.floor(a));
-            return Point3D.fromDoubles(x, y, function.resolve(VARIABLES, List.of(x, y)));
+            return Point3D.fromDoubles(x, y,
+                    castDouble(function.resolve(VARIABLES, List.of(x, y)), a -> Math.floor(a)));
         }).collect(Collectors.toList());
     }
 
@@ -71,11 +75,11 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
                 .collect(Collectors.toList());
     }
 
-    public final List<Point3D> getRealPoints() {
+    private List<Point3D> getRealPoints(final List<Point3D> points) {
         return points.stream().filter(i -> Double.isFinite(i.getZ())).collect(Collectors.toList());
     }
 
-    public final List<Point3D> getImmaginaryPoints() {
+    private List<Point3D> getImmaginaryPoints(final List<Point3D> points) {
         return points.stream().filter(i -> !Double.isFinite(i.getZ())).collect(Collectors.toList());
     }
 
@@ -88,11 +92,11 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     }
 
     public final List<Segment3D> getPolygonalModel() {
-        final var x = (Math.abs(interval.getFst() - interval.getSnd())) / rate + 1;
-        final var y = (Math.abs(interval.getFst() - interval.getSnd())) / rate + 1;
+        final var widthX = (Math.abs(interval.getFst() - interval.getSnd())) / rate + 1;
+        final var widthY = (Math.abs(interval.getFst() - interval.getSnd())) / rate + 1;
         return Stream
                 .concat(getRealSegmentList(points, i -> i).stream().filter(i -> i.getA().getY() == i.getB().getY()),
-                        getRealSegmentList(points, i -> (int) ((i % x) * y + i / x)).stream()
+                        getRealSegmentList(points, i -> (int) ((i % widthX) * widthY + i / widthX)).stream()
                                 .filter(i -> i.getA().getX() == i.getB().getX()))
                 .collect(Collectors.toList());
     }

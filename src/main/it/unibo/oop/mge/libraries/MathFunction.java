@@ -231,7 +231,8 @@ public enum MathFunction {
     }
 
     public static Optional<MathFunction> getMathFunctionFromSyntax(final String syntax) {
-        return getListFromEnum().contains(syntax) ? Optional.of(MathFunction.valueOf(syntax)) : Optional.empty();
+        return EnumSet.allOf(MathFunction.class).stream().map(i -> new Pair<MathFunction, String>(i, i.getSyntax()))
+                .filter(i -> i.getSnd().equals(syntax)).map(i -> i.getFst()).findFirst();
     }
 
     public int getNParameters() {

@@ -8,16 +8,6 @@ import it.unibo.oop.mge.c3d.geometry.Segment3D;
 public interface FunctionFeatures {
     /**
      * 
-     * @return get the points belong to the domain
-     */
-    List<Point3D> getRealPoints();
-    /**
-     * 
-     * @return get the points that not belong to the domain
-     */
-    List<Point3D> getImmaginaryPoints();
-    /**
-     * 
      * @return get the Absolute Max of the function in the interval
      */
     Point3D getPointOfAbsoluteMax();
