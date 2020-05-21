@@ -11,7 +11,7 @@ public class FunctionParserImpl implements FunctionParser {
 
     protected static AlgebricFunction parseString(final String str) {
         peeledString = new BracketsParserImpl(str);
-        System.out.println(peeledString.resolveBrackets()); // decommentare per vedere la stringa riscritta stampata
+        //System.out.println(peeledString.resolveBrackets()); // decommentare per vedere la stringa riscritta stampata
         return func.resolveFunction(peeledString.resolveBrackets());
         // return null;
     }
