@@ -4,15 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public final class GetLabelsFromEnum {
-    private GetLabelsFromEnum() {
-    };
+public interface GetLabelsFromEnum {
 
-    public static List<String> getLabelFromConstants() {
+    static List<String> getLabelFromConstants() {
         return Constant.getListFromEnum();
     }
 
-    public static List<String> getLabelFromMathFunctions() {
+    static List<String> getLabelFromMathFunctions() {
         final Map<String, String> operators = new HashMap<>();
         operators.put(MathFunction.SUM.getSyntax(), "+");
         operators.put(MathFunction.SOT.getSyntax(), "-");
@@ -23,15 +21,15 @@ public final class GetLabelsFromEnum {
         return list;
     }
 
-    public static List<String> getLabelFromDigits() {
+    static List<String> getLabelFromDigits() {
         return Digits.getListFromEnum();
     }
 
-    public static List<String> getLabelFromPunctuation() {
+    static List<String> getLabelFromPunctuation() {
         return Punctuation.getListFromEnum();
     }
 
-    public static List<String> getLabelFromVariables() {
+    static List<String> getLabelFromVariables() {
         return Variables.getListFromEnum();
     }
 }

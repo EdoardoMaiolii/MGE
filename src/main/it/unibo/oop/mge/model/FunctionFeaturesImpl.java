@@ -21,7 +21,7 @@ import it.unibo.oop.mge.libraries.Pair;
 public class FunctionFeaturesImpl implements FunctionFeatures {
     private Double rate;
     private Pair<Double, Double> interval;
-    private List<Character> variables = List.of('x', 'y');
+    private static final List<Character> VARIABLES = List.of('x', 'y');
     private Integer decimalPrecision;
     private List<Point3D> points;
     private List<Point3D> realPoints = new ArrayList<>();
@@ -45,8 +45,8 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         }
     }
 
-    private double castDouble(final Double value, final Function<Double, Double> pattern) {
-        return pattern.apply(Math.pow(10, decimalPrecision) * value) / Math.pow(10, decimalPrecision);
+    private double castDouble(final Double value, final Function<Double, Double> castingFunction) {
+        return castingFunction.apply(Math.pow(10, decimalPrecision) * value) / Math.pow(10, decimalPrecision);
     }
 
     private List<Point3D> calculatePoints(final AlgebricFunction function, final Pair<Double, Double> interval) {
@@ -56,7 +56,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         return IntStream.range(0, (int) Math.pow(nPoint + 1, 2)).<Point3D>mapToObj(i -> {
             final Double x = castDouble(myfunc.apply(i, 0), a -> Math.floor(a));
             final Double y = castDouble(myfunc.apply(i, 1), a -> Math.floor(a));
-            return Point3D.fromDoubles(x, y, function.resolve(variables, List.of(x, y)));
+            return Point3D.fromDoubles(x, y, function.resolve(VARIABLES, List.of(x, y)));
         }).collect(Collectors.toList());
     }
 
