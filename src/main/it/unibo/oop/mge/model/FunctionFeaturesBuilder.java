@@ -2,7 +2,7 @@ package it.unibo.oop.mge.model;
 
 import java.awt.Color;
 
-import it.unibo.oop.mge.Color.VariableColor;
+import it.unibo.oop.mge.color.VariableColor;
 import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.libraries.Pair;
 

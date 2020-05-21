@@ -1,30 +1,31 @@
 package it.unibo.oop.mge.model;
 import java.util.List;
 
+import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
-import it.unibo.oop.mge.libraries.PointND;
+
 
 public interface FunctionFeatures {
     /**
      * 
      * @return get the points belong to the domain
      */
-    List<PointND> getRealPoints();
+    List<Point3D> getRealPoints();
     /**
      * 
      * @return get the points that not belong to the domain
      */
-    List<PointND> getImmaginaryPoints();
+    List<Point3D> getImmaginaryPoints();
     /**
      * 
      * @return get the Absolute Max of the function in the interval
      */
-    PointND getPointOfAbsoluteMax();
+    Point3D getPointOfAbsoluteMax();
     /**
      * 
      * @return get the Absolute Min of the function in the interval
      */
-    PointND getPointOfAbsoluteMin();
+    Point3D getPointOfAbsoluteMin();
     /**
      * 
      * @return get the Poligonal Model of the Function in the interval

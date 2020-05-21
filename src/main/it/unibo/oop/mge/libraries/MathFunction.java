@@ -1,11 +1,11 @@
 package it.unibo.oop.mge.libraries;
-import java.util.Arrays;
+
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public enum MathFunctions implements MathEnum {
+public enum MathFunction {
     /**
      * make the sum.
      */
@@ -55,10 +55,10 @@ public enum MathFunctions implements MathEnum {
      * 
      */
     EXP(1) {
-       @Override
-       protected Double calculate(final List<Double> parameters) {
-           return Math.exp(parameters.get(0));
-       }
+        @Override
+        protected Double calculate(final List<Double> parameters) {
+            return Math.exp(parameters.get(0));
+        }
     },
     /**
      * 
@@ -170,7 +170,7 @@ public enum MathFunctions implements MathEnum {
     },
     /**
      * 
-     */ 
+     */
     SINH(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
@@ -219,28 +219,21 @@ public enum MathFunctions implements MathEnum {
             }
         }
     };
+
     private final int nParameters;
 
-    MathFunctions(final int nPar) {
+    MathFunction(final int nPar) {
         this.nParameters = nPar;
     }
 
     public static List<String> getListFromEnum() {
-        return Arrays.asList(values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList());
+        return EnumSet.allOf(MathFunction.class).stream().map(i -> i.getSyntax()).collect(Collectors.toList());
     }
 
-    public static boolean contains(final String name) {
-        return  getListFromEnum().contains(name);
+    public static Optional<MathFunction> getMathFunctionFromSyntax(final String syntax) {
+        return getListFromEnum().contains(syntax) ? Optional.of(MathFunction.valueOf(syntax)) : Optional.empty();
     }
-    public static MathFunctions getMathFunctionFromSyntax(final String syntax) {
-        return MathFunctions.valueOf(Arrays.asList(values())
-               .stream()
-               .map(i -> new Pair<String, String>(i.name(), i.getSyntax()))
-               .filter(i -> i.getSnd().equals(syntax))
-               .findFirst()
-               .get()
-               .getFst());
-    }
+
     public int getNParameters() {
         return nParameters;
     }
