@@ -1,13 +1,13 @@
 package it.unibo.oop.mge.parser;
-
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import it.unibo.oop.mge.model.BracketsParserImpl;
 
 public class ParserTest {
 
-    @org.junit.Test
+    @Test
     public void rewriterTest() {
         List<String> listone = new ArrayList<>();
         String str1 = "ln(pow(x,2)*4+1)";
@@ -71,3 +71,4 @@ public class ParserTest {
     }
 
 }
+

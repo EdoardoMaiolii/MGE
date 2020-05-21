@@ -177,6 +177,4 @@ public class RealParserImpl implements RealParser{
 		this.fstring=str;
 		this.flength=str.length();
 	}
->>>>>>> 4a007d8cb4e9f456074aab6e456570c5dec184a1
-
 }
