@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.oop.mge.function.AlgebricFunction.Types;
 import it.unibo.oop.mge.libraries.Constant;
 import it.unibo.oop.mge.libraries.MathFunction;
+import it.unibo.oop.mge.libraries.Variable;
 
 public class AlgebricFunctionTest {
     @Test
@@ -21,7 +22,7 @@ public class AlgebricFunctionTest {
         assertFalse(af.isVariable());
         assertFalse(af.isMathFunction());
         assertTrue(af.getParameters().isEmpty());
-        af = AlgebricFunctionFactory.getParameterFunction('x');
+        af = AlgebricFunctionFactory.getParameterFunction(Variable.X);
         assertFalse(af.isConstant());
         assertTrue(af.isVariable());
         assertFalse(af.isMathFunction());

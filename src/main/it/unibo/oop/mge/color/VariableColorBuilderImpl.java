@@ -8,6 +8,7 @@ public final class VariableColorBuilderImpl implements VariableColorBuilder {
     private Optional<Integer> blue = Optional.empty();
     private static final int MAXRGBVALUE = 255;
     private static final int MINRGBVALUE = 0;
+    private Boolean builded = false;
 
     private Boolean belongInterval(final int value) {
         return value >= MINRGBVALUE && value <= MAXRGBVALUE ? true : false;
@@ -66,6 +67,12 @@ public final class VariableColorBuilderImpl implements VariableColorBuilder {
 
     @Override
     public VariableColor build() {
-        return new VariableColorImpl(red, green, blue);
+        if (this.builded) {
+            this.throwIllSttExc();
+            return null;
+        } else {
+            this.builded = true;
+            return new VariableColorImpl(this.red, this.green, this.blue);
+        }
     }
 }

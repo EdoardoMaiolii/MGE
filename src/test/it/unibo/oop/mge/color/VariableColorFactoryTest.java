@@ -1,6 +1,7 @@
 package it.unibo.oop.mge.color;
 
 import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
@@ -32,13 +33,8 @@ public class VariableColorFactoryTest {
         assertEquals(vc.getGreen().get().intValue(), green);
         assertEquals(vc.getBlue().get().intValue(), blue);
         /* Set all */
-        vc = new VariableColorBuilderImpl().setBlue(blue).setGreen(green).setRed(red).build();
-        assertTrue(vc.getRed().isPresent());
-        assertTrue(vc.getGreen().isPresent());
-        assertTrue(vc.getBlue().isPresent());
-        assertEquals(vc.getGreen().get().intValue(), green);
-        assertEquals(vc.getBlue().get().intValue(), blue);
-        assertEquals(vc.getRed().get().intValue(), red);
+        assertThrows(IllegalStateException.class,
+                () -> new VariableColorBuilderImpl().setBlue(blue).setGreen(green).setRed(red).build());
         /* Set none */
         vc = new VariableColorBuilderImpl().build();
         assertTrue(vc.getRed().isEmpty());
@@ -46,4 +42,35 @@ public class VariableColorFactoryTest {
         assertTrue(vc.getBlue().isEmpty());
     }
 
+    void SetMultipleTimes() {
+        final int red = 10;
+        final int green = 150;
+        final int blue = 0;
+        /* Set blue 2 times */
+        assertThrows(IllegalStateException.class, () -> new VariableColorBuilderImpl().setBlue(blue).setBlue(blue));
+        /* Set red 2 times */
+        assertThrows(IllegalStateException.class, () -> new VariableColorBuilderImpl().setRed(red).setRed(red));
+        /* Set green 2 times */
+        assertThrows(IllegalStateException.class, () -> new VariableColorBuilderImpl().setGreen(green).setGreen(green));
+    }
+
+    void BuildMultipleTimes() {
+        /* Build 2 times */
+        var builder = new VariableColorBuilderImpl();
+        builder.build();
+        assertThrows(IllegalStateException.class, () -> builder.build());
+    }
+
+    void trySetBadValues() {
+        final int red = -5;
+        final int green = 1050;
+        final int blue = -1000;
+        /* Set blue */
+        assertThrows(IllegalArgumentException.class, () -> new VariableColorBuilderImpl().setBlue(blue).setBlue(blue));
+        /* Set red */
+        assertThrows(IllegalArgumentException.class, () -> new VariableColorBuilderImpl().setRed(red).setRed(red));
+        /* Set green */
+        assertThrows(IllegalArgumentException.class,
+                () -> new VariableColorBuilderImpl().setGreen(green).setGreen(green));
+    }
 }
