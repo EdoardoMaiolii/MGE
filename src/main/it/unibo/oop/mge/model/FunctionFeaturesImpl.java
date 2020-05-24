@@ -19,8 +19,6 @@ import it.unibo.oop.mge.libraries.Pair;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
     private static final List<Character> VARIABLES = List.of('x', 'y');
-    private static final int MAXRGBVALUE = 255;
-    private static final int MINRGBVALUE = 0;
     private Double rate;
     private Pair<Double, Double> interval;
     private Integer width;
@@ -41,11 +39,8 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         if (varColor.isEmpty()) {
             this.cg = new ColorGeneratorImpl(staticColor.get());
         } else {
-            this.cg = new ColorGeneratorImpl(varColor.get(),
-                    new Pair<Double, Integer>(castDouble(this.getPointOfAbsoluteMin().getZ(), (i -> Math.floor(i))),
-                            MINRGBVALUE),
-                    new Pair<Double, Integer>(castDouble(this.getPointOfAbsoluteMax().getZ(), (i -> Math.ceil(i))),
-                            MAXRGBVALUE));
+            this.cg = new ColorGeneratorImpl(varColor.get(), this.getPointOfAbsoluteMin().getZ(),
+                    this.getPointOfAbsoluteMax().getZ());
         }
     }
 
@@ -69,8 +64,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         return IntStream.range(0, (int) Math.pow(this.width + 1, 2)).<Point3D>mapToObj(i -> {
             final Double x = castDouble(myfunc.apply(i, 0), a -> Math.floor(a));
             final Double y = castDouble(myfunc.apply(i, 1), a -> Math.floor(a));
-            return Point3D.fromDoubles(x, y,
-                    castDouble(function.resolve(VARIABLES, List.of(x, y)), a -> Math.floor(a)));
+            return Point3D.fromDoubles(x, y, castDouble(function.resolve(x, y), a -> Math.floor(a)));
         }).collect(Collectors.toList());
     }
 

@@ -2,20 +2,20 @@ package it.unibo.oop.mge.color;
 
 import java.awt.Color;
 import java.util.function.Function;
-import it.unibo.oop.mge.libraries.Pair;
 
 public class ColorGeneratorImpl implements ColorGenerator {
     private Function<Double, Integer> linearFunction;
     private VariableColor varColor;
     private Color color;
     private TypeGenerator myType;
+    private static final int MAXRGBVALUE = 255;
+    private static final int MINRGBVALUE = 0;
 
-    public ColorGeneratorImpl(final VariableColor varColor, final Pair<Double, Integer> point1,
-            final Pair<Double, Integer> point2) {
+    public ColorGeneratorImpl(final VariableColor varColor, final double min, final double max) {
         this.myType = TypeGenerator.DINAMIC;
         this.varColor = varColor;
-        final double m = (point1.getSnd() - point2.getSnd()) / (point1.getFst() - point2.getFst());
-        final double q = point1.getSnd() - (m * point1.getFst());
+        final double m = MAXRGBVALUE / (min - max);
+        final double q = m * MINRGBVALUE;
         linearFunction = (x -> (int) (m * x + q));
     }
 
@@ -28,10 +28,24 @@ public class ColorGeneratorImpl implements ColorGenerator {
     public final Color getColorFromDouble(final Double value) {
         if (myType.equals(TypeGenerator.STATIC)) {
             return color;
-        } else {   /*myType.equals(TypeGenerator.DINAMIC)*/
-            return new Color(varColor.getRed().isPresent()   ? varColor.getRed().get()   : linearFunction.apply(value),
-                             varColor.getGreen().isPresent() ? varColor.getGreen().get() : linearFunction.apply(value),
-                             varColor.getBlue().isPresent()  ? varColor.getBlue().get()  : linearFunction.apply(value));
+        } else { /* myType.equals(TypeGenerator.DINAMIC) */
+            int colorValue;
+            /* If the number is greater then 255 i set 255 */
+            if (linearFunction.apply(value) < MINRGBVALUE) {
+                colorValue = MINRGBVALUE;
+                /* If the number is lower then 0 i set 0 */
+            } else if (linearFunction.apply(value) > MAXRGBVALUE) {
+                colorValue = MAXRGBVALUE;
+                /*
+                 * If the number belong to the interval i use the function to get the right
+                 * value
+                 */
+            } else {
+                colorValue = linearFunction.apply(value);
+            }
+            return new Color(varColor.getRed().isPresent() ? varColor.getRed().get() : colorValue,
+                    varColor.getGreen().isPresent() ? varColor.getGreen().get() : colorValue,
+                    varColor.getBlue().isPresent() ? varColor.getBlue().get() : colorValue);
         }
     }
 }

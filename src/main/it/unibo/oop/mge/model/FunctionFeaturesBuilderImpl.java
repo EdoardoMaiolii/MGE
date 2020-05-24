@@ -1,7 +1,6 @@
 package it.unibo.oop.mge.model;
 
 import java.awt.Color;
-import java.util.List;
 import java.util.Optional;
 
 import it.unibo.oop.mge.color.VariableColor;
@@ -13,59 +12,88 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     private Optional<Pair<Double, Double>> interval = Optional.empty();
     private Optional<Integer> decimalPrecision = Optional.empty();
     private Optional<Double> rate = Optional.empty();
-    private Optional<VariableColor> opColor = Optional.empty();
+    private Optional<VariableColor> varColor = Optional.empty();
     private Optional<Color> staticColor = Optional.empty();
     private Boolean builded = false;
 
+    private Boolean isNull(final Object obj) {
+        return obj == null ? true : false;
+    }
+
     private Boolean ready() {
-        return function.isPresent() && interval.isPresent() && rate.isPresent() && decimalPrecision.isPresent()
-                && (staticColor.isPresent() || opColor.isPresent()) && (staticColor.isEmpty() || opColor.isEmpty())
-                && !builded;
+        return this.function.isPresent() && this.interval.isPresent() && this.rate.isPresent() && this.decimalPrecision.isPresent()
+                && (this.staticColor.isPresent() || this.varColor.isPresent()) && (this.staticColor.isEmpty() || this.varColor.isEmpty())
+                && !this.builded;
     }
 
     @Override
     public FunctionFeaturesBuilder setFunction(final AlgebricFunction function) {
-        this.function = Optional.of(function);
-        return this;
+        if (this.function.isEmpty() && !isNull(function)) {
+            this.function = Optional.of(function);
+            return this;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public FunctionFeaturesBuilder setIntervals(final Pair<Double, Double> interval) {
-        this.interval = Optional.of(interval);
-        return this;
+    public FunctionFeaturesBuilder setIntervals(final double min, final double max) {
+        if (this.interval.isEmpty() && min < max) {
+            this.interval = Optional.of(new Pair<Double, Double>(min, max));
+            return this;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public FunctionFeaturesBuilder setRate(final Double rate) {
-        this.rate = Optional.of(rate);
-        return this;
+    public FunctionFeaturesBuilder setRate(final double rate) {
+        if (this.rate.isEmpty() && rate > 0) {
+            this.rate = Optional.of(rate);
+            return this;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public FunctionFeaturesBuilder setDinamicColor(final VariableColor opColor) {
-        this.opColor = Optional.of(opColor);
-        return this;
+    public FunctionFeaturesBuilder setDinamicColor(final VariableColor varColor) {
+        if (this.varColor.isEmpty() && this.staticColor.isEmpty() && !isNull(varColor)) {
+            this.varColor = Optional.of(varColor);
+            return this;
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public FunctionFeaturesBuilder setDecimalPrecision(final Integer decimalPrecision) {
-        this.decimalPrecision = Optional.of(decimalPrecision);
-        return this;
+    public FunctionFeaturesBuilder setDecimalPrecision(final int decimalPrecision) {
+        if (this.decimalPrecision.isEmpty() && decimalPrecision > 0) {
+            this.decimalPrecision = Optional.of(decimalPrecision);
+            return this;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public FunctionFeaturesBuilder setStaticColor(final Color color) {
-        this.staticColor = Optional.of(color);
-        return this;
+        if (this.staticColor.isEmpty() && this.varColor.isEmpty() && !isNull(color)) {
+            this.staticColor = Optional.of(color);
+            return this;
+        } else {
+            return null;
+        }
     }
 
     @Override
     public FunctionFeaturesImpl build() {
-        if (ready()) {
-            builded = true;
-            return new FunctionFeaturesImpl(function.get(), interval.get(), rate.get(), opColor,
-                    staticColor, decimalPrecision.get());
+        if (this.ready()) {
+            this.builded = true;
+            return new FunctionFeaturesImpl(this.function.get(), this.interval.get(), this.rate.get(), this.varColor,
+                    this.staticColor, this.decimalPrecision.get());
+        } else {
+            return null;
         }
-        return null;
     }
 }

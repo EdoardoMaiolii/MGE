@@ -6,19 +6,19 @@ public interface VariableColorBuilder {
      * @param red
      * @return a VariableColorBuilder
      */
-    VariableColorBuilder setRed(Integer red);
+    VariableColorBuilder setRed(int red);
     /**
      * 
      * @param green
      * @return a VariableColorBuilder
      */
-    VariableColorBuilder setGreen(Integer green);
+    VariableColorBuilder setGreen(int green);
     /**
      * 
      * @param blue
      * @return a VariableColorBuilder
      */
-    VariableColorBuilder setBlue(Integer blue);
+    VariableColorBuilder setBlue(int blue);
     /**
      * 
      * @return a VariableColor

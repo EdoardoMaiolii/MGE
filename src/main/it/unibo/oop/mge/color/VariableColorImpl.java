@@ -26,12 +26,4 @@ public class VariableColorImpl implements VariableColor {
     public final Optional<Integer> getBlue() {
         return blue;
     }
-
-    public final Boolean isEmpty() {
-        return this.getRed().isEmpty() && this.getGreen().isEmpty() && this.getBlue().isEmpty();
-    }
-
-    public final Boolean isPresent() {
-        return !this.isEmpty();
-    }
 }

@@ -41,7 +41,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
         try {
             VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
             FunctionFeaturesImpl functionFeature = new FunctionFeaturesBuilderImpl()
-                    .setFunction(FunctionParser.parse(function)).setIntervals(new Pair<Double, Double>(min, max))
+                    .setFunction(FunctionParser.parse(function)).setIntervals(min,max)
                     .setRate(rate).setDinamicColor(color).setDecimalPrecision(5).build();
             System.out.print(functionFeature.getPolygonalModel());
             this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPolygonalModel()));

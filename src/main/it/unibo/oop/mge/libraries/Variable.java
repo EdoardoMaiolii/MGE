@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum Variables {
+public enum Variable {
 	
 	X("x"),
 	Y("y"),
@@ -15,7 +15,7 @@ public enum Variables {
 	
 	private final String name;
 	
-	private Variables(String name) {
+	private Variable(String name) {
 		this.name = name;
 	}
 	
@@ -24,7 +24,7 @@ public enum Variables {
 	}
 	
 	protected static List<String> getListFromEnum() {
-	  return Arrays.asList(Variables.values()).stream()
+	  return Arrays.asList(Variable.values()).stream()
 	                                          .map(e -> e.getName())
 	                                          .collect(Collectors.toList());
 	}

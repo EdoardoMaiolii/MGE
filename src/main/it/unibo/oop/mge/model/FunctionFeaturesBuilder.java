@@ -10,15 +10,15 @@ public interface FunctionFeaturesBuilder {
 
     FunctionFeaturesBuilder setFunction(AlgebricFunction function);
 
-    FunctionFeaturesBuilder setIntervals(Pair<Double, Double> interval);
+    FunctionFeaturesBuilder setIntervals(double min, double max);
 
-    FunctionFeaturesBuilder setRate(Double rate);
+    FunctionFeaturesBuilder setRate(double rate);
 
-    FunctionFeaturesBuilder setDinamicColor(VariableColor opColor);
+    FunctionFeaturesBuilder setDinamicColor(VariableColor varColor);
 
     FunctionFeaturesBuilder setStaticColor(Color color);
 
-    FunctionFeaturesBuilder setDecimalPrecision(Integer decimalPrecision);
+    FunctionFeaturesBuilder setDecimalPrecision(int decimalPrecision);
 
     FunctionFeaturesImpl build();
 }

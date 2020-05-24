@@ -30,6 +30,6 @@ public interface GetLabelsFromEnum {
     }
 
     static List<String> getLabelFromVariables() {
-        return Variables.getListFromEnum();
+        return Variable.getListFromEnum();
     }
 }

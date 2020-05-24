@@ -7,6 +7,7 @@ public interface AlgebricFunction {
     enum Types {
         CONSTANT, VARIABLE, MATHFUNCTION;
     }
+
     /**
      * 
      * @return the type if the AlgebricFunction.
@@ -39,11 +40,11 @@ public interface AlgebricFunction {
 
     /**
      * 
-     * @param pars   are the names of the variables
-     * @param values are the values if the variables
+     * @param xValue
+     * @param yValue
      * @return the value of the function.
      */
-    Double resolve(List<Character> pars, List<Double> values);
+    Double resolve(double xValue, double yValue);
 
     /**
      * 

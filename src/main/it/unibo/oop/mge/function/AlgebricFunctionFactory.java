@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import it.unibo.oop.mge.function.AlgebricFunction.Types;
 import it.unibo.oop.mge.libraries.MathFunction;
+import it.unibo.oop.mge.libraries.Variable;
 import it.unibo.oop.mge.libraries.Constant;
 
 public interface AlgebricFunctionFactory {
@@ -17,7 +18,7 @@ public interface AlgebricFunctionFactory {
     static AlgebricFunction getValueFunction(Double value) {
         return new AlgebricFunctionImpl(Types.CONSTANT, Optional.empty()) {
             @Override
-            public Double resolve(final List<Character> pars, final List<Double> values) {
+            public Double resolve(final double xValue, final double yValue) {
                 return value;
             }
         };
@@ -37,11 +38,11 @@ public interface AlgebricFunctionFactory {
      * @param name is the name if the variable
      * @return an AlgebricFunction that correspond to a variable
      */
-    static AlgebricFunction getParameterFunction(Character name) {
+    static AlgebricFunction getParameterFunction(Variable name) {
         return new AlgebricFunctionImpl(Types.VARIABLE, Optional.empty()) {
             @Override
-            public Double resolve(final List<Character> pars, final List<Double> values) {
-                return values.get(pars.indexOf(name));
+            public Double resolve(final double xValue, final double yValue) {
+                return name.equals(Variable.X) ? xValue : yValue;
             }
         };
     }
@@ -55,8 +56,8 @@ public interface AlgebricFunctionFactory {
     static AlgebricFunction getMathFunction(MathFunction id, List<AlgebricFunction> pars) {
         return new AlgebricFunctionImpl(Types.MATHFUNCTION, Optional.of(pars)) {
             @Override
-            public Double resolve(final List<Character> pars, final List<Double> values) {
-                return id.resolve(this.getParameters().get().stream().map(i -> i.resolve(pars, values))
+            public Double resolve(final double xValue, final double yValue) {
+                return id.resolve(this.getParameters().get().stream().map(i -> i.resolve(xValue, yValue))
                         .collect(Collectors.toList()));
             }
         };

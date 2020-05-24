@@ -20,6 +20,4 @@ abstract class AlgebricFunctionImpl implements AlgebricFunction {
     public Optional<List<AlgebricFunction>> getParameters() {
         return this.parameters;
     }
-
-    public abstract Double resolve(List<Character> pars, List<Double> values);
 }

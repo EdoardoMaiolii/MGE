@@ -18,14 +18,4 @@ public interface VariableColor {
      * @return an optional of the blue parameter of the color created
      */
     Optional<Integer> getBlue();
-    /**
-     * 
-     * @return true if all the parameters (red,green,blue) are unsetted, false otherwise
-     */
-    Boolean isEmpty();
-    /**
-     * 
-     * @return true if all the parameters are setted, false otherwise
-     */
-    Boolean isPresent();
 }
