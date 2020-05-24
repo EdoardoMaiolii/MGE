@@ -62,7 +62,7 @@ public enum Constant implements GenericEnum {
     }
 
     public static Optional<Constant> getConstantFromSyntax(final String syntax) {
-        return getListFromEnum().contains(syntax) ? Optional.of(Constant.valueOf(syntax.toUpperCase())) : Optional.empty();
+        return EnumSet.allOf(Constant.class).stream().filter(i -> i.getSyntax() == syntax).findFirst();
     }
 
     Constant(final Double value) {

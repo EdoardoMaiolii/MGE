@@ -18,7 +18,6 @@ import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.libraries.Pair;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
-    private static final List<Character> VARIABLES = List.of('x', 'y');
     private Double rate;
     private Pair<Double, Double> interval;
     private Integer width;

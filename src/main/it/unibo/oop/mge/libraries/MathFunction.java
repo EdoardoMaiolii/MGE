@@ -231,7 +231,7 @@ public enum MathFunction implements GenericEnum {
     }
 
     public static Optional<MathFunction> getMathFunctionFromSyntax(final String syntax) {
-        return getListFromEnum().contains(syntax) ? Optional.of(MathFunction.valueOf(syntax.toUpperCase())) : Optional.empty();
+        return EnumSet.allOf(MathFunction.class).stream().filter(i -> i.getSyntax() == syntax).findFirst();
     }
 
     public int getNParameters() {
