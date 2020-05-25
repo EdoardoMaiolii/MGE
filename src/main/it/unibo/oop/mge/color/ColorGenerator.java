@@ -3,15 +3,12 @@ package it.unibo.oop.mge.color;
 import java.awt.Color;
 
 public interface ColorGenerator {
-
-    enum TypeGenerator {
-        STATIC, DINAMIC,
-    }
     /**
      * 
      * @param value
-     * @return the color associated to the given value
-     *         colors are linearly allocated.
+     * @return the color associated to the given value, if the ColorGenerator has
+     *         been initialize without specifying the range the color will be always
+     *         the same no matter the value.
      */
     Color getColorFromDouble(Double value);
 
