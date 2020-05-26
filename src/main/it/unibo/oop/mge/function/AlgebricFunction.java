@@ -1,18 +1,20 @@
 package it.unibo.oop.mge.function;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+
+import it.unibo.oop.mge.libraries.Variable;
 
 
 public interface AlgebricFunction {
 
     /**
      * 
-     * @param xValue
-     * @param yValue
+     * @param values
      * @return the value of the function.
      */
-    Double resolve(double xValue, double yValue);
+    Double resolve(Map<Variable, Double> values);
 
     /**
      * 

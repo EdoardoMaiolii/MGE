@@ -1,35 +1,39 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
-public interface GetLabelsFromEnum {
+public final class GetLabelsFromEnum {
+    private static final Map<String, String> OPERATORS = Map.of(
+            MathFunction.SUM.getSyntax(), "+",
+            MathFunction.SOT.getSyntax(), "-", 
+            MathFunction.MUL.getSyntax(), "*", 
+            MathFunction.DIV.getSyntax(), "/");
 
-    static List<String> getLabelFromConstants() {
+    private GetLabelsFromEnum() {
+    };
+
+    public static List<String> getLabelFromConstants() {
         return Constant.getListFromEnum();
     }
 
-    static List<String> getLabelFromMathFunctions() {
-        final Map<String, String> operators = new HashMap<>();
-        operators.put(MathFunction.SUM.getSyntax(), "+");
-        operators.put(MathFunction.SOT.getSyntax(), "-");
-        operators.put(MathFunction.MUL.getSyntax(), "*");
-        operators.put(MathFunction.DIV.getSyntax(), "/");
-        List<String> list = MathFunction.getListFromEnum();
-        operators.forEach((a, b) -> list.set(list.indexOf(a), b));
-        return list;
+    public static List<String> getLabelFromMathFunctions() {
+        return MathFunction.getListFromEnum()
+                .stream()
+                .map(i -> OPERATORS.containsKey(i) ? OPERATORS.get(i) : i)
+                .collect(Collectors.toList());
     }
 
-    static List<String> getLabelFromDigits() {
+    public static List<String> getLabelFromDigits() {
         return Digits.getListFromEnum();
     }
 
-    static List<String> getLabelFromPunctuation() {
+    public static List<String> getLabelFromPunctuation() {
         return Punctuation.getListFromEnum();
     }
 
-    static List<String> getLabelFromVariables() {
+    public static List<String> getLabelFromVariables() {
         return Variable.getListFromEnum();
     }
 }

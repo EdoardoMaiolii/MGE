@@ -1,6 +1,8 @@
 package it.unibo.oop.mge.model;
 
 import java.awt.Color;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -16,6 +18,9 @@ import it.unibo.oop.mge.color.ColorGeneratorImpl;
 import it.unibo.oop.mge.color.VariableColor;
 import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.libraries.Pair;
+import it.unibo.oop.mge.libraries.PointND;
+import it.unibo.oop.mge.libraries.PointNDImpl;
+import it.unibo.oop.mge.libraries.Variable;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
     private Double rate;
@@ -33,7 +38,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         this.rate = rate;
         this.decimalPrecision = decimalPrecision;
         this.width = (int) (Math.abs(interval.getFst() - interval.getSnd()) / rate);
-        this.points = getPointsFromFunction(function);
+        this.points = pointCaster(getPointsFromFunction(function));
         this.realPoints = getRealPoints(points);
         if (varColor.isEmpty()) {
             this.cg = new ColorGeneratorImpl(staticColor.get());
@@ -41,6 +46,13 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
             this.cg = new ColorGeneratorImpl(varColor.get(), this.getPointOfAbsoluteMin().getZ(),
                     this.getPointOfAbsoluteMax().getZ());
         }
+    }
+
+    private List<Point3D> pointCaster(final List<PointND> points) {
+        return points.stream()
+                .<Point3D>map(
+                        i -> Point3D.fromDoubles(i.getValues().get(0), i.getValues().get(1), i.getValues().get(2)))
+                .collect(Collectors.toList());
     }
 
     private List<Point3D> getRealPoints(final List<Point3D> points) {
@@ -51,7 +63,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         return castingFunction.apply(Math.pow(10, decimalPrecision) * value) / Math.pow(10, decimalPrecision);
     }
 
-    private List<Point3D> getPointsFromFunction(final AlgebricFunction function) {
+    private List<PointND> getPointsFromFunction(final AlgebricFunction function) {
         /*
          * This function takes the number of the point and the number of the coordinate
          * and return the coordinate
@@ -60,13 +72,29 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
                 j) -> (((int) (i / Math.pow(this.width + 1, j)) % (this.width + 1)) * this.rate
                         + this.interval.getFst());
 
-        return IntStream.range(0, (int) Math.pow(this.width + 1, 2)).<Point3D>mapToObj(i -> {
-            final Double x = castDouble(myfunc.apply(i, 0), a -> Math.floor(a));
-            final Double y = castDouble(myfunc.apply(i, 1), a -> Math.floor(a));
-            return Point3D.fromDoubles(x, y, castDouble(function.resolve(x, y), a -> Math.floor(a)));
-        }).collect(Collectors.toList());
+        return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.getListFromEnum().size()))
+                .<PointND>mapToObj(i -> {
+                    var coordinates = EnumSet.allOf(Variable.class).stream()
+                            .collect(Collectors.toMap(a -> a,
+                                    a -> castDouble(myfunc.apply(i, Arrays.asList(Variable.values()).indexOf(a)),
+                                            w -> Math.floor(w))));
+                    return new PointNDImpl(Stream
+                            .concat(coordinates.values().stream(), List.of(function.resolve(coordinates)).stream())
+                            .collect(Collectors.toList()));
+                }).collect(Collectors.toList());
     }
 
+    /*
+     * 
+     * OLD:
+     * 
+     * var s = castDouble(myfunc.apply(i, Arrays.asList(Variable.class).indexOf(a)),
+     * c -> Math.floor(c)); final Double x = castDouble(myfunc.apply(i, 0), a ->
+     * Math.floor(a)); final Double y = castDouble(myfunc.apply(i, 1), a ->
+     * Math.floor(a)); return Point3D.fromDoubles(x, y,
+     * castDouble(function.resolve(x, y), a -> Math.floor(a)));
+     * }).collect(Collectors.toList());
+     */
     private List<Segment3D> getRealSegmentList(final List<Point3D> points,
             final Function<Integer, Integer> posDetector) {
         return IntStream.range(0, points.size() - 1)

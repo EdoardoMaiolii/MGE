@@ -1,6 +1,7 @@
 package it.unibo.oop.mge.function;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public interface AlgebricFunctionFactory {
     static AlgebricFunction getValueFunction(Double value) {
         return new AlgebricFunctionImpl(Optional.empty()) {
             @Override
-            public Double resolve(final double xValue, final double yValue) {
+            public Double resolve(final Map<Variable, Double> values) {
                 return value;
             }
         };
@@ -40,8 +41,8 @@ public interface AlgebricFunctionFactory {
     static AlgebricFunction getParameterFunction(final Variable name) {
         return new AlgebricFunctionImpl(Optional.empty()) {
             @Override
-            public Double resolve(final double xValue, final double yValue) {
-                return name.equals(Variable.X) ? xValue : yValue;
+            public Double resolve(final Map<Variable, Double> values) {
+                return values.get(name);
             }
         };
     }
@@ -55,9 +56,9 @@ public interface AlgebricFunctionFactory {
     static AlgebricFunction getMathFunction(final MathFunction id, final List<AlgebricFunction> pars) {
         return new AlgebricFunctionImpl(Optional.of(pars)) {
             @Override
-            public Double resolve(final double xValue, final double yValue) {
-                return id.resolve(this.getParameters().get().stream().map(i -> i.resolve(xValue, yValue))
-                        .collect(Collectors.toList()));
+            public Double resolve(final Map<Variable, Double> values) {
+                return id.resolve(
+                        this.getParameters().get().stream().map(i -> i.resolve(values)).collect(Collectors.toList()));
             }
         };
     }

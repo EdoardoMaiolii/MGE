@@ -1,9 +1,6 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public enum MathFunction implements GenericEnum {
     /**
@@ -210,13 +207,7 @@ public enum MathFunction implements GenericEnum {
     SIGN(1) {
         @Override
         protected Double calculate(final List<Double> parameters) {
-            if (parameters.get(0) > 0) {
-                return 1.0;
-            } else if (parameters.get(0) < 0) {
-                return -1.0;
-            } else {
-                return 0.0;
-            }
+            return parameters.get(0) > 0 ? 1.0 : parameters.get(0) < 0 ? -1.0 : 0;
         }
     };
 
@@ -226,12 +217,16 @@ public enum MathFunction implements GenericEnum {
         this.nParameters = nPar;
     }
 
-    public static List<String> getListFromEnum() {
-        return EnumSet.allOf(MathFunction.class).stream().map(i -> i.getSyntax()).collect(Collectors.toList());
+    private void throwIllArgExc() {
+        throw new IllegalArgumentException("Error using EnumUtility");
     }
 
-    public static Optional<MathFunction> getMathFunctionFromSyntax(final String syntax) {
-        return EnumSet.allOf(MathFunction.class).stream().filter(i -> i.getSyntax() == syntax).findFirst();
+    public static List<String> getListFromEnum() {
+        return EnumUtilityImpl.getSyntaxList(MathFunction.class);
+    }
+
+    public static MathFunction getMathFunctionFromSyntax(final String syntax) {
+        return (MathFunction) EnumUtilityImpl.getElement(MathFunction.class, syntax);
     }
 
     public int getNParameters() {
@@ -243,7 +238,12 @@ public enum MathFunction implements GenericEnum {
     }
 
     public Double resolve(final List<Double> list) {
-        return calculate(list);
+        if (list.size() != nParameters) {
+            this.throwIllArgExc();
+            return null;
+        } else {
+            return calculate(list);
+        }
     }
 
     protected abstract Double calculate(List<Double> parameters);

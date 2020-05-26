@@ -1,9 +1,6 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public enum Constant implements GenericEnum {
     /**
@@ -58,11 +55,11 @@ public enum Constant implements GenericEnum {
     private final Double value;
 
     public static List<String> getListFromEnum() {
-        return EnumSet.allOf(Constant.class).stream().map(i -> i.getSyntax()).collect(Collectors.toList());
+        return EnumUtilityImpl.getSyntaxList(Constant.class);
     }
 
-    public static Optional<Constant> getConstantFromSyntax(final String syntax) {
-        return EnumSet.allOf(Constant.class).stream().filter(i -> i.getSyntax() == syntax).findFirst();
+    public static Constant getMathFunctionFromSyntax(final String syntax) {
+        return (Constant) EnumUtilityImpl.getElement(Constant.class, syntax);
     }
 
     Constant(final Double value) {
