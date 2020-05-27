@@ -58,7 +58,7 @@ public enum Constant implements GenericEnum {
         return EnumUtilityImpl.getSyntaxList(Constant.class);
     }
 
-    public static Constant getMathFunctionFromSyntax(final String syntax) {
+    public static Constant getConstantFromSyntax(final String syntax) {
         return (Constant) EnumUtilityImpl.getElement(Constant.class, syntax);
     }
 
