@@ -218,7 +218,7 @@ public enum MathFunction implements GenericEnum {
     }
 
     private void throwIllArgExc() {
-        throw new IllegalArgumentException("Error using EnumUtility");
+        throw new IllegalArgumentException("Error using MathFunction");
     }
 
     public static List<String> getListFromEnum() {

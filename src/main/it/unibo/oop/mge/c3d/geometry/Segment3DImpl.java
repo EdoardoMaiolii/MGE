@@ -89,7 +89,7 @@ public class Segment3DImpl implements Segment3D {
 
     @Override
     public final String toString() {
-        return "Segment3DImpl [a=" + a + ", b=" + b + ", color=" + color + "]";
+        return "Segment3DImpl [a=" + a + ", b=" + b + ", color=" + color + "] ";
     }
 
     @Override

@@ -13,4 +13,9 @@ public class PointNDImpl implements PointND {
     public final List<Double> getValues() {
         return this.values;
     }
+
+    @Override
+    public String toString() {
+        return values.toString() + "\n";
+    }
 }

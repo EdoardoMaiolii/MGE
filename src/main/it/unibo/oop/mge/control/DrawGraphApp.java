@@ -1,5 +1,7 @@
 package it.unibo.oop.mge.control;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +14,10 @@ import it.unibo.oop.mge.color.VariableColorBuilderImpl;
 import it.unibo.oop.mge.io.MeshLoader;
 import it.unibo.oop.mge.io.MeshLoaderImpl;
 import it.unibo.oop.mge.io.MeshWriter;
+import it.unibo.oop.mge.libraries.Constant;
+import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Pair;
+import it.unibo.oop.mge.libraries.Variable;
 import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
 import it.unibo.oop.mge.model.FunctionFeaturesImpl;
 import it.unibo.oop.mge.model.FunctionParser;
@@ -38,21 +43,19 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     @Override
     public final void newGraph(final String function, final double max, final double min, final double rate) {
         boolean creationSuccess = false;
-        try {
-            VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
-            FunctionFeaturesImpl functionFeature = new FunctionFeaturesBuilderImpl()
-                    .setFunction(FunctionParser.parse(function)).setIntervals(min,max)
-                    .setRate(rate).setDinamicColor(color).setDecimalPrecision(5).build();
-            System.out.print(functionFeature.getPolygonalModel());
-            this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPolygonalModel()));
-            this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPoligonalAxis()));
-            creationSuccess = true;
-        } catch (IllegalArgumentException e) {
-            this.view.expressionIncorrect();
-        }
+        VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
+        FunctionFeaturesImpl functionFeature = new FunctionFeaturesBuilderImpl()
+                .setFunction(FunctionParser.parse(function)).setIntervals(min, max).setRate(rate).setDinamicColor(color)
+                .setDecimalPrecision(5).build();
+        this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPolygonalModel()));
+        this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPoligonalAxis()));
+
+        creationSuccess = true;
+
         if (creationSuccess) {
             this.refreshVisualizer();
         }
+
     }
 
     public static void main(final String[] args) {

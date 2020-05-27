@@ -2,7 +2,7 @@ package it.unibo.oop.mge.model;
 
 import java.awt.Color;
 import java.util.Arrays;
-import java.util.EnumSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -28,7 +28,6 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     private Integer width;
     private Integer decimalPrecision;
     private List<Point3D> points;
-    private List<Point3D> realPoints;
     private ColorGenerator cg;
 
     protected FunctionFeaturesImpl(final AlgebricFunction function, final Pair<Double, Double> interval,
@@ -39,12 +38,11 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         this.decimalPrecision = decimalPrecision;
         this.width = (int) (Math.abs(interval.getFst() - interval.getSnd()) / rate);
         this.points = pointCaster(getPointsFromFunction(function));
-        this.realPoints = getRealPoints(points);
-        if (varColor.isEmpty()) {
-            this.cg = new ColorGeneratorImpl(staticColor.get());
-        } else {
+        if (varColor.isPresent()) {
             this.cg = new ColorGeneratorImpl(varColor.get(), this.getPointOfAbsoluteMin().getZ(),
                     this.getPointOfAbsoluteMax().getZ());
+        } else {
+            this.cg = new ColorGeneratorImpl(staticColor.get());
         }
     }
 
@@ -59,8 +57,8 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
         return points.stream().filter(i -> Double.isFinite(i.getZ())).collect(Collectors.toList());
     }
 
-    private double castDouble(final Double value, final Function<Double, Double> castingFunction) {
-        return castingFunction.apply(Math.pow(10, decimalPrecision) * value) / Math.pow(10, decimalPrecision);
+    private double troncateDouble(final Double value) {
+        return Math.floor(Math.pow(10, decimalPrecision) * value) / Math.pow(10, decimalPrecision);
     }
 
     private List<PointND> getPointsFromFunction(final AlgebricFunction function) {
@@ -74,34 +72,23 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
 
         return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.getListFromEnum().size()))
                 .<PointND>mapToObj(i -> {
-                    var coordinates = EnumSet.allOf(Variable.class).stream()
+                    LinkedHashMap<Variable, Double> coordinates = Arrays.asList(Variable.values()).stream()
                             .collect(Collectors.toMap(a -> a,
-                                    a -> castDouble(myfunc.apply(i, Arrays.asList(Variable.values()).indexOf(a)),
-                                            w -> Math.floor(w))));
+                                    a -> troncateDouble(myfunc.apply(i, Arrays.asList(Variable.values()).indexOf(a))),
+                                    (x, y) -> y, LinkedHashMap::new));
                     return new PointNDImpl(Stream
                             .concat(coordinates.values().stream(), List.of(function.resolve(coordinates)).stream())
                             .collect(Collectors.toList()));
                 }).collect(Collectors.toList());
     }
 
-    /*
-     * 
-     * OLD:
-     * 
-     * var s = castDouble(myfunc.apply(i, Arrays.asList(Variable.class).indexOf(a)),
-     * c -> Math.floor(c)); final Double x = castDouble(myfunc.apply(i, 0), a ->
-     * Math.floor(a)); final Double y = castDouble(myfunc.apply(i, 1), a ->
-     * Math.floor(a)); return Point3D.fromDoubles(x, y,
-     * castDouble(function.resolve(x, y), a -> Math.floor(a)));
-     * }).collect(Collectors.toList());
-     */
     private List<Segment3D> getRealSegmentList(final List<Point3D> points,
             final Function<Integer, Integer> posDetector) {
         return IntStream.range(0, points.size() - 1)
                 .mapToObj(i -> new Pair<Point3D, Point3D>(points.get(posDetector.apply(i)),
                         points.get(posDetector.apply(i + 1))))
                 .filter(i -> Double.isFinite(i.getFst().getZ()) && Double.isFinite(i.getSnd().getZ()))
-                .<Segment3D>map(i -> Segment3D.fromPoints(i.getFst(), i.getSnd(),
+                .map(i -> Segment3D.fromPoints(i.getFst(), i.getSnd(),
                         cg.getColorFromDouble((i.getFst().getZ() + i.getSnd().getZ()) / 2)))
                 .collect(Collectors.toList());
     }
@@ -126,10 +113,10 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     }
 
     public final Point3D getPointOfAbsoluteMax() {
-        return realPoints.stream().max((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
+        return this.getRealPoints(points).stream().max((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
     }
 
     public final Point3D getPointOfAbsoluteMin() {
-        return realPoints.stream().min((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
+        return this.getRealPoints(points).stream().min((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
     }
 }

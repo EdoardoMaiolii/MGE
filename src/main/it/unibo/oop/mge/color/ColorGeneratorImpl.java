@@ -7,11 +7,10 @@ public class ColorGeneratorImpl implements ColorGenerator {
     private Function<Double, Integer> linearFunction;
     private Function<Double, Color> colorFunction;
     private static final int MAXRGBVALUE = 255;
-    private static final int MINRGBVALUE = 0;
 
     public ColorGeneratorImpl(final VariableColor varColor, final double min, final double max) {
-        final double m = MAXRGBVALUE / (min - max);
-        final double q = m * MINRGBVALUE;
+        final double m = MAXRGBVALUE / (max - min);
+        final double q = -m * min;
         linearFunction = (x -> (int) (m * x + q));
         colorFunction = i -> {
             i = i > max ? max : i < min ? min : i;

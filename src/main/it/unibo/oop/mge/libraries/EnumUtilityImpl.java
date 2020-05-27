@@ -17,7 +17,7 @@ public final class EnumUtilityImpl {
     private static Optional<? extends GenericEnum> getOptionalElement(final Class<? extends GenericEnum> genericEnum,
             final String syntax) {
         if (genericEnum.isEnum()) {
-            return Arrays.asList(genericEnum.getEnumConstants()).stream().filter(i -> i.getSyntax() == syntax)
+            return Arrays.asList(genericEnum.getEnumConstants()).stream().filter(i -> i.getSyntax().equals(syntax))
                     .findFirst();
         } else {
             throwIllArgExc();
