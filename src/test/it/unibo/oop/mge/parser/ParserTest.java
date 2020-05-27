@@ -36,7 +36,6 @@ public class ParserTest {
         String str23 = "sin(10*(pow(x,2)+pow(y,2)))/10";
         String str24 = "sin(2*5)/10";
         String str25 = "abs(sin(x))+5*exp(pow(-x,100))*cos(x)";
-        String str26 = "pow";
 
         listone.add(str1);
         listone.add(str2);
@@ -66,11 +65,12 @@ public class ParserTest {
         // listone.forEach(i->{
         // FunctionParser.parse(i);
         // });
-        //assertEquals(new BracketsParserImpl(str1).resolveBrackets(), "ln(sum(mul(pow(x,2),4),1))");
+        assertEquals(new BracketsParserImpl(str1).resolveBrackets(), "ln(sum(mul(pow(x,2),4),1))");
         assertEquals(new BracketsParserImpl(str2).resolveBrackets(), "sot(x,1)");
-        FunctionParser.parse(str2);
+        //FunctionParser.parse(str26);
         assertEquals(new BracketsParserImpl(str4).resolveBrackets(), "mul(sum(x,1),4)");
         assertEquals(new BracketsParserImpl(str18).resolveBrackets(), "sum(sot(0,1),x)");
+        assertEquals(new BracketsParserImpl(str22).resolveBrackets(), "div(0.75,exp(mul(pow(mul(x,5),2),pow(mul(y,5),2))))");
     }
 
 }

@@ -12,6 +12,7 @@ import it.unibo.oop.mge.function.AlgebricFunctionFactory;
 import it.unibo.oop.mge.libraries.Constant;
 import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Pair;
+import it.unibo.oop.mge.libraries.Variable;
 
 public class FinalParserImpl implements FinalParser {
     private static boolean isfloat = false;
@@ -108,18 +109,14 @@ public class FinalParserImpl implements FinalParser {
             // while (fstring.charAt(k++) != '(') {
             if (BracketsUtility.countCharacter(fstring, i -> i.equals('(')) == 0)// se non ci sono parentesi
                 if (fstring.equals("x") || fstring.equals("y")) {
-                    return AlgebricFunctionFactory.getParameterFunction(fstring.charAt(0));
+                    return AlgebricFunctionFactory.getParameterFunction(Variable.getVariableFromSyntax(fstring.charAt(0)));
                 } else {
-                    Optional<Constant> opCos = Constant.getConstantFromSyntax(fstring);
-                    if (opCos.isPresent())
-                        return AlgebricFunctionFactory.getConstantFunction(opCos.get());
-                    else
-                        throwEx();
+                    return AlgebricFunctionFactory.getConstantFunction(Constant.getConstantFromSyntax(fstring));
                 }
         }
         if (MathFunction.getListFromEnum().contains(fstring.substring(0, fstring.indexOf("(")))) {
             return AlgebricFunctionFactory.getMathFunction(
-                    MathFunction.getMathFunctionFromSyntax(fstring.substring(0, fstring.indexOf("("))).get(),
+                    MathFunction.getMathFunctionFromSyntax(fstring.substring(0, fstring.indexOf("("))),
                     getParameters(fstring.substring(fstring.indexOf("("))).stream().map(i -> resolveFunction(i))
                             .collect(Collectors.toList()));
         } else

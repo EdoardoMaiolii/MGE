@@ -4,8 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Function;
-import java.util.stream.IntStream;
 
 import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Pair;
@@ -18,7 +16,7 @@ public class RealParserImpl implements RealParser {
 
     Map<Character, MathFunction> opMap = new HashMap<>();
 
-    public RealParserImpl(String fstring) {
+    public RealParserImpl(final String fstring) {
         this.fstring = fstring;
         flength = this.fstring.length();
         opMap.put('+', MathFunction.SUM);
@@ -28,21 +26,18 @@ public class RealParserImpl implements RealParser {
 
     }
 
-    private String newStr(String oT, String fP, String sP) {
-        return oT + '(' + fP + ',' + sP + ')';
-    }
-
-    private boolean checkStartOfParam(String currentString, int dir) { // caso stringa 9 nella somma si deve fermare al 2
+    private boolean checkStartOfParam(final String currentString, final int dir) { // caso stringa 9 nella somma si deve fermare al 2
         final Pair<Integer, Integer> numBrackets = BracketsUtility.countBrackets(currentString);
         if ((dir == 0 && numBrackets.getFst() == numBrackets.getSnd() + 1)
-                || (dir == 1 && numBrackets.getFst() + 1 == numBrackets.getSnd()))
+                || (dir == 1 && numBrackets.getFst() + 1 == numBrackets.getSnd())) {
             return true;
+        }
         else {
             return false;
         }
     }
 
-    private boolean leftCond(int k, int posOp) {
+    private boolean leftCond(final int k, final int posOp) {
         currentString = fstring.substring(k, posOp);
 
         if (checkStartOfParam(currentString, 0)) {
@@ -60,8 +55,6 @@ public class RealParserImpl implements RealParser {
         if (checkStartOfParam(currentString, 1)) {
             return false;
         } else if (BracketsUtility.checkBrackets(currentString) && opMap.containsKey(fstring.charAt(k))) {
-            return false;
-        } else if (opMap.containsKey(fstring.charAt(k)) && BracketsUtility.checkBrackets(currentString)) {
             return false;
         } else if (fstring.charAt(k) == ',' && BracketsUtility.checkBrackets(currentString)) {
             return false;

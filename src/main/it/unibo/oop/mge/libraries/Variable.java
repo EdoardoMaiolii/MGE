@@ -20,7 +20,7 @@ public enum Variable implements GenericEnum {
         return EnumUtilityImpl.getSyntaxList(MathFunction.class);
     }
 
-    public static Variable getVariableFromSyntax(final String syntax) {
-        return (Variable) EnumUtilityImpl.getElement(Variable.class, syntax);
+    public static Variable getVariableFromSyntax(final Character syntax) {
+        return (Variable) EnumUtilityImpl.getElement(Variable.class, String.valueOf(syntax));
     }
 }
