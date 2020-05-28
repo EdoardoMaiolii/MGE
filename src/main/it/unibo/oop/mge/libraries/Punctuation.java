@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public enum Punctuation {
+public enum Punctuation implements GenericEnum{
 
     DOT("."), COMMA(","), OPEN_PARENTHESES("("), CLOSE_PARENTHESES(")");
 
@@ -14,11 +14,12 @@ public enum Punctuation {
         this.name = name;
     }
 
-    public String getName() {
+    public String getSyntax() {
         return this.name;
     }
 
-    protected static List<String> getListFromEnum() {
-        return Arrays.asList(Punctuation.values()).stream().map(e -> e.getName()).collect(Collectors.toList());
+    public static List<String> getSyntaxList() {
+        return EnumUtilityImpl.getSyntaxList(Punctuation.class);
     }
+
 }

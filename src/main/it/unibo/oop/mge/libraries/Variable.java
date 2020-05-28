@@ -16,7 +16,7 @@ public enum Variable implements GenericEnum {
         return this.name;
     }
 
-    public static List<String> getListFromEnum() {
+    public static List<String> getSyntaxList() {
         return EnumUtilityImpl.getSyntaxList(Variable.class);
     }
 

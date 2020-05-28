@@ -54,7 +54,7 @@ public enum Constant implements GenericEnum {
 
     private final Double value;
 
-    public static List<String> getListFromEnum() {
+    public static List<String> getSyntaxList() {
         return EnumUtilityImpl.getSyntaxList(Constant.class);
     }
 

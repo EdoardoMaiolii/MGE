@@ -221,7 +221,7 @@ public enum MathFunction implements GenericEnum {
         throw new IllegalArgumentException("Error using MathFunction");
     }
 
-    public static List<String> getListFromEnum() {
+    public static List<String> getSyntaxList() {
         return EnumUtilityImpl.getSyntaxList(MathFunction.class);
     }
 

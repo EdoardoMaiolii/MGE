@@ -70,7 +70,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
                 j) -> (((int) (i / Math.pow(this.width + 1, j)) % (this.width + 1)) * this.rate
                         + this.interval.getFst());
 
-        return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.getListFromEnum().size()))
+        return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.getSyntaxList().size()))
                 .<PointND>mapToObj(i -> {
                     LinkedHashMap<Variable, Double> coordinates = Arrays.asList(Variable.values()).stream()
                             .collect(Collectors.toMap(a -> a,

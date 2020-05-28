@@ -114,7 +114,7 @@ public class FinalParserImpl implements FinalParser {
                     return AlgebricFunctionFactory.getConstantFunction(Constant.getConstantFromSyntax(fstring));
                 }
         }
-        if (MathFunction.getListFromEnum().contains(fstring.substring(0, fstring.indexOf("(")))) {
+        if (MathFunction.getSyntaxList().contains(fstring.substring(0, fstring.indexOf("(")))) {
             return AlgebricFunctionFactory.getMathFunction(
                     MathFunction.getMathFunctionFromSyntax(fstring.substring(0, fstring.indexOf("("))),
                     getParameters(fstring.substring(fstring.indexOf("("))).stream().map(i -> resolveFunction(i))

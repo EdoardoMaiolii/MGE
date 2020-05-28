@@ -5,47 +5,31 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public final class EnumUtilityImpl {
+final class EnumUtilityImpl {
 
     private EnumUtilityImpl() {
     };
 
-    private static void throwIllArgExc() {
-        throw new IllegalArgumentException("Error using EnumUtility");
-    }
-
     private static Optional<? extends GenericEnum> getOptionalElement(final Class<? extends GenericEnum> genericEnum,
             final String syntax) {
-        if (genericEnum.isEnum()) {
-            return Arrays.asList(genericEnum.getEnumConstants()).stream().filter(i -> i.getSyntax().equals(syntax))
-                    .findFirst();
-        } else {
-            throwIllArgExc();
-        }
-        return null;
+        return Arrays.asList(genericEnum.getEnumConstants()).stream().filter(i -> i.getSyntax().equals(syntax))
+                .findFirst();
     }
 
-    public static List<String> getSyntaxList(final Class<? extends GenericEnum> genericEnum) {
-        if (genericEnum.isEnum()) {
-            return Arrays.asList(genericEnum.getEnumConstants()).stream().<String>map(i -> i.getSyntax())
-                    .collect(Collectors.toList());
-        } else {
-            throwIllArgExc();
-            return null;
-        }
+    static List<String> getSyntaxList(final Class<? extends GenericEnum> genericEnum) {
+        return Arrays.asList(genericEnum.getEnumConstants()).stream().<String>map(i -> i.getSyntax())
+                .collect(Collectors.toList());
     }
 
-    public static GenericEnum getElement(final Class<? extends GenericEnum> genericEnum, final String syntax) {
+    static GenericEnum getElement(final Class<? extends GenericEnum> genericEnum, final String syntax) {
         if (enumContains(genericEnum, syntax)) {
             return getOptionalElement(genericEnum, syntax).get();
         } else {
-            throwIllArgExc();
-            return null;
+            throw new IllegalArgumentException("Error using EnumUtility");
         }
     }
 
-    public static Boolean enumContains(final Class<? extends GenericEnum> genericEnum, final String syntax) {
+    static Boolean enumContains(final Class<? extends GenericEnum> genericEnum, final String syntax) {
         return getOptionalElement(genericEnum, syntax).isPresent();
-
     }
 }
