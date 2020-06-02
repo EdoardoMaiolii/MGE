@@ -30,6 +30,13 @@ public interface DrawGraphView {
     void plotGraph(List<Segment2D> segments);
 
     /**
+     * Plot the graph's properties.
+     * 
+     * @param properties the graph's properties to be plotted
+     */
+    void plotProperties(List<String> properties);
+
+    /**
      * Shows message of expression incorrect.
      */
     void expressionIncorrect();

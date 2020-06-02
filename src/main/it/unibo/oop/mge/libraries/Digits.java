@@ -1,23 +1,68 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * The digits from zero to nine.
+ */
 public enum Digits implements GenericEnum {
 
-    ZERO("0"), ONE("1"), TWO("2"), THREE("3"), FOUR("4"), FIVE("5"), SIX("6"), SEVEN("7"), EIGHT("8"), NINE("9");
+    /** The zero. */
+    ZERO("0"), 
 
-    private final String name;
+    /** The one. */
+    ONE("1"), 
 
-    Digits(String name) {
-        this.name = name;
+    /** The two. */
+    TWO("2"), 
+
+    /** The three. */
+    THREE("3"), 
+
+    /** The four. */
+    FOUR("4"), 
+
+    /** The five. */
+    FIVE("5"), 
+
+    /** The six. */
+    SIX("6"),
+
+    /** The seven. */
+    SEVEN("7"), 
+
+    /** The eight. */
+    EIGHT("8"), 
+
+    /** The nine. */
+    NINE("9");
+
+    /** The syntax. */
+    private final String syntax;
+
+    /**
+     * Instantiates a new digits.
+     *
+     * @param syntax the syntax
+     */
+    Digits(final String syntax) {
+        this.syntax = syntax;
     }
 
+    /**
+     * Gets the digit's syntax.
+     *
+     * @return the digit's syntax
+     */
     public String getSyntax() {
-        return this.name;
+        return this.syntax;
     }
 
+    /**
+     * Gets the digit's syntaxes list.
+     *
+     * @return the digit's syntaxes list 
+     */
     public static List<String> getListFromEnum() {
         return EnumUtilityImpl.getSyntaxList(Digits.class);
     }

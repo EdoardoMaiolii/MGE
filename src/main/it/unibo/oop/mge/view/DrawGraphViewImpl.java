@@ -317,6 +317,13 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
 
     /**
+     * 
+     */
+    @Override
+    public void plotProperties(final List<String> properties) {
+        
+    }
+    /**
      * Shows message of expression incorrect.
      */
     @Override

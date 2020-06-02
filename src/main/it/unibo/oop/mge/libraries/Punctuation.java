@@ -1,23 +1,50 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public enum Punctuation implements GenericEnum{
+/**
+ * The punctuation symbols.
+ */
+public enum Punctuation implements GenericEnum {
 
-    DOT("."), COMMA(","), OPEN_PARENTHESES("("), CLOSE_PARENTHESES(")");
+    /** The dot. */
+    DOT("."),
 
-    private final String name;
+    /** The comma. */
+    COMMA(","),
 
-    private Punctuation(String name) {
-        this.name = name;
+    /** The open parentheses. */
+    OPEN_PARENTHESES("("),
+
+    /** The close parentheses. */
+    CLOSE_PARENTHESES(")");
+
+    /** The punctuation's syntax. */
+    private final String syntax;
+
+    /**
+     * Instantiates a new punctuation's syntax.
+     *
+     * @param syntax the punctuation's syntax
+     */
+    Punctuation(final String syntax) {
+        this.syntax = syntax;
     }
 
+    /**
+     * Gets the syntax.
+     *
+     * @return the syntax
+     */
     public String getSyntax() {
-        return this.name;
+        return this.syntax;
     }
 
+    /**
+     * Gets the punctuation's syntaxes list.
+     *
+     * @return the punctuation's syntaxes list 
+     */
     public static List<String> getSyntaxList() {
         return EnumUtilityImpl.getSyntaxList(Punctuation.class);
     }
