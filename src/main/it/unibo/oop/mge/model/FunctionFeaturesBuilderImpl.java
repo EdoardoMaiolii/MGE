@@ -64,7 +64,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     public FunctionFeaturesBuilder setRate(final double rate) {
         if (this.rate.isPresent()) {
             this.throwIllSttExc();
-        } else if (rate < 0) {
+        } else if (rate <= 0) {
             this.throwIllArgExc();
         } else {
             this.rate = Optional.of(rate);

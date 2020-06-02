@@ -13,17 +13,17 @@ public interface FunctionFeatures {
     Point3D getPointOfAbsoluteMax();
     /**
      * 
-     * @return get the Absolute Min of the function in the interval
+     * @return get the Absolute minimum of the function in the interval
      */
     Point3D getPointOfAbsoluteMin();
     /**
      * 
-     * @return get the Poligonal Model of the Function in the interval
+     * @return get the polygonal Model of the Function in the interval
      */
     List<Segment3D> getPolygonalModel();
     /**
      * 
-     * @return get the Poligonal Model of the Axis
+     * @return get the Segments of the 3 axis long from the minimum to the maximum value of the interval given.
      */
-    List<Segment3D> getPoligonalAxis();
+    List<Segment3D> getPolygonalAxis();
 }

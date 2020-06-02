@@ -4,51 +4,51 @@ import java.util.List;
 
 public enum Constant implements GenericEnum {
     /**
-     * nepero's number.
+     * Nepero's number.
      */
     E(2.7182),
     /**
-     * pi greek.
+     * Pi greek.
      */
     PI(3.1415),
     /**
-     * golden ratio.
+     * Golden ratio.
      */
     PHI(1.6180),
     /**
-     * euler-mascheroni.
+     * Euler-Mascheroni's number.
      */
     EUMA(0.5772),
     /**
-     * Embree-Trefethen.
+     * Embree-Trefethen's number.
      */
     EMTR(0.7025),
     /**
-     * plastic number.
+     * Plastic number.
      */
     PLS(1.3247),
     /**
-     * Feigenbaum first.
+     * 'Feigenbaum first' number.
      */
     FEIGPR(4.6692),
     /**
-     * Feigenbaum secondo second.
+     * 'Feigenbaum second' number.
      */
     FEIGSN(2.5029),
     /**
-     * primes twins.
+     * Primes twins ratio.
      */
-    PRGEM(0.6601),
+    PRTW(0.6601),
     /**
-     * mills number.
+     * Mills number.
      */
     MILLS(1.3063),
     /**
-     * brim twins.
+     * Brun's constant for twin primes.
      */
-    BRUNGEM(1.9021),
+    BRUNTW(1.9021),
     /**
-     * brum quad.
+     * Brun's constant for prime quadruplets.
      */
     BRUMQUAD(0.8705);
 

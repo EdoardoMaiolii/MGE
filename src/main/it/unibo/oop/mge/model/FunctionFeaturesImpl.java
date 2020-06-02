@@ -23,52 +23,47 @@ import it.unibo.oop.mge.libraries.PointNDImpl;
 import it.unibo.oop.mge.libraries.Variable;
 
 public class FunctionFeaturesImpl implements FunctionFeatures {
-    private Double rate;
-    private Pair<Double, Double> interval;
-    private Integer width;
-    private Integer decimalPrecision;
-    private List<Point3D> points;
-    private ColorGenerator cg;
+    private final Pair<Double, Double> interval;
+    private final Integer width;
+    private final Integer decimalPrecision;
+    private final List<Point3D> points;
+    private final ColorGenerator cg;
 
     protected FunctionFeaturesImpl(final AlgebricFunction function, final Pair<Double, Double> interval,
             final Double rate, final Optional<VariableColor> varColor, final Optional<Color> staticColor,
             final Integer decimalPrecision) {
         this.interval = interval;
-        this.rate = rate;
         this.decimalPrecision = decimalPrecision;
         this.width = (int) (Math.abs(interval.getFst() - interval.getSnd()) / rate);
-        this.points = pointCaster(getPointsFromFunction(function));
-        if (varColor.isPresent()) {
-            this.cg = new ColorGeneratorImpl(varColor.get(), this.getPointOfAbsoluteMin().getZ(),
-                    this.getPointOfAbsoluteMax().getZ());
-        } else {
-            this.cg = new ColorGeneratorImpl(staticColor.get());
-        }
+        this.points = getPoint3DfromPointND(getPointsFromFunction(function, rate));
+        this.cg = varColor.isPresent()
+                ? new ColorGeneratorImpl(varColor.get(), this.getPointOfAbsoluteMin().getZ(),
+                        this.getPointOfAbsoluteMax().getZ())
+                : new ColorGeneratorImpl(staticColor.get());
     }
 
-    private List<Point3D> pointCaster(final List<PointND> points) {
+    private static List<Point3D> getPoint3DfromPointND(final List<PointND> points) {
         return points.stream()
                 .<Point3D>map(
                         i -> Point3D.fromDoubles(i.getValues().get(0), i.getValues().get(1), i.getValues().get(2)))
                 .collect(Collectors.toList());
     }
 
-    private List<Point3D> getRealPoints(final List<Point3D> points) {
+    private static List<Point3D> getRealPoints(final List<Point3D> points) {
         return points.stream().filter(i -> Double.isFinite(i.getZ())).collect(Collectors.toList());
     }
 
     private double troncateDouble(final Double value) {
-        return Math.floor(Math.pow(10, decimalPrecision) * value) / Math.pow(10, decimalPrecision);
+        return Math.floor(Math.pow(10, this.decimalPrecision) * value) / Math.pow(10, this.decimalPrecision);
     }
 
-    private List<PointND> getPointsFromFunction(final AlgebricFunction function) {
+    private List<PointND> getPointsFromFunction(final AlgebricFunction function, final Double rate) {
         /*
          * This function takes the number of the point and the number of the coordinate
-         * and return the coordinate
+         * and return the coordinate of that number
          */
         BiFunction<Integer, Integer, Double> myfunc = (i,
-                j) -> (((int) (i / Math.pow(this.width + 1, j)) % (this.width + 1)) * this.rate
-                        + this.interval.getFst());
+                j) -> (((int) (i / Math.pow(this.width + 1, j)) % (this.width + 1)) * rate + this.interval.getFst());
 
         return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.getSyntaxList().size()))
                 .<PointND>mapToObj(i -> {
@@ -82,41 +77,49 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
                 }).collect(Collectors.toList());
     }
 
-    private List<Segment3D> getRealSegmentList(final List<Point3D> points,
-            final Function<Integer, Integer> posDetector) {
+    /*
+     * This method allows to generate a list of segment from a list of points each
+     * segment is composed by 2 points: 1 ) point.get(f(i)) 2 ) point.get(f(i+1))
+     * where f is the function given named 'posdetector'
+     */
+    private List<Segment3D> getSegmentList(final List<Point3D> points, final Function<Integer, Integer> posDetector) {
         return IntStream.range(0, points.size() - 1)
                 .mapToObj(i -> new Pair<Point3D, Point3D>(points.get(posDetector.apply(i)),
                         points.get(posDetector.apply(i + 1))))
                 .filter(i -> Double.isFinite(i.getFst().getZ()) && Double.isFinite(i.getSnd().getZ()))
                 .map(i -> Segment3D.fromPoints(i.getFst(), i.getSnd(),
-                        cg.getColorFromDouble((i.getFst().getZ() + i.getSnd().getZ()) / 2)))
+                        this.cg.getColorFromDouble((i.getFst().getZ() + i.getSnd().getZ()) / 2)))
                 .collect(Collectors.toList());
     }
 
     public final List<Segment3D> getPolygonalModel() {
-        return Stream
-                .concat(getRealSegmentList(points, i -> i).stream().filter(i -> i.getA().getY() == i.getB().getY()),
-                        getRealSegmentList(points, i -> (int) ((i % (width + 1)) * (width + 1) + i / (width + 1)))
-                                .stream().filter(i -> i.getA().getX() == i.getB().getX()))
+
+        return Stream.concat(
+                /* We call this method to generate all the horizontal segments */
+                getSegmentList(this.points, i -> i).stream().filter(i -> i.getA().getY() == i.getB().getY()),
+                /* We call this method to generate all the vertical segments */
+                getSegmentList(this.points,
+                        i -> (int) ((i % (this.width + 1)) * (this.width + 1) + i / (this.width + 1))).stream()
+                                .filter(i -> i.getA().getX() == i.getB().getX()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public final List<Segment3D> getPoligonalAxis() {
+    public final List<Segment3D> getPolygonalAxis() {
         return List.of(
-                Segment3D.fromPoints(Point3D.fromDoubles(interval.getFst(), 0, 0),
-                        Point3D.fromDoubles(interval.getSnd(), 0, 0)),
-                Segment3D.fromPoints(Point3D.fromDoubles(0, interval.getFst(), 0),
-                        Point3D.fromDoubles(0, interval.getSnd(), 0)),
-                Segment3D.fromPoints(Point3D.fromDoubles(0, 0, interval.getFst()),
-                        Point3D.fromDoubles(0, 0, interval.getSnd())));
+                Segment3D.fromPoints(Point3D.fromDoubles(this.interval.getFst(), 0, 0),
+                        Point3D.fromDoubles(this.interval.getSnd(), 0, 0)),
+                Segment3D.fromPoints(Point3D.fromDoubles(0, this.interval.getFst(), 0),
+                        Point3D.fromDoubles(0, this.interval.getSnd(), 0)),
+                Segment3D.fromPoints(Point3D.fromDoubles(0, 0, this.interval.getFst()),
+                        Point3D.fromDoubles(0, 0, this.interval.getSnd())));
     }
 
     public final Point3D getPointOfAbsoluteMax() {
-        return this.getRealPoints(points).stream().max((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
+        return getRealPoints(this.points).stream().max((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
     }
 
     public final Point3D getPointOfAbsoluteMin() {
-        return this.getRealPoints(points).stream().min((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
+        return getRealPoints(this.points).stream().min((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
     }
 }

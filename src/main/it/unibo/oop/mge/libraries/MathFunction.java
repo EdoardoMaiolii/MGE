@@ -4,7 +4,7 @@ import java.util.List;
 
 public enum MathFunction implements GenericEnum {
     /**
-     * make the sum.
+     * Sum two numbers.
      */
     SUM(2) {
         @Override
@@ -13,7 +13,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * make the sub.
+     * Subtract two numbers.
      */
     SOT(2) {
         @Override
@@ -22,7 +22,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Multiply two numbers.
      */
     MUL(2) {
         @Override
@@ -31,7 +31,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Divide two numbers.
      */
     DIV(2) {
         @Override
@@ -40,7 +40,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Raise a base to a exponent.
      */
     POW(2) {
         @Override
@@ -49,7 +49,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Raise the 'e' to a exponent.
      */
     EXP(1) {
         @Override
@@ -58,7 +58,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Square root.
      */
     SQRT(1) {
         @Override
@@ -67,7 +67,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Logarithm with base.
      */
     LOG(2) {
         @Override
@@ -76,7 +76,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Logarithm with base 'e'.
      */
     LN(1) {
         @Override
@@ -85,7 +85,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Nth root.
      */
     RTN(2) {
         @Override
@@ -94,7 +94,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Absolute value.
      */
     ABS(1) {
         @Override
@@ -103,7 +103,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Sine function.
      */
     SIN(1) {
         @Override
@@ -112,7 +112,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Cosine function.
      */
     COS(1) {
         @Override
@@ -121,7 +121,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Arc cosine function.
      */
     ACOS(1) {
         @Override
@@ -130,7 +130,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Arc sine function.
      */
     ASIN(1) {
         @Override
@@ -139,7 +139,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Tangent function.
      */
     TAN(1) {
         @Override
@@ -148,7 +148,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Arc Tangent function.
      */
     ATAN(1) {
         @Override
@@ -157,7 +157,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Hyperbolic cosine.
      */
     COSH(1) {
         @Override
@@ -166,7 +166,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Hyperbolic sine.
      */
     SINH(1) {
         @Override
@@ -175,7 +175,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Hyperbolic tangent.
      */
     TANH(1) {
         @Override
@@ -184,7 +184,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Maximum of two numbers.
      */
     MAX(2) {
         @Override
@@ -193,7 +193,7 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Minimum of two numbers.
      */
     MIN(2) {
         @Override
@@ -202,7 +202,9 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * 
+     * Sign function : return 1 if the value is positive, 
+     * return 0 if the value is zero, 
+     * return -1 if the value is negative.
      */
     SIGN(1) {
         @Override
