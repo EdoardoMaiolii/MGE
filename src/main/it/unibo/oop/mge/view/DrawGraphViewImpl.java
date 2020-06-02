@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -38,6 +39,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     private static final String INNER_WEST_PANEL_NAME = "Functions";
     private static final String INNER_CENTER_PANEL_NAME = "Digits";
     private static final String INNER_EAST_PANEL_NAME = "Costants";
+    private static final String EAST_SOUTH_PANEL_NAME = "Properties";
     private static final String MATH_EXPRESSION_NAME = "F=";
     private static final String MAX_VALUE = "Max";
     private static final String MIN_VALUE = "Min";
@@ -83,6 +85,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     private final MyFrame inputFrame = new MyFrame(INPUT_FRAME_NAME, new BorderLayout());
     private final MyFrame graphFrame = new MyFrame(GRAPH_FRAME_NAME, new BorderLayout());
     private Optional<PlotFunctionPanel> functionPanel = Optional.empty();
+    private final List<JLabel> properties = new LinkedList<>();
 
     /**
      * Instantiates a new draw graph view impl.
@@ -141,7 +144,19 @@ public class DrawGraphViewImpl implements DrawGraphView {
         final JButton bQuit = new JButton(QUIT);
         final JButton bClear = new JButton(CLEAR);
         final JButton bPlot = new JButton(PLOT);
-        final JPanel pEast = gridButtonsPanel(EAST_PANEL_ROWS, EAST_PANEL_COLUMNS, Arrays.asList(bQuit, bClear, bPlot));
+        final JPanel pEast = new JPanel(new BorderLayout());
+        final JPanel pEWest = gridButtonsPanel(EAST_PANEL_ROWS, EAST_PANEL_COLUMNS, Arrays.asList(bQuit, bClear, bPlot));
+        final JPanel pESouth = new JPanel(new GridBagLayout());
+        final GridBagConstraints gbcESouth = new GridBagConstraints();
+        pESouth.setBorder(new TitledBorder(EAST_SOUTH_PANEL_NAME));
+        for (final String s : GetLabelsFromEnum.getLabelFromProperties()) {
+            final JLabel lP = new JLabel(s);
+            pESouth.add(lP, gbcESouth);
+            gbcESouth.gridx = gbcESouth.gridx + 1;
+            this.properties.add(lP);
+        }
+        pEast.add(pEWest, BorderLayout.WEST);
+        pEast.add(pESouth, BorderLayout.SOUTH);
         final JButton bLoad = new JButton(LOAD);
         final JButton bSave = new JButton(SAVE);
         final JPanel pSouth = gridButtonsPanel(SOUTH_PANEL_ROWS, SOUTH_PANEL_COLUMNS, Arrays.asList(bLoad, bSave));
@@ -317,12 +332,21 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
 
     /**
+     * Plot the graph's properties.
      * 
+     * @param properties the graph's properties to be plotted
      */
     @Override
     public void plotProperties(final List<String> properties) {
-        
+        final Iterator<JLabel> it = this.properties.iterator();
+        for (final String property : properties) {
+            if (it.hasNext()) {
+                final JLabel next = it.next();
+                this.properties.set(this.properties.indexOf(next), new JLabel(property));
+            }
+        }
     }
+
     /**
      * Shows message of expression incorrect.
      */

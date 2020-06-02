@@ -31,4 +31,8 @@ public final class GetLabelsFromEnum {
     public static List<String> getLabelFromVariables() {
         return Variable.getSyntaxList();
     }
+
+    public static List<String> getLabelFromProperties() {
+        return Properties.getSyntaxList();
+    }
 }
