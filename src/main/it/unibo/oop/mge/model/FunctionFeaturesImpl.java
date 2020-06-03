@@ -1,9 +1,8 @@
 package it.unibo.oop.mge.model;
 
 import java.awt.Color;
-import java.util.Arrays;
-import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -43,10 +42,8 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     }
 
     private static List<Point3D> getPoint3DfromPointND(final List<PointND> points) {
-        return points.stream()
-                .<Point3D>map(
-                        i -> Point3D.fromDoubles(i.getValues().get(0), i.getValues().get(1), i.getValues().get(2)))
-                .collect(Collectors.toList());
+        return points.stream().<Point3D>map(i -> Point3D.fromDoubles(i.getVariableValue(Variable.X),
+                i.getVariableValue(Variable.Y), i.getFunctionValue())).collect(Collectors.toList());
     }
 
     private static List<Point3D> getRealPoints(final List<Point3D> points) {
@@ -67,13 +64,9 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
 
         return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.getSyntaxList().size()))
                 .<PointND>mapToObj(i -> {
-                    LinkedHashMap<Variable, Double> coordinates = Arrays.asList(Variable.values()).stream()
-                            .collect(Collectors.toMap(a -> a,
-                                    a -> troncateDouble(myfunc.apply(i, Arrays.asList(Variable.values()).indexOf(a))),
-                                    (x, y) -> y, LinkedHashMap::new));
-                    return new PointNDImpl(Stream
-                            .concat(coordinates.values().stream(), List.of(function.resolve(coordinates)).stream())
-                            .collect(Collectors.toList()));
+                    Map<Variable, Double> coordinates = IntStream.range(0, Variable.values().length).boxed().collect(
+                            Collectors.toMap(a -> Variable.values()[a], a -> troncateDouble(myfunc.apply(i, a))));
+                    return new PointNDImpl(coordinates, function.resolve(coordinates));
                 }).collect(Collectors.toList());
     }
 

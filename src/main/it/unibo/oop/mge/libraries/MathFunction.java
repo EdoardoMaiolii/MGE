@@ -202,9 +202,8 @@ public enum MathFunction implements GenericEnum {
         }
     },
     /**
-     * Sign function : return 1 if the value is positive, 
-     * return 0 if the value is zero, 
-     * return -1 if the value is negative.
+     * Sign function : return 1 if the value is positive, return 0 if the value is
+     * zero, return -1 if the value is negative.
      */
     SIGN(1) {
         @Override
@@ -220,7 +219,8 @@ public enum MathFunction implements GenericEnum {
     }
 
     private void throwIllArgExc() {
-        throw new IllegalArgumentException("Error using MathFunction");
+        throw new IllegalArgumentException(
+                "Error using MathFunction: bad number of parameters passed in resolve method");
     }
 
     public static List<String> getSyntaxList() {

@@ -23,9 +23,4 @@ public class ColorGeneratorTest {
             assertEquals(Color.BLUE, cg.getColorFromDouble(i));
         }
     }
-
-    @Test
-    void DinamicColorGeneratorTest() {
-
-    }
 }

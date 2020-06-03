@@ -1,13 +1,22 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.List;
-
 public interface PointND {
     /**
      * 
      * @return a list of all the coordinates of the point.
      */
-    List<Double> getValues();
+    /**
+     * 
+     * @param name
+     * @return the value of the given variable.
+     */
+    double getVariableValue(Variable name);
+
+    /**
+     * 
+     * @return the value of the function in this point.
+     */
+    double getFunctionValue();
 
     /**
      * 

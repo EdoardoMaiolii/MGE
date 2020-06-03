@@ -17,17 +17,24 @@ public class AlgebricFunctionTest {
     @Test
     void FactoryTest() {
         Map<Variable, Double> values = Map.of(Variable.X, 10.0, Variable.Y, -2.0);
-        var a = AlgebricFunctionFactory.getConstantFunction(Constant.E);
-        assertTrue(a.getParameters().isEmpty());
-        assertEquals(a.resolve(values), Constant.E.resolve());
-        var b = AlgebricFunctionFactory.getParameterFunction(Variable.X);
-        assertEquals(b.resolve(values), Double.valueOf(10.0));
-        assertTrue(b.getParameters().isEmpty());
-        var c = AlgebricFunctionFactory.getValueFunction(2.0);
-        assertEquals(c.resolve(values), Double.valueOf(2.0));
-        assertTrue(c.getParameters().isEmpty());
-        var d = AlgebricFunctionFactory.getMathFunction(MathFunction.SUM, List.of(a, b));
-        assertFalse(d.getParameters().isEmpty());
-        assertEquals(d.resolve(values), Double.valueOf(Constant.E.resolve() + values.get(Variable.X)));
+        /* Create a constant function with value 'e' */
+        var e = AlgebricFunctionFactory.getConstantFunction(Constant.E);
+        assertTrue(e.getParameters().isEmpty());
+        assertEquals(e.resolve(values), Constant.E.resolve());
+        /* Create a variable function with name 'x' */
+        var x = AlgebricFunctionFactory.getParameterFunction(Variable.X);
+        assertEquals(x.resolve(values), Double.valueOf(10.0));
+        assertTrue(x.getParameters().isEmpty());
+        var value2 = AlgebricFunctionFactory.getValueFunction(2.0);
+        /* Create a value function with value '2' */
+        assertEquals(value2.resolve(values), Double.valueOf(2.0));
+        assertTrue(value2.getParameters().isEmpty());
+        /*
+         * Create a mathematical function 'sum' passing the constant function 'e' and
+         * the variable function 'x'
+         */
+        var sum = AlgebricFunctionFactory.getMathFunction(MathFunction.SUM, List.of(e, x));
+        assertFalse(sum.getParameters().isEmpty());
+        assertEquals(sum.resolve(values), Double.valueOf(Constant.E.resolve() + values.get(Variable.X)));
     }
 }
