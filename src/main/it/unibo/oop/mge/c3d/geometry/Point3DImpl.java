@@ -85,7 +85,7 @@ public class Point3DImpl implements Point3D {
 
     @Override
     public final String toString() {
-        return "Point3DImpl [x=" + x + ", y=" + y + ", z=" + z + "] ";
+        return " [x=" + x + ", y=" + y + ", z=" + z + "] ";
     }
 
     @Override
