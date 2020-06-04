@@ -342,7 +342,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
         for (final String property : properties) {
             if (it.hasNext()) {
                 final JLabel next = it.next();
-                this.properties.set(this.properties.indexOf(next), new JLabel(property));
+                this.properties.get(this.properties.indexOf(next)).setText(property);
             }
         }
     }
