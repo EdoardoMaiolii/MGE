@@ -25,7 +25,7 @@ final class EnumUtilityImpl {
         if (enumContains(genericEnum, syntax)) {
             return getOptionalElement(genericEnum, syntax).get();
         } else {
-            throw new IllegalArgumentException("Error using EnumUtility");
+            throw new IllegalArgumentException("Error using EnumUtility: the syntax doesn't exists");
         }
     }
 

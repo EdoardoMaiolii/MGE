@@ -17,6 +17,7 @@ import it.unibo.oop.mge.io.MeshWriter;
 import it.unibo.oop.mge.libraries.Constant;
 import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Pair;
+import it.unibo.oop.mge.libraries.Properties;
 import it.unibo.oop.mge.libraries.Variable;
 import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
 import it.unibo.oop.mge.model.FunctionFeaturesImpl;
@@ -44,12 +45,14 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     public final void newGraph(final String function, final double max, final double min, final double rate) {
         boolean creationSuccess = false;
         VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
-        FunctionFeaturesImpl functionFeature = new FunctionFeaturesBuilderImpl()
+        FunctionFeaturesImpl functionFeatures = new FunctionFeaturesBuilderImpl()
                 .setFunction(FunctionParser.parse(function)).setIntervals(min, max).setRate(rate).setDinamicColor(color)
                 .setDecimalPrecision(4).build();
-        this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPolygonalModel()));
-        this.visualizerMeshes.add(Mesh.fromSegments(functionFeature.getPolygonalAxis()));
-
+        this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalModel()));
+        this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalAxis()));
+        this.view.plotProperties(
+                List.of(Properties.MAX.getSyntax() + " " + functionFeatures.getPointOfAbsoluteMax().toString(),
+                        Properties.MIN.getSyntax() + " " + functionFeatures.getPointOfAbsoluteMin().toString()));
         creationSuccess = true;
 
         if (creationSuccess) {

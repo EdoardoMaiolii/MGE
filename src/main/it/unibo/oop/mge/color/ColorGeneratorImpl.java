@@ -8,15 +8,17 @@ public class ColorGeneratorImpl implements ColorGenerator {
     private static final int MAXRGBVALUE = 255;
 
     public ColorGeneratorImpl(final VariableColor varColor, final double min, final double max) {
-        if (min == max) {
-            throw new IllegalArgumentException("Error using ColorGenerator: min and max can be the same");
-        }
         /*
          * Define a line named 'linearFunction' that pass from 2 points : 
          * a = (min,0) 
          * b = (max,MAXRGBVALUE)
          */
-        final double m = MAXRGBVALUE / (max - min);
+        final double m;
+        if (min == max) {
+            m = 0;
+        } else {
+            m = MAXRGBVALUE / (max - min);
+        }
         final double q = -m * min;
         Function<Double, Integer> linearFunction = (x -> (int) (m * x + q));
         colorFunction = i -> {

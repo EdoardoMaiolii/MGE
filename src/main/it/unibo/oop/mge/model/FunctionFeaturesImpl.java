@@ -1,6 +1,7 @@
 package it.unibo.oop.mge.model;
 
 import java.awt.Color;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -73,7 +74,7 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
     /*
      * This method allows to generate a list of segment from a list of points each
      * segment is composed by 2 points: 1 ) point.get(f(i)) 2 ) point.get(f(i+1))
-     * where f is the function given named 'posdetector'
+     * where f is the function given named 'posDetector'
      */
     private List<Segment3D> getSegmentList(final List<Point3D> points, final Function<Integer, Integer> posDetector) {
         return IntStream.range(0, points.size() - 1)
