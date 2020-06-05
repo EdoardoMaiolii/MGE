@@ -5,31 +5,35 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-final class EnumUtilityImpl {
+public final class EnumUtilityImpl<X extends GenericEnum> implements EnumUtility<X> {
+    private Class<X> type;
 
-    private EnumUtilityImpl() {
-    };
+    public EnumUtilityImpl(final Class<X> type) {
+        this.type = type;
+    }
 
-    private static Optional<? extends GenericEnum> getOptionalElement(final Class<? extends GenericEnum> genericEnum,
-            final String syntax) {
-        return Arrays.asList(genericEnum.getEnumConstants()).stream().filter(i -> i.getSyntax().equals(syntax))
+    private Optional<X> getOptionalElement(final String syntax) {
+        return Arrays.asList(this.type.getEnumConstants()).stream().filter(i -> i.getSyntax().equals(syntax))
                 .findFirst();
     }
 
-    static List<String> getSyntaxList(final Class<? extends GenericEnum> genericEnum) {
-        return Arrays.asList(genericEnum.getEnumConstants()).stream().<String>map(i -> i.getSyntax())
+    @Override
+    public List<String> getSyntaxList() {
+        return Arrays.asList(this.type.getEnumConstants()).stream().<String>map(i -> i.getSyntax())
                 .collect(Collectors.toList());
     }
 
-    static GenericEnum getElement(final Class<? extends GenericEnum> genericEnum, final String syntax) {
-        if (enumContains(genericEnum, syntax)) {
-            return getOptionalElement(genericEnum, syntax).get();
+    @Override
+    public GenericEnum getElement(final String syntax) {
+        if (enumContains(syntax)) {
+            return getOptionalElement(syntax).get();
         } else {
             throw new IllegalArgumentException("Error using EnumUtility: the syntax doesn't exists");
         }
     }
 
-    static Boolean enumContains(final Class<? extends GenericEnum> genericEnum, final String syntax) {
-        return getOptionalElement(genericEnum, syntax).isPresent();
+    @Override
+    public Boolean enumContains(final String syntax) {
+        return getOptionalElement(syntax).isPresent();
     }
 }

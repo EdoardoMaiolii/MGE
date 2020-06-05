@@ -223,14 +223,6 @@ public enum MathFunction implements GenericEnum {
                 "Error using MathFunction: bad number of parameters passed in resolve method");
     }
 
-    public static List<String> getSyntaxList() {
-        return EnumUtilityImpl.getSyntaxList(MathFunction.class);
-    }
-
-    public static MathFunction getMathFunctionFromSyntax(final String syntax) {
-        return (MathFunction) EnumUtilityImpl.getElement(MathFunction.class, syntax);
-    }
-
     public int getNParameters() {
         return nParameters;
     }

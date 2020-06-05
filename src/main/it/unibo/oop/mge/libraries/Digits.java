@@ -1,7 +1,5 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.List;
-
 /**
  * The digits from zero to nine.
  */
@@ -56,14 +54,5 @@ public enum Digits implements GenericEnum {
      */
     public String getSyntax() {
         return this.syntax;
-    }
-
-    /**
-     * Gets the digit's syntaxes list.
-     *
-     * @return the digit's syntaxes list 
-     */
-    public static List<String> getListFromEnum() {
-        return EnumUtilityImpl.getSyntaxList(Digits.class);
     }
 }

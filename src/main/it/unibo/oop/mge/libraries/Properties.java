@@ -33,13 +33,4 @@ public enum Properties implements GenericEnum {
     public String getSyntax() {
         return this.syntax;
     }
-
-    /**
-     * Gets the properties syntax list.
-     *
-     * @return the properties syntax list 
-     */
-    public static List<String> getSyntaxList() {
-        return EnumUtilityImpl.getSyntaxList(Properties.class);
-    }
 }

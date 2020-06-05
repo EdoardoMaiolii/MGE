@@ -1,7 +1,5 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.List;
-
 public enum Constant implements GenericEnum {
     /**
      * Nepero's number.
@@ -53,14 +51,6 @@ public enum Constant implements GenericEnum {
     BRUMQUAD(0.8705);
 
     private final Double value;
-
-    public static List<String> getSyntaxList() {
-        return EnumUtilityImpl.getSyntaxList(Constant.class);
-    }
-
-    public static Constant getConstantFromSyntax(final String syntax) {
-        return (Constant) EnumUtilityImpl.getElement(Constant.class, syntax);
-    }
 
     Constant(final Double value) {
         this.value = value;

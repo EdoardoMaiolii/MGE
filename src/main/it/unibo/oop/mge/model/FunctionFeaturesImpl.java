@@ -60,20 +60,21 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
          * This function takes the number of the point and the number of the coordinate
          * and return the coordinate of that number
          */
-        BiFunction<Integer, Integer, Double> myfunc = (i,
+        BiFunction<Integer, Integer, Double> coordinateGen = (i,
                 j) -> (((int) (i / Math.pow(this.width + 1, j)) % (this.width + 1)) * rate + this.interval.getFst());
 
-        return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.getSyntaxList().size()))
-                .<PointND>mapToObj(i -> {
-                    Map<Variable, Double> coordinates = IntStream.range(0, Variable.values().length).boxed().collect(
-                            Collectors.toMap(a -> Variable.values()[a], a -> troncateDouble(myfunc.apply(i, a))));
-                    return new PointNDImpl(coordinates, function.resolve(coordinates));
-                }).collect(Collectors.toList());
+        return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.values().length)).<PointND>mapToObj(i -> {
+            Map<Variable, Double> coordinates = IntStream.range(0, Variable.values().length).boxed().collect(
+                    Collectors.toMap(a -> Variable.values()[a], a -> troncateDouble(coordinateGen.apply(i, a))));
+            return new PointNDImpl(coordinates, function.resolve(coordinates));
+        }).collect(Collectors.toList());
     }
 
     /*
      * This method allows to generate a list of segment from a list of points each
-     * segment is composed by 2 points: 1 ) point.get(f(i)) 2 ) point.get(f(i+1))
+     * segment is composed by 2 points: 
+     * 1 ) point.get(f(i)) 
+     * 2 ) point.get(f(i+1))
      * where f is the function given named 'posDetector'
      */
     private List<Segment3D> getSegmentList(final List<Point3D> points, final Function<Integer, Integer> posDetector) {

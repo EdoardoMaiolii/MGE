@@ -12,27 +12,27 @@ public final class GetLabelsFromEnum {
     };
 
     public static List<String> getLabelFromConstants() {
-        return Constant.getSyntaxList();
+        return new EnumUtilityImpl<Constant>(Constant.class).getSyntaxList();
     }
 
     public static List<String> getLabelFromMathFunctions() {
-        return MathFunction.getSyntaxList().stream().map(i -> OPERATORS.containsKey(i) ? OPERATORS.get(i) : i)
-                .collect(Collectors.toList());
+        return new EnumUtilityImpl<MathFunction>(MathFunction.class).getSyntaxList().stream()
+                .map(i -> OPERATORS.containsKey(i) ? OPERATORS.get(i) : i).collect(Collectors.toList());
     }
 
     public static List<String> getLabelFromDigits() {
-        return Digits.getListFromEnum();
+        return new EnumUtilityImpl<Digits>(Digits.class).getSyntaxList();
     }
 
     public static List<String> getLabelFromPunctuation() {
-        return Punctuation.getSyntaxList();
+        return new EnumUtilityImpl<Punctuation>(Punctuation.class).getSyntaxList();
     }
 
     public static List<String> getLabelFromVariables() {
-        return Variable.getSyntaxList();
+        return new EnumUtilityImpl<Variable>(Variable.class).getSyntaxList();
     }
 
     public static List<String> getLabelFromProperties() {
-        return Properties.getSyntaxList();
+        return new EnumUtilityImpl<Properties>(Properties.class).getSyntaxList();
     }
 }

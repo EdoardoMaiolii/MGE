@@ -1,7 +1,5 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.List;
-
 /**
  * The punctuation symbols.
  */
@@ -39,14 +37,4 @@ public enum Punctuation implements GenericEnum {
     public String getSyntax() {
         return this.syntax;
     }
-
-    /**
-     * Gets the punctuation's syntaxes list.
-     *
-     * @return the punctuation's syntaxes list 
-     */
-    public static List<String> getSyntaxList() {
-        return EnumUtilityImpl.getSyntaxList(Punctuation.class);
-    }
-
 }
