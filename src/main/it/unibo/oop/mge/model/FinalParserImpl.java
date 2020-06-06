@@ -10,13 +10,14 @@ import java.util.stream.Stream;
 import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.function.AlgebricFunctionFactory;
 import it.unibo.oop.mge.libraries.Constant;
+import it.unibo.oop.mge.libraries.EnumUtilityImpl;
 import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Pair;
 import it.unibo.oop.mge.libraries.Variable;
 
 public class FinalParserImpl implements FinalParser {
     private static boolean isfloat = false;
-    
+
     private List<String> getParameters(String str) {
         int lastVirgola = 0;
         List<String> list = new ArrayList<>();
@@ -31,18 +32,18 @@ public class FinalParserImpl implements FinalParser {
         list.add(str.substring(lastVirgola + 1, str.length() - 1));
         return list;
     }
-    
+
     /*
-    private List<Integer> splitWithCond(String str) {
-        List<Integer> a = new ArrayList<>();
-        IntStream.range(0,str.length())
-                         .filter(i-> str.charAt(i) == ',' && BracketsUtility.checkBrackets(str.substring(1, i)))
-                         .forEach(i-> a.add(i));
-                         
-        return a;
-                         
-    }*/
-    
+     * private List<Integer> splitWithCond(String str) { List<Integer> a = new
+     * ArrayList<>(); IntStream.range(0,str.length()) .filter(i-> str.charAt(i) ==
+     * ',' && BracketsUtility.checkBrackets(str.substring(1, i))) .forEach(i->
+     * a.add(i));
+     * 
+     * return a;
+     * 
+     * }
+     */
+
     /*
      * private void checkError(String fstring) { int k = 0; while (fstring.length()
      * > k && (Character.isDigit(fstring.charAt(k)) ||
@@ -52,42 +53,29 @@ public class FinalParserImpl implements FinalParser {
      * java.lang.IllegalArgumentException(); }
      */
     /*
-    private void checkError(String fstring) {
-        if (BracketsUtility.countCharacter(fstring, i -> i.equals('.'))
-                + BracketsUtility.countCharacter(fstring, i -> Character.isDigit(i)) == fstring.length()
-                && BracketsUtility.countCharacter(fstring, i -> i.equals('.')) <= 1) {
-        } else if (MathFunction.getListFromEnum().contains(fstring)) {
-        } else {
-            throw new java.lang.IllegalArgumentException();
-        }
-    }
-    */
+     * private void checkError(String fstring) { if
+     * (BracketsUtility.countCharacter(fstring, i -> i.equals('.')) +
+     * BracketsUtility.countCharacter(fstring, i -> Character.isDigit(i)) ==
+     * fstring.length() && BracketsUtility.countCharacter(fstring, i ->
+     * i.equals('.')) <= 1) { } else if
+     * (MathFunction.getListFromEnum().contains(fstring)) { } else { throw new
+     * java.lang.IllegalArgumentException(); } }
+     */
     /*
-     * public AlgebricFunction resolveFunction(String fstring) {
-     *  int k = 0; 
-     *  if (Character.isDigit(fstring.charAt(k))) { 
-         *  checkError(fstring); 
-         *  return AlgebricFunctionFactory.getValueFunction(Double.valueOf(fstring)); 
-     } else {
-         * while (fstring.charAt(k++) != '(') {
-         *  if (fstring.length() == k) { 
-         *          Optional<Constant> opCos = Constant.getConstantFromSyntax(fstring);
-         *          if (opCos.isPresent()) 
-         *                  return AlgebricFunctionFactory.getConstantFunction(opCos.get()); 
-         *          else if
-         *                  (fstring.length() == 1)
-         *                   return AlgebricFunctionFactory.getParameterFunction(fstring.charAt(0)); 
-         *          else
-         *               checkError(fstring); 
-         *                  } 
-         *          } 
-         * checkError(fstring.substring(0, k - 1));
-         *  return AlgebricFunctionFactory.getMathFunction(
-         * MathFunction.getMathFunctionFromSyntax(fstring.substring(0, k - 1)).get(),
-         * getParameters(fstring.substring(k - 1)).stream().map(i -> resolveFunction(i))
-         * .collect(Collectors.toList())); 
-     *    } 
-     * }
+     * public AlgebricFunction resolveFunction(String fstring) { int k = 0; if
+     * (Character.isDigit(fstring.charAt(k))) { checkError(fstring); return
+     * AlgebricFunctionFactory.getValueFunction(Double.valueOf(fstring)); } else {
+     * while (fstring.charAt(k++) != '(') { if (fstring.length() == k) {
+     * Optional<Constant> opCos = Constant.getConstantFromSyntax(fstring); if
+     * (opCos.isPresent()) return
+     * AlgebricFunctionFactory.getConstantFunction(opCos.get()); else if
+     * (fstring.length() == 1) return
+     * AlgebricFunctionFactory.getParameterFunction(fstring.charAt(0)); else
+     * checkError(fstring); } } checkError(fstring.substring(0, k - 1)); return
+     * AlgebricFunctionFactory.getMathFunction(
+     * MathFunction.getMathFunctionFromSyntax(fstring.substring(0, k - 1)).get(),
+     * getParameters(fstring.substring(k - 1)).stream().map(i -> resolveFunction(i))
+     * .collect(Collectors.toList())); } }
      */
     // per essere un numero il numero dei punti piu' il numero di numeri deve essere
     // uguale alla lungehzza
@@ -109,16 +97,21 @@ public class FinalParserImpl implements FinalParser {
             // while (fstring.charAt(k++) != '(') {
             if (BracketsUtility.countCharacter(fstring, i -> i.equals('(')) == 0)// se non ci sono parentesi
                 if (fstring.equals("x") || fstring.equals("y")) {
-                    return AlgebricFunctionFactory.getParameterFunction(Variable.getVariableFromSyntax(fstring.charAt(0)));
+                    return AlgebricFunctionFactory
+                            .getParameterFunction(new EnumUtilityImpl<Variable>(Variable.class).getElement(fstring));
                 } else {
-                    return AlgebricFunctionFactory.getConstantFunction(Constant.getConstantFromSyntax(fstring));
+                    return AlgebricFunctionFactory
+                            .getConstantFunction(new EnumUtilityImpl<Constant>(Constant.class).getElement(fstring));
                 }
         }
-        if (MathFunction.getSyntaxList().contains(fstring.substring(0, fstring.indexOf("("))) 
-                && (MathFunction.getMathFunctionFromSyntax(fstring.substring(0, fstring.indexOf("("))).getNParameters() 
-                           == getParameters(fstring.substring(fstring.indexOf("("))).size())) {
+        if (new EnumUtilityImpl<MathFunction>(MathFunction.class).getSyntaxList()
+                .contains(fstring.substring(0, fstring.indexOf("(")))
+                && (new EnumUtilityImpl<MathFunction>(MathFunction.class)
+                        .getElement(fstring.substring(0, fstring.indexOf("(")))
+                        .getNParameters() == getParameters(fstring.substring(fstring.indexOf("("))).size())) {
             return AlgebricFunctionFactory.getMathFunction(
-                    MathFunction.getMathFunctionFromSyntax(fstring.substring(0, fstring.indexOf("("))),
+                    new EnumUtilityImpl<MathFunction>(MathFunction.class)
+                            .getElement(fstring.substring(0, fstring.indexOf("("))),
                     getParameters(fstring.substring(fstring.indexOf("("))).stream().map(i -> resolveFunction(i))
                             .collect(Collectors.toList()));
         } else

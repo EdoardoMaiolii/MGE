@@ -14,7 +14,7 @@ public interface EnumUtility<X extends GenericEnum> {
      * @param syntax
      * @return the element corresponding to the given syntax.
      */
-    GenericEnum getElement(String syntax);
+    X getElement(String syntax);
 
     /**
      * 

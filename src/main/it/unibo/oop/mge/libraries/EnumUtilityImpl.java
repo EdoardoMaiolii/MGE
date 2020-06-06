@@ -24,7 +24,7 @@ public final class EnumUtilityImpl<X extends GenericEnum> implements EnumUtility
     }
 
     @Override
-    public GenericEnum getElement(final String syntax) {
+    public X getElement(final String syntax) {
         if (enumContains(syntax)) {
             return getOptionalElement(syntax).get();
         } else {
