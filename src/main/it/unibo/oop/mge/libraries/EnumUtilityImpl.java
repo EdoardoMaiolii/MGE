@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public final class EnumUtilityImpl<X extends GenericEnum> implements EnumUtility<X> {
-    private Class<X> type;
+    private final Class<X> type;
 
     public EnumUtilityImpl(final Class<X> type) {
         this.type = type;

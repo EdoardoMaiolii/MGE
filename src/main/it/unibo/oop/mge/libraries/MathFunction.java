@@ -2,6 +2,9 @@ package it.unibo.oop.mge.libraries;
 
 import java.util.List;
 
+/**
+ * The Enum MathFunction.
+ */
 public enum MathFunction implements GenericEnum {
     /**
      * Sum two numbers.
@@ -212,25 +215,50 @@ public enum MathFunction implements GenericEnum {
         }
     };
 
+    /** The n parameters. */
     private final int nParameters;
 
+    /**
+     * Instantiates a new math function.
+     *
+     * @param nPar the n par
+     */
     MathFunction(final int nPar) {
         this.nParameters = nPar;
     }
 
+    /**
+     * Throw ill arg exc.
+     */
     private void throwIllArgExc() {
         throw new IllegalArgumentException(
                 "Error using MathFunction: bad number of parameters passed in resolve method");
     }
 
+    /**
+     * Gets the n parameters.
+     *
+     * @return the n parameters
+     */
     public int getNParameters() {
         return nParameters;
     }
 
+    /**
+     * Gets the syntax.
+     *
+     * @return the syntax
+     */
     public String getSyntax() {
         return this.name().toLowerCase();
     }
 
+    /**
+     * Resolve.
+     *
+     * @param list the list
+     * @return the double
+     */
     public Double resolve(final List<Double> list) {
         if (list.size() != nParameters) {
             this.throwIllArgExc();
@@ -240,5 +268,11 @@ public enum MathFunction implements GenericEnum {
         }
     }
 
+    /**
+     * Calculate.
+     *
+     * @param parameters the parameters
+     * @return the double
+     */
     protected abstract Double calculate(List<Double> parameters);
 }

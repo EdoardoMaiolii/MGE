@@ -1,5 +1,8 @@
 package it.unibo.oop.mge.libraries;
 
+/**
+ * The Enum Constant.
+ */
 public enum Constant implements GenericEnum {
     /**
      * Nepero's number.
@@ -50,16 +53,32 @@ public enum Constant implements GenericEnum {
      */
     BRUMQUAD(0.8705);
 
+    /** The value. */
     private final Double value;
 
+    /**
+     * Instantiates a new constant.
+     *
+     * @param value the value
+     */
     Constant(final Double value) {
         this.value = value;
     }
 
+    /**
+     * Gives the value of the constant.
+     *
+     * @return the double
+     */
     public Double resolve() {
         return value;
     }
 
+    /**
+     * Gets the syntax.
+     *
+     * @return the syntax
+     */
     public String getSyntax() {
         return this.name().toLowerCase();
     }

@@ -9,9 +9,14 @@ import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Variable;
 import it.unibo.oop.mge.libraries.Constant;
 
+/**
+ * A factory for creating AlgebricFunction objects.
+ */
 public interface AlgebricFunctionFactory {
+
     /**
-     * 
+     * Gets the value function.
+     *
      * @param value is the Number
      * @return an AlgebricFunction that correspond to a Number
      */
@@ -25,7 +30,8 @@ public interface AlgebricFunctionFactory {
     }
 
     /**
-     * 
+     * Gets the constant function.
+     *
      * @param c is the constant
      * @return an AlgebricFunction that correspond to the value of the constant
      */
@@ -34,7 +40,8 @@ public interface AlgebricFunctionFactory {
     }
 
     /**
-     * 
+     * Gets the parameter function.
+     *
      * @param name is the name if the variable
      * @return an AlgebricFunction that correspond to a variable
      */
@@ -48,7 +55,8 @@ public interface AlgebricFunctionFactory {
     }
 
     /**
-     * 
+     * Gets the math function.
+     *
      * @param id   is the type of the Function
      * @param pars is the parameters of the Function
      * @return an AlgebricFunction that is a Mathematical Function

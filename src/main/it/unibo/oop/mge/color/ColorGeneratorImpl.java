@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.function.Function;
 
 public class ColorGeneratorImpl implements ColorGenerator {
-    private Function<Double, Color> colorFunction;
+    private final Function<Double, Color> colorFunction;
     private static final int MAXRGBVALUE = 255;
 
     public ColorGeneratorImpl(final VariableColor varColor, final double min, final double max) {
@@ -13,16 +13,11 @@ public class ColorGeneratorImpl implements ColorGenerator {
          * a = (min,0) 
          * b = (max,MAXRGBVALUE)
          */
-        final double m;
-        if (min == max) {
-            m = 0;
-        } else {
-            m = MAXRGBVALUE / (max - min);
-        }
+        final double m = min == max ? 0 : MAXRGBVALUE / (max - min);
         final double q = -m * min;
         Function<Double, Integer> linearFunction = (x -> (int) (m * x + q));
         colorFunction = i -> {
-            /* This check convert i do a value that belong to the interval [min,max] */
+            /* This check convert 'i' to a value that belong to the interval [min,max] */
             i = i > max ? max : i < min ? min : i;
             return new Color(varColor.getRed().isPresent() ? varColor.getRed().get() : linearFunction.apply(i),
                     varColor.getGreen().isPresent() ? varColor.getGreen().get() : linearFunction.apply(i),

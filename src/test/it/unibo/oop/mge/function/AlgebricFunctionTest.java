@@ -15,8 +15,8 @@ import it.unibo.oop.mge.libraries.Variable;
 
 public class AlgebricFunctionTest {
     @Test
-    void FactoryTest() {
-        Map<Variable, Double> values = Map.of(Variable.X, 10.0, Variable.Y, -2.0);
+    void factoryTest() {
+        Map<Variable, Double> values = Map.of(Variable.X, 10.0, Variable.Y, -1.0);
         /* Create a constant function with value 'e' */
         var e = AlgebricFunctionFactory.getConstantFunction(Constant.E);
         assertTrue(e.getParameters().isEmpty());

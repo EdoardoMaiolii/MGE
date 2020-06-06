@@ -1,25 +1,28 @@
 package it.unibo.oop.mge.libraries;
 
+/**
+ * The Interface PointND.
+ */
 public interface PointND {
+
     /**
-     * 
-     * @return a list of all the coordinates of the point.
-     */
-    /**
-     * 
-     * @param name
+     * Gets the variable value.
+     *
+     * @param name the name
      * @return the value of the given variable.
      */
     double getVariableValue(Variable name);
 
     /**
-     * 
+     * Gets the function value.
+     *
      * @return the value of the function in this point.
      */
     double getFunctionValue();
 
     /**
-     * 
+     * To string.
+     *
      * @return a string that represent this pointND.
      */
     String toString();

@@ -6,18 +6,22 @@ import java.util.Optional;
 
 import it.unibo.oop.mge.libraries.Variable;
 
-
+/**
+ * The Interface AlgebricFunction.
+ */
 public interface AlgebricFunction {
 
     /**
-     * 
-     * @param values
+     * Resolve the function.
+     *
+     * @param values the values
      * @return the value of the function.
      */
     Double resolve(Map<Variable, Double> values);
 
     /**
-     * 
+     * Gets the parameters.
+     *
      * @return an optional that could contains the parameters.
      */
     Optional<List<AlgebricFunction>> getParameters();

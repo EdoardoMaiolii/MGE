@@ -12,7 +12,7 @@ import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
 
 public class FunctionFeaturesBuilderTest {
     @Test
-    void IllegalArgumentTest() {
+    void illegalArgumentTest() {
         /* We check all IllegalArgumentException that must be handle */
         assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setDecimalPrecision(-2));
         assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setDinamicColor(null));
@@ -25,7 +25,7 @@ public class FunctionFeaturesBuilderTest {
     }
 
     @Test
-    void IllegalStateTest() {
+    void illegalStateTest() {
         /* We check all IllegalStateException that must be handle */
         assertThrows(IllegalStateException.class,
                 () -> new FunctionFeaturesBuilderImpl().setDecimalPrecision(2).build());

@@ -1,29 +1,37 @@
 package it.unibo.oop.mge.color;
 
+/**
+ * The Interface VariableColorBuilder.
+ */
 public interface VariableColorBuilder {
+
     /**
-     * 
-     * @param red
+     * Sets the red.
+     *
+     * @param red the red
      * @return a VariableColorBuilder with the parameter red setted.
      */
     VariableColorBuilder setRed(int red);
 
     /**
-     * 
-     * @param green
+     * Sets the green.
+     *
+     * @param green the green
      * @return a VariableColorBuilder with the parameter green setted.
      */
     VariableColorBuilder setGreen(int green);
 
     /**
-     * 
-     * @param blue
+     * Sets the blue.
+     *
+     * @param blue the blue
      * @return a VariableColorBuilder with the parameter blue setted.
      */
     VariableColorBuilder setBlue(int blue);
 
     /**
-     * 
+     * Builds the.
+     *
      * @return a VariableColor
      */
     VariableColor build();

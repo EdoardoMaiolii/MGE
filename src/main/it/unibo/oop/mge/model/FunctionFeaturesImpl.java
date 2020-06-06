@@ -22,7 +22,7 @@ import it.unibo.oop.mge.libraries.PointND;
 import it.unibo.oop.mge.libraries.PointNDImpl;
 import it.unibo.oop.mge.libraries.Variable;
 
-public class FunctionFeaturesImpl implements FunctionFeatures {
+public final class FunctionFeaturesImpl implements FunctionFeatures {
     private final Pair<Double, Double> interval;
     private final Integer width;
     private final Integer decimalPrecision;
@@ -72,35 +72,20 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
 
     /*
      * This method allows to generate a list of segment from a list of points each
-     * segment is composed by 2 points: 
-     * 1 ) point.get(f(i)) 
-     * 2 ) point.get(f(i+1))
+     * segment is composed by 2 points: 1 ) point.get(f(i)) 2 ) point.get(f(i+1))
      * where f is the function given named 'posDetector'
      */
     private List<Segment3D> getSegmentList(final List<Point3D> points, final Function<Integer, Integer> posDetector) {
-        return IntStream.range(0, points.size() - 1)
-                .mapToObj(i -> new Pair<Point3D, Point3D>(points.get(posDetector.apply(i)),
-                        points.get(posDetector.apply(i + 1))))
-                .filter(i -> Double.isFinite(i.getFst().getZ()) && Double.isFinite(i.getSnd().getZ()))
-                .map(i -> Segment3D.fromPoints(i.getFst(), i.getSnd(),
-                        this.cg.getColorFromDouble((i.getFst().getZ() + i.getSnd().getZ()) / 2)))
-                .collect(Collectors.toList());
-    }
-
-    public final List<Segment3D> getPolygonalModel() {
-
-        return Stream.concat(
-                /* We call this method to generate all the horizontal segments */
-                getSegmentList(this.points, i -> i).stream().filter(i -> i.getA().getY() == i.getB().getY()),
-                /* We call this method to generate all the vertical segments */
-                getSegmentList(this.points,
-                        i -> (int) ((i % (this.width + 1)) * (this.width + 1) + i / (this.width + 1))).stream()
-                                .filter(i -> i.getA().getX() == i.getB().getX()))
+        return IntStream.range(0, points.size() - 1).mapToObj(i -> {
+            Point3D a = points.get(posDetector.apply(i));
+            Point3D b = points.get(posDetector.apply(i + 1));
+            return Segment3D.fromPoints(a, b, this.cg.getColorFromDouble((a.getZ() + b.getZ()) / 2));
+        }).filter(i -> Double.isFinite(i.getA().getZ()) && Double.isFinite(i.getB().getZ()))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public final List<Segment3D> getPolygonalAxis() {
+    public List<Segment3D> getPolygonalAxis() {
         return List.of(
                 Segment3D.fromPoints(Point3D.fromDoubles(this.interval.getFst(), 0, 0),
                         Point3D.fromDoubles(this.interval.getSnd(), 0, 0)),
@@ -110,11 +95,22 @@ public class FunctionFeaturesImpl implements FunctionFeatures {
                         Point3D.fromDoubles(0, 0, this.interval.getSnd())));
     }
 
-    public final Point3D getPointOfAbsoluteMax() {
+    public Point3D getPointOfAbsoluteMax() {
         return getRealPoints(this.points).stream().max((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
     }
 
-    public final Point3D getPointOfAbsoluteMin() {
+    public Point3D getPointOfAbsoluteMin() {
         return getRealPoints(this.points).stream().min((i, j) -> Double.compare(i.getZ(), j.getZ())).get();
+    }
+
+    public List<Segment3D> getPolygonalModel() {
+
+        return Stream.concat(
+                /* We call this method to generate all the horizontal segments */
+                getSegmentList(points, i -> i).stream().filter(i -> i.getA().getY() == i.getB().getY()),
+                /* We call this method to generate all the vertical segments */
+                getSegmentList(points, i -> (int) ((i % (this.width + 1)) * (this.width + 1) + i / (this.width + 1)))
+                        .stream().filter(i -> i.getA().getX() == i.getB().getX()))
+                .collect(Collectors.toList());
     }
 }
