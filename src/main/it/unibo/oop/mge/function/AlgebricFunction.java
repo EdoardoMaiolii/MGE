@@ -14,7 +14,7 @@ public interface AlgebricFunction {
     /**
      * Resolve the function.
      *
-     * @param values the values
+     * @param values containing the values of the variables.
      * @return the value of the function.
      */
     Double resolve(Map<Variable, Double> values);

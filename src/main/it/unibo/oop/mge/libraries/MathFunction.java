@@ -221,43 +221,43 @@ public enum MathFunction implements GenericEnum {
     /**
      * Instantiates a new math function.
      *
-     * @param nPar the n par
+     * @param nPar is the number of parameters of the MathFunction.
      */
     MathFunction(final int nPar) {
         this.nParameters = nPar;
     }
 
     /**
-     * Throw ill arg exc.
+     * Throw an illegalAroumentException.
      */
     private void throwIllArgExc() {
         throw new IllegalArgumentException(
-                "Error using MathFunction: bad number of parameters passed in resolve method");
+                "Error using MathFunction's Enum : bad number of parameters passed in resolve method");
     }
 
     /**
-     * Gets the n parameters.
+     * Gets the numbers of the parameters.
      *
-     * @return the n parameters
+     * @return the numbers of the parameters.
      */
     public int getNParameters() {
         return nParameters;
     }
 
     /**
-     * Gets the syntax.
+     * Gets the syntax of the MathFunction.
      *
-     * @return the syntax
+     * @return the syntax of the MathFunction.
      */
     public String getSyntax() {
         return this.name().toLowerCase();
     }
 
     /**
-     * Resolve.
+     * Resolve the MathFunction.
      *
-     * @param list the list
-     * @return the double
+     * @param list containing the values of the parameters.
+     * @return the double.
      */
     public Double resolve(final List<Double> list) {
         if (list.size() != nParameters) {
@@ -269,10 +269,10 @@ public enum MathFunction implements GenericEnum {
     }
 
     /**
-     * Calculate.
+     * Calculate the result of the MathFunction.
      *
-     * @param parameters the parameters
-     * @return the double
+     * @param parameters containing the values of the parameters.
+     * @return the double.
      */
     protected abstract Double calculate(List<Double> parameters);
 }

@@ -28,7 +28,7 @@ public final class EnumUtilityImpl<X extends GenericEnum> implements EnumUtility
         if (enumContains(syntax)) {
             return getOptionalElement(syntax).get();
         } else {
-            throw new IllegalArgumentException("Error using EnumUtility: the syntax doesn't exists");
+            throw new IllegalArgumentException("Error using EnumUtilityImpl: the syntax doesn't exists");
         }
     }
 

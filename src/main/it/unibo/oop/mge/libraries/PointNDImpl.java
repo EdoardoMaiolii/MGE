@@ -27,6 +27,6 @@ public class PointNDImpl implements PointND {
 
     @Override
     public final String toString() {
-        return values.toString() + "\n";
+        return this.values.toString() + " F : " + this.functionValue + "\n";
     }
 }

@@ -8,7 +8,7 @@ public interface PointND {
     /**
      * Gets the variable value.
      *
-     * @param name the name
+     * @param name of the Variable.
      * @return the value of the given variable.
      */
     double getVariableValue(Variable name);

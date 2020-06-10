@@ -15,10 +15,10 @@ import it.unibo.oop.mge.libraries.Constant;
 public interface AlgebricFunctionFactory {
 
     /**
-     * Gets the value function.
+     * Gets a value function.
      *
-     * @param value is the Number
-     * @return an AlgebricFunction that correspond to a Number
+     * @param value of the function.
+     * @return an AlgebricFunction that correspond to the given value.
      */
     static AlgebricFunction getValueFunction(Double value) {
         return new AlgebricFunctionImpl(Optional.empty()) {
@@ -30,20 +30,21 @@ public interface AlgebricFunctionFactory {
     }
 
     /**
-     * Gets the constant function.
+     * Gets a constant function.
      *
-     * @param c is the constant
-     * @return an AlgebricFunction that correspond to the value of the constant
+     * @param c is a constant.
+     * @return an AlgebricFunction that correspond to the given constant.
      */
     static AlgebricFunction getConstantFunction(final Constant c) {
         return getValueFunction(c.resolve());
     }
 
     /**
-     * Gets the parameter function.
+     * Gets a parameter function.
      *
-     * @param name is the name if the variable
-     * @return an AlgebricFunction that correspond to a variable
+     * @param name is the name of the variable.
+     * @return an AlgebricFunction that correspond to a Variable with the given
+     *         name.
      */
     static AlgebricFunction getParameterFunction(final Variable name) {
         return new AlgebricFunctionImpl(Optional.empty()) {
@@ -55,11 +56,11 @@ public interface AlgebricFunctionFactory {
     }
 
     /**
-     * Gets the math function.
+     * Gets a math function.
      *
-     * @param id   is the type of the Function
-     * @param pars is the parameters of the Function
-     * @return an AlgebricFunction that is a Mathematical Function
+     * @param id   is the type of the MathFunction.
+     * @param pars is the parameters of the MathFunction.
+     * @return an AlgebricFunction that is a Mathematical Function with the given parameters.
      */
     static AlgebricFunction getMathFunction(final MathFunction id, final List<AlgebricFunction> pars) {
         return new AlgebricFunctionImpl(Optional.of(pars)) {
