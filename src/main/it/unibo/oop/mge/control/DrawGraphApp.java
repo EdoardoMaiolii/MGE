@@ -44,17 +44,20 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     @Override
     public final void newGraph(final String function, final double max, final double min, final double rate) {
         boolean creationSuccess = false;
-        VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
-        FunctionFeaturesImpl functionFeatures = new FunctionFeaturesBuilderImpl()
-                .setFunction(StringComposer.parse(function)).setIntervals(min, max).setRate(rate).setDynamicColor(color)
-                .setDecimalPrecision(4).build();
-        this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalModel()));
-        this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalAxis()));
-        this.view.plotProperties(
-                List.of(Properties.MAX.getSyntax() + " " + functionFeatures.getPointOfAbsoluteMax().toString(),
-                        Properties.MIN.getSyntax() + " " + functionFeatures.getPointOfAbsoluteMin().toString()));
-        creationSuccess = true;
-
+        try {
+            VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
+            FunctionFeaturesImpl functionFeatures = new FunctionFeaturesBuilderImpl()
+                    .setFunction(StringComposer.parse(function)).setIntervals(min, max).setRate(rate).setDynamicColor(color)
+                    .setDecimalPrecision(4).build();
+            this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalModel()));
+            this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalAxis()));
+            this.view.plotProperties(
+                    List.of(Properties.MAX.getSyntax() + " " + functionFeatures.getPointOfAbsoluteMax().toString(),
+                            Properties.MIN.getSyntax() + " " + functionFeatures.getPointOfAbsoluteMin().toString()));
+            creationSuccess = true;
+        } catch (IllegalArgumentException e) {
+            this.view.expressionIncorrect();
+        }
         if (creationSuccess) {
             this.refreshVisualizer();
         }
