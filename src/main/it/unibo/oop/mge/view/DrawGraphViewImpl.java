@@ -402,6 +402,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
         }
         return panel;
     }
+
     /**
      * Grid buttons panel.
      *
