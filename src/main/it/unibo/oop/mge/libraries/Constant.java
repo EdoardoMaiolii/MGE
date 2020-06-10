@@ -59,7 +59,7 @@ public enum Constant implements GenericEnum {
     /**
      * Instantiates a new constant.
      *
-     * @param value the value
+     * @param value of the constant.
      */
     Constant(final Double value) {
         this.value = value;
@@ -68,7 +68,7 @@ public enum Constant implements GenericEnum {
     /**
      * Gives the value of the constant.
      *
-     * @return the double
+     * @return the value of the constant.
      */
     public Double resolve() {
         return value;
@@ -77,7 +77,7 @@ public enum Constant implements GenericEnum {
     /**
      * Gets the syntax.
      *
-     * @return the syntax
+     * @return the syntax of the constant.
      */
     public String getSyntax() {
         return this.name().toLowerCase();

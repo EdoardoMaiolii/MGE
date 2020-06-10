@@ -19,11 +19,11 @@ public final class VariableColorBuilderImpl implements VariableColorBuilder {
     }
 
     private void throwIllArgExc() {
-        throw new IllegalArgumentException("Error using VariableColorBuilder");
+        throw new IllegalArgumentException("Error using VariableColorBuilderImpl");
     }
 
     private void throwIllSttExc() {
-        throw new IllegalStateException("Error using VariableColorBuilder");
+        throw new IllegalStateException("Error using VariableColorBuilderImpl");
     }
 
     @Override

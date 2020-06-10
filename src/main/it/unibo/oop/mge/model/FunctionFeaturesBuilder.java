@@ -13,7 +13,7 @@ public interface FunctionFeaturesBuilder {
     /**
      * Sets the function.
      *
-     * @param function the function
+     * @param function the function that will be setted.
      * @return a FunctionFeaturesBuilder
      */
     FunctionFeaturesBuilder setFunction(AlgebricFunction function);
@@ -21,8 +21,8 @@ public interface FunctionFeaturesBuilder {
     /**
      * Sets the intervals.
      *
-     * @param min the min
-     * @param max the max
+     * @param min the minimum that will be setted.
+     * @param max the maximum that will be setted.
      * @return a FunctionFeaturesBuilder
      */
     FunctionFeaturesBuilder setIntervals(double min, double max);
@@ -30,23 +30,23 @@ public interface FunctionFeaturesBuilder {
     /**
      * Sets the rate.
      *
-     * @param rate the rate
+     * @param rate the rate that will be setted.
      * @return a FunctionFeaturesBuilder
      */
     FunctionFeaturesBuilder setRate(double rate);
 
     /**
-     * Sets the dinamic color.
+     * Sets the dynamic color.
      *
-     * @param varColor the var color
+     * @param varColor the VariableColor that will be setted.
      * @return a FunctionFeaturesBuilder
      */
-    FunctionFeaturesBuilder setDinamicColor(VariableColor varColor);
+    FunctionFeaturesBuilder setDynamicColor(VariableColor varColor);
 
     /**
      * Sets the static color.
      *
-     * @param color the color
+     * @param color the static color that will be setted.
      * @return a FunctionFeaturesBuilder
      */
     FunctionFeaturesBuilder setStaticColor(Color color);
@@ -54,7 +54,7 @@ public interface FunctionFeaturesBuilder {
     /**
      * Sets the decimal precision.
      *
-     * @param decimalPrecision the decimal precision
+     * @param decimalPrecision the decimal precision that will be setted.
      * @return a FunctionFeaturesBuilder
      */
     FunctionFeaturesBuilder setDecimalPrecision(int decimalPrecision);
@@ -62,7 +62,7 @@ public interface FunctionFeaturesBuilder {
     /**
      * Builds the FunctionFeatures object.
      *
-     * @return a FunctionFeaturesImpl with all the setting given.
+     * @return the FunctionFeaturesImpl.
      */
     FunctionFeaturesImpl build();
 }

@@ -9,7 +9,7 @@ public class ColorGeneratorImpl implements ColorGenerator {
 
     public ColorGeneratorImpl(final VariableColor varColor, final double min, final double max) {
         /*
-         * Define a line named 'linearFunction' that pass from 2 points : 
+         * Define a line named 'linearFunction' that passes between 2 points : 
          * a = (min,0) 
          * b = (max,MAXRGBVALUE)
          */

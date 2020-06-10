@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
-public class VariableColorFactoryTest {
+public class VariableColorBuilderTest {
     @Test
     void SetColorsTest() {
         final int red = 10;

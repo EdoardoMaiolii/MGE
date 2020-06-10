@@ -17,17 +17,17 @@ public interface EnumUtility<X extends GenericEnum> {
     List<String> getSyntaxList();
 
     /**
-     * Gets the element corresponding to the given syntax.
+     * Gets the element corresponding to the given syntax of the enum.
      *
-     * @param syntax the syntax
+     * @param syntax the syntax of the element.
      * @return the element corresponding to the given syntax.
      */
     X getElement(String syntax);
 
     /**
-     * Check if the enum contains a a element that correspond to the given syntax.
+     * Check if the enum contains a element that correspond to the given syntax.
      *
-     * @param syntax the syntax
+     * @param syntax the syntax of the element.
      * @return true if the enum contains a element that correspond to the given
      *         syntax, false otherwise.
      */

@@ -8,7 +8,7 @@ public interface VariableColorBuilder {
     /**
      * Sets the red.
      *
-     * @param red the red
+     * @param red value.
      * @return a VariableColorBuilder with the parameter red setted.
      */
     VariableColorBuilder setRed(int red);
@@ -16,7 +16,7 @@ public interface VariableColorBuilder {
     /**
      * Sets the green.
      *
-     * @param green the green
+     * @param green value.
      * @return a VariableColorBuilder with the parameter green setted.
      */
     VariableColorBuilder setGreen(int green);
@@ -24,15 +24,15 @@ public interface VariableColorBuilder {
     /**
      * Sets the blue.
      *
-     * @param blue the blue
+     * @param blue value.
      * @return a VariableColorBuilder with the parameter blue setted.
      */
     VariableColorBuilder setBlue(int blue);
 
     /**
-     * Builds the.
+     * Builds the VariableColor.
      *
-     * @return a VariableColor
+     * @return a VariableColor.
      */
     VariableColor build();
 

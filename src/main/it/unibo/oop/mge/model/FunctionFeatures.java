@@ -11,31 +11,30 @@ import it.unibo.oop.mge.c3d.geometry.Segment3D;
 public interface FunctionFeatures {
 
     /**
-     * Gets the point of absolute max.
+     * Gets the point of absolute maximum of the function.
      *
-     * @return get the Absolute Max of the function in the interval
+     * @return get the absolute maximum of the function.
      */
     Point3D getPointOfAbsoluteMax();
 
     /**
-     * Gets the point of absolute min.
+     * Gets the point of absolute minimum of the function.
      *
-     * @return get the Absolute minimum of the function in the interval
+     * @return get the absolute minimum of the function.
      */
     Point3D getPointOfAbsoluteMin();
 
     /**
      * Gets the polygonal model.
      *
-     * @return get the polygonal Model of the Function in the interval
+     * @return get the polygonal Model of the Function.
      */
     List<Segment3D> getPolygonalModel();
 
     /**
-     * Gets the polygonal axis.
+     * Gets the polygonal model of the axis.
      *
-     * @return get the Segments of the 3 axis long from the minimum to the maximum
-     *         value of the interval given.
+     * @return get the Segments of the 3 axis between the interval given.
      */
     List<Segment3D> getPolygonalAxis();
 }

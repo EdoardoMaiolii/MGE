@@ -17,11 +17,11 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     private Boolean builded = false;
 
     private void throwIllArgExc() {
-        throw new IllegalArgumentException("Error using FunctionFeaturesBuilder");
+        throw new IllegalArgumentException("Error using FunctionFeaturesBuilderImpl");
     }
 
     private void throwIllSttExc() {
-        throw new IllegalStateException("Error using FunctionFeaturesBuilder");
+        throw new IllegalStateException("Error using FunctionFeaturesBuilderImpl");
     }
 
     private Boolean isNull(final Object obj) {
@@ -74,7 +74,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     @Override
-    public FunctionFeaturesBuilder setDinamicColor(final VariableColor varColor) {
+    public FunctionFeaturesBuilder setDynamicColor(final VariableColor varColor) {
         if (this.varColor.isPresent() || this.staticColor.isPresent()) {
             this.throwIllSttExc();
         } else if (this.isNull(varColor)) {
