@@ -21,7 +21,7 @@ import it.unibo.oop.mge.libraries.Properties;
 import it.unibo.oop.mge.libraries.Variable;
 import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
 import it.unibo.oop.mge.model.FunctionFeaturesImpl;
-import it.unibo.oop.mge.model.FunctionParser;
+import it.unibo.oop.mge.model.StringComposer;
 import it.unibo.oop.mge.view.DrawGraphView;
 import it.unibo.oop.mge.view.DrawGraphViewImpl;
 
@@ -46,7 +46,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
         boolean creationSuccess = false;
         VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
         FunctionFeaturesImpl functionFeatures = new FunctionFeaturesBuilderImpl()
-                .setFunction(FunctionParser.parse(function)).setIntervals(min, max).setRate(rate).setDinamicColor(color)
+                .setFunction(StringComposer.parse(function)).setIntervals(min, max).setRate(rate).setDinamicColor(color)
                 .setDecimalPrecision(4).build();
         this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalModel()));
         this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalAxis()));
