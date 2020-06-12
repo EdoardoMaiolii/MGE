@@ -1,13 +1,14 @@
 package it.unibo.oop.mge.color;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.Test;
 
 public class VariableColorBuilderTest {
     @Test
-    void SetColorsTest() {
+    void setColorsTest() {
         final int red = 10;
         final int green = 150;
         final int blue = 0;
@@ -42,7 +43,7 @@ public class VariableColorBuilderTest {
         assertTrue(vc.getBlue().isEmpty());
     }
 
-    void SetMultipleTimes() {
+    final void setMultipleTimes() {
         final int red = 10;
         final int green = 150;
         final int blue = 0;
@@ -54,23 +55,23 @@ public class VariableColorBuilderTest {
         assertThrows(IllegalStateException.class, () -> new VariableColorBuilderImpl().setGreen(green).setGreen(green));
     }
 
-    void BuildMultipleTimes() {
+    final void buildMultipleTimes() {
         /* Build 2 times */
         var builder = new VariableColorBuilderImpl();
         builder.build();
         assertThrows(IllegalStateException.class, () -> builder.build());
     }
 
-    void trySetBadValues() {
+    final void trySetBadValues() {
         final int red = -5;
         final int green = 1050;
         final int blue = -1000;
-        /* Set blue */
-        assertThrows(IllegalArgumentException.class, () -> new VariableColorBuilderImpl().setBlue(blue).setBlue(blue));
-        /* Set red */
-        assertThrows(IllegalArgumentException.class, () -> new VariableColorBuilderImpl().setRed(red).setRed(red));
-        /* Set green */
+        /* Set bad blue */
+        assertThrows(IllegalArgumentException.class, () -> new VariableColorBuilderImpl().setBlue(blue));
+        /* Set bad red */
+        assertThrows(IllegalArgumentException.class, () -> new VariableColorBuilderImpl().setRed(red));
+        /* Set bad green */
         assertThrows(IllegalArgumentException.class,
-                () -> new VariableColorBuilderImpl().setGreen(green).setGreen(green));
+                () -> new VariableColorBuilderImpl().setGreen(green));
     }
 }
