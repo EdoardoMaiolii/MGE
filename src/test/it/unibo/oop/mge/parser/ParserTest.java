@@ -3,8 +3,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 import java.util.*;
 
-import it.unibo.oop.mge.model.BracketsParserImpl;
-import it.unibo.oop.mge.model.FunctionParser;
 
 public class ParserTest {
 
@@ -62,7 +60,7 @@ public class ParserTest {
         listone.add(str23);
         listone.add(str24);
         listone.add(str25);
-
+        /*
         // listone.forEach(i->{
         // FunctionParser.parse(i);
         // });
@@ -72,6 +70,17 @@ public class ParserTest {
         assertEquals(new BracketsParserImpl(str4).resolveBrackets(), "mul(sum(x,1),4)");
         assertEquals(new BracketsParserImpl(str18).resolveBrackets(), "sum(sot(0,1),x)");
         assertEquals(new BracketsParserImpl(str22).resolveBrackets(), "div(0.75,exp(mul(pow(mul(x,5),2),pow(mul(y,5),2))))");
+        
+        */
+    }
+    
+    private String testerComposer(final String str) {
+        return new BracketsResolver(new CheckBrackets(new BlankDeleter(str))).toString();
+    }
+    @Test
+    public void decoratorTest() {
+        String str1 = "  ln(pow  (x ,2)*4+1)";
+        assertEquals(testerComposer(str1), "ln(sum(mul(pow(x,2),4),1))");
     }
 
 }

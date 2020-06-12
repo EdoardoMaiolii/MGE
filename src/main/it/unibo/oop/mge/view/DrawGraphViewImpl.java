@@ -345,6 +345,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
                 this.properties.get(this.properties.indexOf(next)).setText(property);
             }
         }
+        inputFrame.pack();
     }
 
     /**
@@ -401,6 +402,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
         }
         return panel;
     }
+
     /**
      * Grid buttons panel.
      *
