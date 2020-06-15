@@ -2,6 +2,7 @@ package it.unibo.oop.mge.io;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -43,7 +44,7 @@ class MeshWriterAndLoaderTest {
     public void testLoader() throws FileNotFoundException, IOException {
         final MeshLoader loader = new MeshLoaderImpl();
         final Mesh mesh = loader.load(PATH);
-        //assertEquals(this.mesh, mesh);
+        assertEquals(this.mesh.getSegments().stream().collect(Collectors.toSet()), mesh.getSegments().stream().collect(Collectors.toSet()));
     }
 
     @Test
