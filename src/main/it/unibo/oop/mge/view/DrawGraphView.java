@@ -6,7 +6,7 @@ import it.unibo.oop.mge.c3d.geometry.Segment2D;
 import it.unibo.oop.mge.control.DrawGraphViewObserver;
 
 /**
- * The Interface DrawGraphView.
+ * The GUI interface.
  */
 public interface DrawGraphView {
 

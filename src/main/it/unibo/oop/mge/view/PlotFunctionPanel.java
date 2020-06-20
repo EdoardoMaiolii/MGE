@@ -9,9 +9,11 @@ import javax.swing.JPanel;
 import it.unibo.oop.mge.c3d.geometry.Point2D;
 import it.unibo.oop.mge.c3d.geometry.Segment2D;
 
+/**
+ * A panel to plot segments on.
+ */
 public class PlotFunctionPanel extends JPanel {
 
-    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -5244263802622065600L;
     private final Point2D center;
     private List<Segment2D> segments;
@@ -29,6 +31,9 @@ public class PlotFunctionPanel extends JPanel {
         this.setPreferredSize(new Dimension(size, size));
     }
 
+    /**
+     * Paint all the segments on the panel.
+     */
     @Override
     public final void paintComponent(final Graphics g) {
         super.paintComponent(g);

@@ -5,6 +5,9 @@ import java.io.IOException;
 
 import it.unibo.oop.mge.c3d.Mesh;
 
+/**
+ * Mesh loader from file interface.
+ */
 public interface MeshLoader {
     /**
      * Load a mesh from file path.

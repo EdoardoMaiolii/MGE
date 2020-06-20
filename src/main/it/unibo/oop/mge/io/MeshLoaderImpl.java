@@ -15,6 +15,9 @@ import it.unibo.oop.mge.c3d.Mesh;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
 
+/**
+ * Implementation of the mesh loader.
+ */
 public class MeshLoaderImpl implements MeshLoader {
 
     private final List<Segment3D> segments = new LinkedList<>();

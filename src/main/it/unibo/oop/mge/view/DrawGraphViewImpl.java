@@ -29,6 +29,9 @@ import javax.swing.border.TitledBorder;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
+/**
+ * GUI implementation.
+ */
 public class DrawGraphViewImpl implements DrawGraphView {
 
     private static final String INPUT_FRAME_NAME = "Mathematical Graphic Engine";
@@ -88,7 +91,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     private final List<JLabel> properties = new LinkedList<>();
 
     /**
-     * Instantiates a new draw graph view impl.
+     * Instantiates the GUI.
      */
     public DrawGraphViewImpl() {
         FlatIntelliJLaf.install();
@@ -298,7 +301,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
 
     /**
-     * Start the GUI.
+     * {@inheritDoc}
      */
     @Override
     public void start() {
@@ -306,9 +309,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
 
     /**
-     * Sets the observer.
-     *
-     * @param observer the new observer
+     * {@inheritDoc}
      */
     @Override
     public void setObserver(final DrawGraphViewObserver observer) {
@@ -316,9 +317,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
 
     /**
-     * Plot a graph.
-     *
-     * @param segments the segments to be plotted
+     * {@inheritDoc}
      */
     @Override
     public void plotGraph(final List<Segment2D> segments) {
@@ -333,9 +332,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
 
     /**
-     * Plot the graph's properties.
-     * 
-     * @param properties the graph's properties to be plotted
+     * {@inheritDoc}
      */
     @Override
     public void plotProperties(final List<String> properties) {
@@ -350,7 +347,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
 
     /**
-     * Shows message of expression incorrect.
+     * {@inheritDoc}
      */
     @Override
     public void expressionIncorrect() {
@@ -358,31 +355,17 @@ public class DrawGraphViewImpl implements DrawGraphView {
     }
 
     /**
-     * Shows message of IO error.
+     * {@inheritDoc}
      */
     @Override
     public void ioError() {
         JOptionPane.showMessageDialog(this.inputFrame, "Input-Output error...");
     }
 
-    /**
-     * Buttons from labels.
-     *
-     * @param labels the labels
-     * @return the list of buttons with given labels
-     */
     private List<JButton> buttonsFromLabels(final List<String> labels) {
         return labels.stream().map(lb -> new JButton(lb)).collect(Collectors.toList());
     }
 
-    /**
-     * Grid buttons panel.
-     *
-     * @param rows    the rows of the grid
-     * @param columns the columns of the grid
-     * @param buttons the buttons to add to the panel
-     * @return the j panel with a grid of buttons
-     */
     private JPanel gridButtonsPanel(final int rows, final int columns, final List<JButton> buttons) {
         final Iterator<JButton> buttonsIterator = buttons.iterator();
         final JPanel panel = new JPanel(new GridBagLayout());
@@ -404,13 +387,6 @@ public class DrawGraphViewImpl implements DrawGraphView {
         return panel;
     }
 
-    /**
-     * Grid buttons panel.
-     *
-     * @param question confirmDialog's question
-     * @param name     the confirmDialog's name
-     * @return the confirmDialog's boolean
-     */
     private boolean confirmDialog(final String question, final String name) {
         return JOptionPane.showConfirmDialog(inputFrame, question, name,
                 JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION;

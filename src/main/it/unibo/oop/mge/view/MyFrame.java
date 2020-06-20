@@ -5,9 +5,11 @@ import java.awt.LayoutManager;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * JFrame specialization.
+ */
 public class MyFrame extends JFrame {
 
-    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -1256994087403826079L;
     private final JPanel mainPanel;
 
