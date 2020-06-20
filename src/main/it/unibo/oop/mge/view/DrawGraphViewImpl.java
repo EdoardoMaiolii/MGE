@@ -145,7 +145,8 @@ public class DrawGraphViewImpl implements DrawGraphView {
         final JButton bClear = new JButton(CLEAR);
         final JButton bPlot = new JButton(PLOT);
         final JPanel pEast = new JPanel(new BorderLayout());
-        final JPanel pEWest = gridButtonsPanel(EAST_PANEL_ROWS, EAST_PANEL_COLUMNS, Arrays.asList(bQuit, bClear, bPlot));
+        final JPanel pEWest = gridButtonsPanel(EAST_PANEL_ROWS, EAST_PANEL_COLUMNS,
+                Arrays.asList(bQuit, bClear, bPlot));
         final JPanel pESouth = new JPanel(new GridBagLayout());
         final GridBagConstraints gbcESouth = new GridBagConstraints();
         pESouth.setBorder(new TitledBorder(EAST_SOUTH_PANEL_NAME));
@@ -407,7 +408,7 @@ public class DrawGraphViewImpl implements DrawGraphView {
      * Grid buttons panel.
      *
      * @param question confirmDialog's question
-     * @param name the confirmDialog's name
+     * @param name     the confirmDialog's name
      * @return the confirmDialog's boolean
      */
     private boolean confirmDialog(final String question, final String name) {
