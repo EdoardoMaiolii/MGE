@@ -1,7 +1,5 @@
 package it.unibo.oop.mge.parser;
 
-import it.unibo.oop.mge.libraries.BracketsUtility;
-
 public class CheckBrackets extends StringDecorator {
     public CheckBrackets(final Object str) {
         super(str);
