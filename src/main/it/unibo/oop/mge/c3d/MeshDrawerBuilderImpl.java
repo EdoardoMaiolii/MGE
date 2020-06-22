@@ -7,6 +7,11 @@ import com.google.common.collect.ImmutableList;
 
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 
+/**
+ * 
+ * Base implementation of MeshDrawerBuilder.
+ *
+ */
 public class MeshDrawerBuilderImpl implements MeshDrawerBuilder {
     private final List<Mesh> meshes;
     private final double rotationXY;

@@ -10,7 +10,7 @@ import it.unibo.oop.mge.c3d.geometry.Segment3D;
 
 /**
  * 
- * An object that generates a {@link YamlMapping} from a Segment3D.
+ * An object that generates a {@link YamlMapping} from a {@link Segment3D}.
  *
  */
 public final class Segment3DYamlBridge {

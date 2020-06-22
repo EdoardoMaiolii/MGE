@@ -8,7 +8,11 @@ import it.unibo.oop.mge.c3d.geometry.Point2D;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment2D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
-
+/**
+ * 
+ * Base implementation of MeshDrawer.
+ *
+ */
 public class MeshDrawerImpl implements MeshDrawer {
     private static final double TARGET_MESH_SCALE = 100;
     private static final Point2D POINT_OF_VIEW = Point2D.fromDoubles(0, -2 * TARGET_MESH_SCALE);

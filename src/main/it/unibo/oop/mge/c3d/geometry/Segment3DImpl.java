@@ -3,6 +3,11 @@ package it.unibo.oop.mge.c3d.geometry;
 import java.awt.Color;
 import java.util.function.Function;
 
+/**
+ * 
+ * Base implementation of Point2D.
+ *
+ */
 public class Segment3DImpl implements Segment3D {
 
     private final Point3D a;

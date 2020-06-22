@@ -1,5 +1,10 @@
 package it.unibo.oop.mge.c3d.geometry;
 
+/**
+ * 
+ * Base implementation of Line.
+ *
+ */
 public class LineImpl implements Line {
     private final double m;
     private final double q;

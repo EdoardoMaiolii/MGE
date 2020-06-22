@@ -9,6 +9,11 @@ import java.util.stream.Stream;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
 
+/**
+ * 
+ * Base implementation of Mesh
+ *
+ */
 public class MeshImpl implements Mesh {
     private final List<Segment3D> segments;
 
