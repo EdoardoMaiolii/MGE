@@ -7,7 +7,7 @@ import it.unibo.oop.mge.c3d.geometry.Point3D;
 
 /**
  * 
- * An object that generates a {@link YamlMapping} from a Point3D.
+ * An object that generates a {@link YamlMapping} from a {@link Point3D}.
  *
  */
 public final class Point3DYamlBridge {
