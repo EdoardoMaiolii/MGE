@@ -6,6 +6,11 @@ import java.nio.file.Paths;
 
 import it.unibo.oop.mge.c3d.Mesh;
 
+/**
+ * 
+ * Base implementation of MeshWriter.
+ *
+ */
 public class MeshWriterImpl implements MeshWriter {
 
     private final Mesh mesh;

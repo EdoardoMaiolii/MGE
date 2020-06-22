@@ -2,6 +2,11 @@ package it.unibo.oop.mge.c3d.geometry;
 
 import java.util.function.Function;
 
+/**
+ * 
+ * Base implementation of Point2D.
+ *
+ */
 public class Point2DImpl implements Point2D {
     private final double x;
     private final double y;

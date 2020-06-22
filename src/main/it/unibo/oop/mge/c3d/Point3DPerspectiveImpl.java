@@ -3,7 +3,11 @@ package it.unibo.oop.mge.c3d;
 import it.unibo.oop.mge.c3d.geometry.Line;
 import it.unibo.oop.mge.c3d.geometry.Point2D;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
-
+/**
+ * 
+ * Base implementation of Point3DPerspective.
+ *
+ */
 public class Point3DPerspectiveImpl implements Point3DPerspective {
 
     private static final Point2D FOCAL_POINT = Point2D.origin();
