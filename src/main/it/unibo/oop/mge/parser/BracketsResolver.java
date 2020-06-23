@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
-
-import it.unibo.oop.mge.libraries.BracketsUtility;
 import it.unibo.oop.mge.libraries.Pair;
 
 public class BracketsResolver extends StringDecorator {
@@ -79,9 +77,9 @@ public class BracketsResolver extends StringDecorator {
         checkError();
         funcRewritten = new ResolveOperatorImpl(fstring);
         listAdder();
-        while (bracketsPlace.size() != 0) {// andiamo avanti finche' ci sono parentesi
-            funcRewritten.setString(getShortestString());// setto al funcRewriter stringa tra le parentesi piu' corte
-            fstring = attacher(funcRewritten.funcRewriter());// ricreo la stringa giusta
+        while (bracketsPlace.size() != 0) {
+            funcRewritten.setString(getShortestString());
+            fstring = attacher(funcRewritten.funcRewriter());
         }
         funcRewritten.setString(fstring);
         fstring = funcRewritten.funcRewriter();

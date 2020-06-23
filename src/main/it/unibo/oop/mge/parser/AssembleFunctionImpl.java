@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import it.unibo.oop.mge.function.AlgebricFunction;
 import it.unibo.oop.mge.function.AlgebricFunctionFactory;
-import it.unibo.oop.mge.libraries.BracketsUtility;
 import it.unibo.oop.mge.libraries.Constant;
 import it.unibo.oop.mge.libraries.EnumUtilityImpl;
 import it.unibo.oop.mge.libraries.MathFunction;
@@ -29,6 +28,7 @@ public class AssembleFunctionImpl implements AssembleFunction {
         list.add(str.substring(lastVirgola + 1, str.length() - 1));
         return list;
     }
+
     // per essere un numero il numero dei punti piu' il numero di numeri deve essere
     // uguale alla lungehzza
     // della stringa in piu il numero dei punti deve essere al massimo 1
@@ -42,12 +42,11 @@ public class AssembleFunctionImpl implements AssembleFunction {
         throw new java.lang.IllegalArgumentException();
     }
 
-    public final AlgebricFunction resolveFunction(final String fstring) {// piccola implementazione del controllo dell'errore
+    public final AlgebricFunction resolveFunction(final String fstring) {
         if (checkDigit(fstring)) {
             return AlgebricFunctionFactory.getValueFunction(Double.valueOf(fstring));
-        } else {// caso in cui o e' un nome di funzione, costante o parametro
-            // while (fstring.charAt(k++) != '(') {
-            if (BracketsUtility.countCharacter(fstring, i -> i.equals('(')) == 0){
+        } else {
+            if (BracketsUtility.countCharacter(fstring, i -> i.equals('(')) == 0) {
                 if (new EnumUtilityImpl<Variable>(Variable.class).enumContains(fstring)) {
                     return AlgebricFunctionFactory
                             .getParameterFunction(new EnumUtilityImpl<Variable>(Variable.class).getElement(fstring));

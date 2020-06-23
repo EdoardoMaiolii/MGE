@@ -2,7 +2,6 @@ package it.unibo.oop.mge.io;
 
 import java.awt.Color;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,22 +26,26 @@ public class MeshLoaderImpl implements MeshLoader {
      *
      * @param path the file path
      * @return the mesh created from file
-     * @throws FileNotFoundException the file not found exception
      * @throws IOException Signals that an I/O exception has occurred.
      */
     @Override
-    public final Mesh load(final String path) throws FileNotFoundException, IOException {
-        final YamlMapping mesh = Yaml.createYamlInput(new File(path)).readYamlMapping();
-        final YamlMapping yamlPoints = mesh.yamlMapping("points");
-        final YamlSequence yamlSegments = mesh.yamlSequence("segments");
-        for (int i = 0; i < yamlSegments.size(); i++) {
-            final YamlMapping yamlSegment = yamlSegments.yamlMapping(i);
-            final Point3D pointA = toPoint(yamlPoints.yamlMapping(yamlSegment.string("a")));
-            final Point3D pointB = toPoint(yamlPoints.yamlMapping(yamlSegment.string("b")));
-            final Color color = toColor(yamlSegments.yamlMapping(i).yamlMapping("color"));
-            this.segments.add(Segment3D.fromPoints(pointA, pointB, color));
+    public final Mesh load(final String path) throws IOException {
+        final File f = new File(path);
+        if (f.exists() && !f.isDirectory()) {
+            final YamlMapping mesh = Yaml.createYamlInput(f).readYamlMapping();
+            final YamlMapping yamlPoints = mesh.yamlMapping("points");
+            final YamlSequence yamlSegments = mesh.yamlSequence("segments");
+            for (int i = 0; i < yamlSegments.size(); i++) {
+                final YamlMapping yamlSegment = yamlSegments.yamlMapping(i);
+                final Point3D pointA = toPoint(yamlPoints.yamlMapping(yamlSegment.string("a")));
+                final Point3D pointB = toPoint(yamlPoints.yamlMapping(yamlSegment.string("b")));
+                final Color color = toColor(yamlSegments.yamlMapping(i).yamlMapping("color"));
+                this.segments.add(Segment3D.fromPoints(pointA, pointB, color));
+            }
+            return Mesh.fromSegments(this.segments);
+        } else {
+            throw new IOException();
         }
-        return Mesh.fromSegments(this.segments);
     }
 
     /**
