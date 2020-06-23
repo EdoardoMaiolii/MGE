@@ -8,6 +8,7 @@ import it.unibo.oop.mge.c3d.geometry.Point2D;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment2D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
+
 /**
  * 
  * Base implementation of MeshDrawer.
@@ -15,7 +16,7 @@ import it.unibo.oop.mge.c3d.geometry.Segment3D;
  */
 public class MeshDrawerImpl implements MeshDrawer {
     private static final double TARGET_MESH_SCALE = 100;
-    private static final Point2D POINT_OF_VIEW = Point2D.fromDoubles(0, -2 * TARGET_MESH_SCALE);
+    private static final Point3D POINT_OF_VIEW = Point3D.fromDoubles(0, -2 * TARGET_MESH_SCALE, 0);
     private final List<Mesh> meshes;
     private final double rotationXY;
     private final double rotationYZ;
@@ -33,6 +34,12 @@ public class MeshDrawerImpl implements MeshDrawer {
         this.translation = translation;
     }
 
+    /**
+     * 
+     * @param point the point to process
+     * @return an optional, containing the perspective projection of the point if
+     *         the point is in a legal state, empty otherwise
+     */
     private Optional<Point2D> processPoint(final Point3D point) {
         final Point3D a = point.rotated(rotationXY, rotationYZ).translated(translation);
         if (this.validPoint(a)) {
@@ -41,6 +48,12 @@ public class MeshDrawerImpl implements MeshDrawer {
         return Optional.empty();
     }
 
+    /**
+     * 
+     * @param segment the segment to process
+     * @return an optional, containing the perspective projection of the segment if
+     *         the segment is in a legal state, empty otherwise
+     */
     private Optional<Segment2D> processSegment(final Segment3D segment) {
 
         final Optional<Point2D> a = this.processPoint(segment.getA());

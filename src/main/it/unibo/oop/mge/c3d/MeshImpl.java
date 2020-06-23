@@ -11,7 +11,7 @@ import it.unibo.oop.mge.c3d.geometry.Segment3D;
 
 /**
  * 
- * Base implementation of Mesh
+ * Base implementation of Mesh.
  *
  */
 public class MeshImpl implements Mesh {

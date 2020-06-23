@@ -24,5 +24,5 @@ public interface Point3DPerspective {
      * @param pointOfView the point of view for the perspective calculation
      * @return the rendered point
      */
-    Point2D render(Point2D pointOfView);
+    Point2D render(Point3D pointOfView);
 }
