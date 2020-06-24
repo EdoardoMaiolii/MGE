@@ -1,7 +1,5 @@
 package it.unibo.oop.mge.control;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +12,9 @@ import it.unibo.oop.mge.color.VariableColorBuilderImpl;
 import it.unibo.oop.mge.io.MeshLoader;
 import it.unibo.oop.mge.io.MeshLoaderImpl;
 import it.unibo.oop.mge.io.MeshWriter;
-import it.unibo.oop.mge.libraries.Constant;
-import it.unibo.oop.mge.libraries.MathFunction;
-import it.unibo.oop.mge.libraries.Pair;
 import it.unibo.oop.mge.libraries.Properties;
-import it.unibo.oop.mge.libraries.Variable;
+import it.unibo.oop.mge.model.FunctionFeatures;
 import it.unibo.oop.mge.model.FunctionFeaturesBuilderImpl;
-import it.unibo.oop.mge.model.FunctionFeaturesImpl;
 import it.unibo.oop.mge.model.StringComposer;
 import it.unibo.oop.mge.view.DrawGraphView;
 import it.unibo.oop.mge.view.DrawGraphViewImpl;
@@ -32,7 +26,12 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     private double visualizerRotationXY;
     private double visualizerRotationYZ;
     private final List<Mesh> visualizerMeshes;
-    private static double rotationDelta = 15 * Math.PI / 180;
+    private static final double ROTATION_DELTA = 15 * Math.PI / 180;
+    private static final double TRANSLATION_DELTA = 10;
+    private static final int GRAPH_G = 99;
+    private static final int GRAPH_B = 103;
+    private static final VariableColor GRAPH_COLOR = new VariableColorBuilderImpl().setBlue(GRAPH_B).setGreen(GRAPH_G)
+            .build();
 
     public DrawGraphApp() {
         this.visualizerMeshes = new ArrayList<>();
@@ -45,10 +44,9 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     public final void newGraph(final String function, final double max, final double min, final double rate) {
         boolean creationSuccess = false;
         try {
-            VariableColor color = new VariableColorBuilderImpl().setBlue(103).setGreen(99).build();
-            FunctionFeaturesImpl functionFeatures = new FunctionFeaturesBuilderImpl()
-                    .setFunction(StringComposer.parse(function)).setIntervals(min, max).setRate(rate).setDynamicColor(color)
-                    .setDecimalPrecision(4).build();
+            final FunctionFeatures functionFeatures = new FunctionFeaturesBuilderImpl()
+                    .setFunction(StringComposer.parse(function)).setIntervals(min, max).setRate(rate)
+                    .setDynamicColor(GRAPH_COLOR).setDecimalPrecision(4).build();
             this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalModel()));
             this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalAxis()));
             this.view.plotProperties(
@@ -69,7 +67,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     }
 
     @Override
-    public void load(final String path) {
+    public final void load(final String path) {
         final MeshLoader meshLoader = new MeshLoaderImpl();
         try {
             this.visualizerMeshes.add(meshLoader.load(path));
@@ -80,7 +78,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     }
 
     @Override
-    public void save(final String path) {
+    public final void save(final String path) {
         try {
             MeshWriter.fromMesh(Mesh.fromMeshes(visualizerMeshes)).write(path);
         } catch (IOException e) {
@@ -90,75 +88,81 @@ public class DrawGraphApp implements DrawGraphViewObserver {
 
     @Override
     public final void zoomIn() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, -10, 0));
+        this.visualizerTranslation = this.visualizerTranslation
+                .translated(Point3D.fromDoubles(0, -TRANSLATION_DELTA, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void zoomOut() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 10, 0));
+        this.visualizerTranslation = this.visualizerTranslation
+                .translated(Point3D.fromDoubles(0, TRANSLATION_DELTA, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void moveUp() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, 10));
+        this.visualizerTranslation = this.visualizerTranslation
+                .translated(Point3D.fromDoubles(0, 0, TRANSLATION_DELTA));
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void moveLeft() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(-10, 0, 0));
+        this.visualizerTranslation = this.visualizerTranslation
+                .translated(Point3D.fromDoubles(-TRANSLATION_DELTA, 0, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void moveRight() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(10, 0, 0));
+        this.visualizerTranslation = this.visualizerTranslation
+                .translated(Point3D.fromDoubles(TRANSLATION_DELTA, 0, 0));
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void moveDown() {
-        this.visualizerTranslation = this.visualizerTranslation.translated(Point3D.fromDoubles(0, 0, -10));
+        this.visualizerTranslation = this.visualizerTranslation
+                .translated(Point3D.fromDoubles(0, 0, -TRANSLATION_DELTA));
         this.refreshVisualizer();
     }
 
     @Override
     public final void increaseXY() {
-        this.visualizerRotationXY += rotationDelta;
+        this.visualizerRotationXY += ROTATION_DELTA;
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void decreaseXY() {
-        this.visualizerRotationXY -= rotationDelta;
+        this.visualizerRotationXY -= ROTATION_DELTA;
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void increaseYZ() {
-        this.visualizerRotationYZ += rotationDelta;
+        this.visualizerRotationYZ += ROTATION_DELTA;
         this.refreshVisualizer();
 
     }
 
     @Override
     public final void decreaseYZ() {
-        this.visualizerRotationYZ -= rotationDelta;
+        this.visualizerRotationYZ -= ROTATION_DELTA;
         this.refreshVisualizer();
 
     }
 
     @Override
-    public void quit() {
+    public final void quit() {
         System.exit(0);
     }
 
