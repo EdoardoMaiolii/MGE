@@ -6,7 +6,7 @@ import it.unibo.oop.mge.function.AlgebricFunction;
  * The Interface FinalParser.
  */
 public interface AssembleFunction {
-    
+
     /**
      * The following method permit to create the AlgebricFunction from a parsed string.
      *

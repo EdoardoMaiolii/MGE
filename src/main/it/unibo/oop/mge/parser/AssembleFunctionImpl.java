@@ -29,9 +29,6 @@ public class AssembleFunctionImpl implements AssembleFunction {
         return list;
     }
 
-    // per essere un numero il numero dei punti piu' il numero di numeri deve essere
-    // uguale alla lungehzza
-    // della stringa in piu il numero dei punti deve essere al massimo 1
     private boolean checkDigit(final String fstring) {
         return BracketsUtility.countCharacter(fstring, i -> i.equals('.'))
                 + BracketsUtility.countCharacter(fstring, i -> Character.isDigit(i)) == fstring.length()

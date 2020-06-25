@@ -7,12 +7,12 @@ import java.util.Map;
 import it.unibo.oop.mge.libraries.MathFunction;
 import it.unibo.oop.mge.libraries.Pair;
 
-public class ResolveOperatorImpl implements ResolveOperator {
+public final class ResolveOperatorImpl implements ResolveOperator {
     private List<Character> op1 = Arrays.asList('*', '/');
     private List<Character> op2 = Arrays.asList('+', '-');
     private String fstring, currentString;
 
-    Map<Character, MathFunction> opMap = new HashMap<>();
+    private Map<Character, MathFunction> opMap = new HashMap<>();
 
     public ResolveOperatorImpl(final String fstring) {
         this.fstring = fstring;
@@ -23,7 +23,7 @@ public class ResolveOperatorImpl implements ResolveOperator {
 
     }
 
-    private boolean checkStartOfParam(final String currentString, final int dir) { // caso stringa 9 nella somma si deve fermare al 2
+    private boolean checkStartOfParam(final String currentString, final int dir) { 
         final Pair<Integer, Integer> numBrackets = BracketsUtility.countBrackets(currentString);
         return (dir == 0 && numBrackets.getFst() == numBrackets.getSnd() + 1)
                 || (dir == 1 && numBrackets.getFst() + 1 == numBrackets.getSnd());
@@ -38,8 +38,9 @@ public class ResolveOperatorImpl implements ResolveOperator {
             return false;
         } else if (fstring.charAt(k) == ',' && BracketsUtility.checkBrackets(currentString)) {
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 
     private boolean rightCond(final int k, final int posOp) {
@@ -50,12 +51,13 @@ public class ResolveOperatorImpl implements ResolveOperator {
             return false;
         } else if (fstring.charAt(k) == ',' && BracketsUtility.checkBrackets(currentString)) {
             return false;
-        } else
+        } else {
             return true;
+        }
     }
 
-    private boolean checkMinus(final Character ch, final int posOp) { // func that add 0 if there is a minus in start of func or
-                                                          // before bracket
+    private boolean checkMinus(final Character ch, final int posOp) {
+
         if (ch == '-') {
             if (posOp == 0) {
                 fstring = '0' + fstring;
@@ -71,7 +73,7 @@ public class ResolveOperatorImpl implements ResolveOperator {
         }
     }
 
-    private void subOp(final Character ch, int posOp) { // migliorare il programma con currentString
+    private void subOp(final Character ch, int posOp) { //function that substitute operators
         if (checkMinus(ch, posOp)) {
             posOp++;
         }
@@ -87,8 +89,8 @@ public class ResolveOperatorImpl implements ResolveOperator {
             fParam = fstring.substring(k + 1, posOp);
         }
 
-        if (k >= 0){
-            fStr = fstring.substring(0, k + 1); // quello che c'era prima del primo parametro
+        if (k >= 0) {
+            fStr = fstring.substring(0, k + 1); // what there is before first parameter
         }
         k = posOp + 1;
 
@@ -101,8 +103,8 @@ public class ResolveOperatorImpl implements ResolveOperator {
             sParam = fstring.substring(posOp + 1, k);
         }
 
-        if (k <= fstring.length()){
-            sStr = fstring.substring(k, fstring.length()); // quello che c'e' dopo il secondo param
+        if (k <= fstring.length()) {
+            sStr = fstring.substring(k, fstring.length()); // what there is after second parameter
         }
         fstring = fStr + opMap.get(ch).getSyntax() + '(' + fParam + ',' + sParam + ')' + sStr;
     }
@@ -114,7 +116,7 @@ public class ResolveOperatorImpl implements ResolveOperator {
         int numSum = BracketsUtility.countCharacter(fstring, i -> i.equals('+') || i.equals('-'));
         while (numSum > 0 || numMul > 0) {
             if (numMul > 0) {
-                for (k = 0; !op1.contains(fstring.charAt(k)); k++) { };// va avanti finche' non trova un operatore * o : da sostituire
+                for (k = 0; !op1.contains(fstring.charAt(k)); k++) { };
                 subOp(fstring.charAt(k), k);
                 numMul--;
             } else {
@@ -126,7 +128,7 @@ public class ResolveOperatorImpl implements ResolveOperator {
         return fstring;
     }
 
-    public void setString(String str) {
+    public void setString(final String str) {
         this.fstring = str;
     }
 }
