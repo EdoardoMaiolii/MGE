@@ -56,11 +56,12 @@ public interface AlgebricFunctionFactory {
     }
 
     /**
-     * Gets a math function.
+     * Gets a math function with some parameters.
      *
-     * @param id   is the type of the MathFunction.
-     * @param pars is the parameters of the MathFunction.
-     * @return an AlgebricFunction that is a Mathematical Function with the given parameters.
+     * @param id   is the MathFunction.
+     * @param pars is a list of the parameters of the MathFunction.
+     * @return an AlgebricFunction that is a Mathematical Function with the given
+     *         parameters.
      */
     static AlgebricFunction getMathFunction(final MathFunction id, final List<AlgebricFunction> pars) {
         return new AlgebricFunctionImpl(Optional.of(pars)) {

@@ -10,34 +10,34 @@ import org.junit.jupiter.api.Test;
 public class EnumUtilityTest {
     @Test
     void getSyntaxListTest() {
-        assertEquals(new EnumUtilityImpl<MathFunction>(MathFunction.class).getSyntaxList(),
-                Arrays.asList(MathFunction.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()));
-        assertEquals(new EnumUtilityImpl<Constant>(Constant.class).getSyntaxList(),
-                Arrays.asList(Constant.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()));
-        assertEquals(new EnumUtilityImpl<Variable>(Variable.class).getSyntaxList(),
-                Arrays.asList(Variable.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()));
-        assertEquals(new EnumUtilityImpl<Digits>(Digits.class).getSyntaxList(),
-                Arrays.asList(Digits.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()));
-        assertEquals(new EnumUtilityImpl<Properties>(Properties.class).getSyntaxList(),
-                Arrays.asList(Properties.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()));
-        assertEquals(new EnumUtilityImpl<Punctuation>(Punctuation.class).getSyntaxList(),
-                Arrays.asList(Punctuation.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()));
+        assertEquals(Arrays.asList(MathFunction.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()),
+                new EnumUtilityImpl<MathFunction>(MathFunction.class).getSyntaxList());
+        assertEquals(Arrays.asList(Constant.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()),
+                new EnumUtilityImpl<Constant>(Constant.class).getSyntaxList());
+        assertEquals(Arrays.asList(Variable.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()),
+                new EnumUtilityImpl<Variable>(Variable.class).getSyntaxList());
+        assertEquals(Arrays.asList(Digits.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()),
+                new EnumUtilityImpl<Digits>(Digits.class).getSyntaxList());
+        assertEquals(Arrays.asList(Properties.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()),
+                new EnumUtilityImpl<Properties>(Properties.class).getSyntaxList());
+        assertEquals(Arrays.asList(Punctuation.values()).stream().map(i -> i.getSyntax()).collect(Collectors.toList()),
+                new EnumUtilityImpl<Punctuation>(Punctuation.class).getSyntaxList());
     }
 
     @Test
     void getElementTest() {
         Arrays.asList(MathFunction.values()).stream().collect(Collectors.toMap(i -> i, i -> i.getSyntax())).forEach(
-                (a, b) -> assertEquals(new EnumUtilityImpl<MathFunction>(MathFunction.class).getElement(b), a));
+                (a, b) -> assertEquals(a, new EnumUtilityImpl<MathFunction>(MathFunction.class).getElement(b)));
         Arrays.asList(Constant.values()).stream().collect(Collectors.toMap(i -> i, i -> i.getSyntax()))
-                .forEach((a, b) -> assertEquals(new EnumUtilityImpl<Constant>(Constant.class).getElement(b), a));
+                .forEach((a, b) -> assertEquals(a, new EnumUtilityImpl<Constant>(Constant.class).getElement(b)));
         Arrays.asList(Variable.values()).stream().collect(Collectors.toMap(i -> i, i -> i.getSyntax()))
-                .forEach((a, b) -> assertEquals(new EnumUtilityImpl<Variable>(Variable.class).getElement(b), a));
+                .forEach((a, b) -> assertEquals(a, new EnumUtilityImpl<Variable>(Variable.class).getElement(b)));
         Arrays.asList(Digits.values()).stream().collect(Collectors.toMap(i -> i, i -> i.getSyntax()))
-                .forEach((a, b) -> assertEquals(new EnumUtilityImpl<Digits>(Digits.class).getElement(b), a));
+                .forEach((a, b) -> assertEquals(a, new EnumUtilityImpl<Digits>(Digits.class).getElement(b)));
         Arrays.asList(Properties.values()).stream().collect(Collectors.toMap(i -> i, i -> i.getSyntax()))
-                .forEach((a, b) -> assertEquals(new EnumUtilityImpl<Properties>(Properties.class).getElement(b), a));
+                .forEach((a, b) -> assertEquals(a, new EnumUtilityImpl<Properties>(Properties.class).getElement(b)));
         Arrays.asList(Punctuation.values()).stream().collect(Collectors.toMap(i -> i, i -> i.getSyntax()))
-                .forEach((a, b) -> assertEquals(new EnumUtilityImpl<Punctuation>(Punctuation.class).getElement(b), a));
+                .forEach((a, b) -> assertEquals(a, new EnumUtilityImpl<Punctuation>(Punctuation.class).getElement(b)));
     }
 
     @Test

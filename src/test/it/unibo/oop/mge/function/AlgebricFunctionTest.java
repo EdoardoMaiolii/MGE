@@ -20,14 +20,14 @@ public class AlgebricFunctionTest {
         /* Create a constant function with value 'e' */
         var e = AlgebricFunctionFactory.getConstantFunction(Constant.E);
         assertTrue(e.getParameters().isEmpty());
-        assertEquals(e.resolve(values), Constant.E.resolve());
+        assertEquals(Constant.E.resolve(), e.resolve(values));
         /* Create a variable function with name 'x' */
         var x = AlgebricFunctionFactory.getParameterFunction(Variable.X);
-        assertEquals(x.resolve(values), Double.valueOf(10.0));
+        assertEquals(Double.valueOf(10.0), x.resolve(values));
         assertTrue(x.getParameters().isEmpty());
         var value2 = AlgebricFunctionFactory.getValueFunction(2.0);
         /* Create a value function with value '2' */
-        assertEquals(value2.resolve(values), Double.valueOf(2.0));
+        assertEquals(Double.valueOf(2.0), value2.resolve(values));
         assertTrue(value2.getParameters().isEmpty());
         /*
          * Create a mathematical function 'sum' passing the constant function 'e' and
@@ -35,6 +35,6 @@ public class AlgebricFunctionTest {
          */
         var sum = AlgebricFunctionFactory.getMathFunction(MathFunction.SUM, List.of(e, x));
         assertFalse(sum.getParameters().isEmpty());
-        assertEquals(sum.resolve(values), Double.valueOf(Constant.E.resolve() + values.get(Variable.X)));
+        assertEquals(Double.valueOf(Constant.E.resolve() + values.get(Variable.X)), sum.resolve(values));
     }
 }

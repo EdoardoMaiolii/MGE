@@ -24,15 +24,15 @@ public class VariableColorBuilderTest {
         assertTrue(vc.getRed().isPresent());
         assertTrue(vc.getGreen().isEmpty());
         assertTrue(vc.getBlue().isPresent());
-        assertEquals(vc.getRed().get().intValue(), red);
-        assertEquals(vc.getBlue().get().intValue(), blue);
+        assertEquals(red, vc.getRed().get().intValue());
+        assertEquals(blue, vc.getBlue().get().intValue());
         /* Set blue and green */
         vc = new VariableColorBuilderImpl().setBlue(blue).setGreen(green).build();
         assertTrue(vc.getRed().isEmpty());
         assertTrue(vc.getGreen().isPresent());
         assertTrue(vc.getBlue().isPresent());
-        assertEquals(vc.getGreen().get().intValue(), green);
-        assertEquals(vc.getBlue().get().intValue(), blue);
+        assertEquals(green, vc.getGreen().get().intValue());
+        assertEquals(blue, vc.getBlue().get().intValue());
         /* Set all */
         assertThrows(IllegalStateException.class,
                 () -> new VariableColorBuilderImpl().setBlue(blue).setGreen(green).setRed(red).build());
@@ -71,7 +71,6 @@ public class VariableColorBuilderTest {
         /* Set bad red */
         assertThrows(IllegalArgumentException.class, () -> new VariableColorBuilderImpl().setRed(red));
         /* Set bad green */
-        assertThrows(IllegalArgumentException.class,
-                () -> new VariableColorBuilderImpl().setGreen(green));
+        assertThrows(IllegalArgumentException.class, () -> new VariableColorBuilderImpl().setGreen(green));
     }
 }
