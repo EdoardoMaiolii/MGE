@@ -25,7 +25,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     private Boolean isNull(final Object obj) {
-        return obj == null ? true : false;
+        return obj == null;
     }
 
     private Boolean ready() {
@@ -35,7 +35,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     @Override
-    public FunctionFeaturesBuilder setFunction(final AlgebricFunction function) {
+    public FunctionFeaturesBuilder function(final AlgebricFunction function) {
         if (this.function.isPresent()) {
             this.throwIllSttExc();
         } else if (this.isNull(function)) {
@@ -48,7 +48,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     @Override
-    public FunctionFeaturesBuilder setIntervals(final double min, final double max) {
+    public FunctionFeaturesBuilder intervals(final double min, final double max) {
         if (this.interval.isPresent()) {
             this.throwIllSttExc();
         } else if (min >= max) {
@@ -61,7 +61,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     @Override
-    public FunctionFeaturesBuilder setRate(final double rate) {
+    public FunctionFeaturesBuilder rate(final double rate) {
         if (this.rate.isPresent()) {
             this.throwIllSttExc();
         } else if (rate <= 0) {
@@ -74,7 +74,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     @Override
-    public FunctionFeaturesBuilder setDynamicColor(final VariableColor varColor) {
+    public FunctionFeaturesBuilder dynamicColor(final VariableColor varColor) {
         if (this.varColor.isPresent() || this.staticColor.isPresent()) {
             this.throwIllSttExc();
         } else if (this.isNull(varColor)) {
@@ -87,7 +87,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     @Override
-    public FunctionFeaturesBuilder setDecimalPrecision(final int decimalPrecision) {
+    public FunctionFeaturesBuilder decimalPrecision(final int decimalPrecision) {
         if (this.decimalPrecision.isPresent()) {
             this.throwIllSttExc();
         } else if (decimalPrecision < 0) {
@@ -100,7 +100,7 @@ public final class FunctionFeaturesBuilderImpl implements FunctionFeaturesBuilde
     }
 
     @Override
-    public FunctionFeaturesBuilder setStaticColor(final Color color) {
+    public FunctionFeaturesBuilder staticColor(final Color color) {
         if (this.varColor.isPresent() || this.staticColor.isPresent()) {
             this.throwIllSttExc();
         } else if (this.isNull(color)) {

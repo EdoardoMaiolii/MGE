@@ -1,5 +1,7 @@
 package it.unibo.oop.mge.libraries;
 
+import java.util.Locale;
+
 /**
  * The Enum Constant.
  */
@@ -7,11 +9,11 @@ public enum Constant implements GenericEnum {
     /**
      * Nepero's number.
      */
-    E(2.7182),
+    E(Math.E),
     /**
      * Pi greek.
      */
-    PI(3.1415),
+    PI(Math.PI),
     /**
      * Golden ratio.
      */
@@ -80,6 +82,6 @@ public enum Constant implements GenericEnum {
      * @return the syntax of the constant.
      */
     public String getSyntax() {
-        return this.name().toLowerCase();
+        return this.name().toLowerCase(Locale.getDefault());
     }
-};
+}

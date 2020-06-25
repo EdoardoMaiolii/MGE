@@ -60,11 +60,11 @@ public final class FunctionFeaturesImpl implements FunctionFeatures {
          * This function takes the number of the point and the number of the coordinate
          * and return the coordinate of that number
          */
-        BiFunction<Integer, Integer, Double> coordinateGen = (i,
-                j) -> (((int) (i / Math.pow(this.width + 1, j)) % (this.width + 1)) * rate + this.interval.getFst());
+        final BiFunction<Integer, Integer, Double> coordinateGen = (i,
+                j) -> ((int) (i / Math.pow(this.width + 1, j)) % (this.width + 1)) * rate + this.interval.getFst();
 
         return IntStream.range(0, (int) Math.pow(this.width + 1, Variable.values().length)).<PointND>mapToObj(i -> {
-            Map<Variable, Double> coordinates = IntStream.range(0, Variable.values().length).boxed().collect(
+            final Map<Variable, Double> coordinates = IntStream.range(0, Variable.values().length).boxed().collect(
                     Collectors.toMap(a -> Variable.values()[a], a -> troncateDouble(coordinateGen.apply(i, a))));
             return new PointNDImpl(coordinates, function.resolve(coordinates));
         }).collect(Collectors.toList());
@@ -77,8 +77,8 @@ public final class FunctionFeaturesImpl implements FunctionFeatures {
      */
     private List<Segment3D> getSegmentList(final List<Point3D> points, final Function<Integer, Integer> posDetector) {
         return IntStream.range(0, points.size() - 1).mapToObj(i -> {
-            Point3D a = points.get(posDetector.apply(i));
-            Point3D b = points.get(posDetector.apply(i + 1));
+            final Point3D a = points.get(posDetector.apply(i));
+            final Point3D b = points.get(posDetector.apply(i + 1));
             return Segment3D.fromPoints(a, b, this.cg.getColorFromDouble((a.getZ() + b.getZ()) / 2));
         }).filter(i -> Double.isFinite(i.getA().getZ()) && Double.isFinite(i.getB().getZ()))
                 .collect(Collectors.toList());

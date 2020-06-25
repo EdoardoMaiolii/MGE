@@ -1,6 +1,7 @@
 package it.unibo.oop.mge.libraries;
 
 import java.util.List;
+import java.util.Locale;
 
 /**
  * The Enum MathFunction.
@@ -250,7 +251,7 @@ public enum MathFunction implements GenericEnum {
      * @return the syntax of the MathFunction.
      */
     public String getSyntax() {
-        return this.name().toLowerCase();
+        return this.name().toLowerCase(Locale.getDefault());
     }
 
     /**

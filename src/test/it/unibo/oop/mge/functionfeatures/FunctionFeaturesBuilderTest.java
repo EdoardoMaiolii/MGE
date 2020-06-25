@@ -14,45 +14,45 @@ public class FunctionFeaturesBuilderTest {
     @Test
     void illegalArgumentTest() {
         /* We check all IllegalArgumentException that must be handle */
-        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setDecimalPrecision(-2));
-        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setDynamicColor(null));
-        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setDynamicColor(null));
-        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setFunction(null));
-        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setIntervals(10, -10));
-        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setRate(0));
-        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setRate(-2));
-        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().setStaticColor(null));
+        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().decimalPrecision(-2));
+        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().dynamicColor(null));
+        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().dynamicColor(null));
+        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().function(null));
+        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().intervals(10, -10));
+        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().rate(0));
+        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().rate(-2));
+        assertThrows(IllegalArgumentException.class, () -> new FunctionFeaturesBuilderImpl().staticColor(null));
     }
 
     @Test
     void illegalStateTest() {
         /* We check all IllegalStateException that must be handle */
         assertThrows(IllegalStateException.class,
-                () -> new FunctionFeaturesBuilderImpl().setDecimalPrecision(2).build());
+                () -> new FunctionFeaturesBuilderImpl().decimalPrecision(2).build());
         assertThrows(IllegalStateException.class, () -> new FunctionFeaturesBuilderImpl()
-                .setFunction(AlgebricFunctionFactory.getValueFunction(2.0)).build());
+                .function(AlgebricFunctionFactory.getValueFunction(2.0)).build());
         assertThrows(IllegalStateException.class, () -> new FunctionFeaturesBuilderImpl()
-                .setFunction(AlgebricFunctionFactory.getValueFunction(2.0)).setIntervals(-1, 1).build());
+                .function(AlgebricFunctionFactory.getValueFunction(2.0)).intervals(-1, 1).build());
         assertThrows(IllegalStateException.class, () -> new FunctionFeaturesBuilderImpl()
-                .setFunction(AlgebricFunctionFactory.getValueFunction(2.0)).setIntervals(-1, 1).setRate(0.1).build());
+                .function(AlgebricFunctionFactory.getValueFunction(2.0)).intervals(-1, 1).rate(0.1).build());
         assertThrows(IllegalStateException.class,
-                () -> new FunctionFeaturesBuilderImpl().setFunction(AlgebricFunctionFactory.getValueFunction(2.0))
-                        .setIntervals(-1, 1).setRate(0.1)
-                        .setDynamicColor(new VariableColorBuilderImpl().setBlue(10).build())
-                        .setDynamicColor(new VariableColorBuilderImpl().setBlue(10).build()).build());
+                () -> new FunctionFeaturesBuilderImpl().function(AlgebricFunctionFactory.getValueFunction(2.0))
+                        .intervals(-1, 1).rate(0.1)
+                        .dynamicColor(new VariableColorBuilderImpl().blue(10).build())
+                        .dynamicColor(new VariableColorBuilderImpl().blue(10).build()).build());
         assertThrows(IllegalStateException.class,
-                () -> new FunctionFeaturesBuilderImpl().setFunction(AlgebricFunctionFactory.getValueFunction(2.0))
-                        .setIntervals(-1, 1).setRate(0.1)
-                        .setDynamicColor(new VariableColorBuilderImpl().setBlue(10).build()).setStaticColor(Color.black)
+                () -> new FunctionFeaturesBuilderImpl().function(AlgebricFunctionFactory.getValueFunction(2.0))
+                        .intervals(-1, 1).rate(0.1)
+                        .dynamicColor(new VariableColorBuilderImpl().blue(10).build()).staticColor(Color.black)
                         .build());
         assertThrows(IllegalStateException.class,
-                () -> new FunctionFeaturesBuilderImpl().setFunction(AlgebricFunctionFactory.getValueFunction(2.0))
-                        .setIntervals(-1, 1).setRate(0.1).setStaticColor(Color.black).setStaticColor(Color.black)
+                () -> new FunctionFeaturesBuilderImpl().function(AlgebricFunctionFactory.getValueFunction(2.0))
+                        .intervals(-1, 1).rate(0.1).staticColor(Color.black).staticColor(Color.black)
                         .build());
         assertThrows(IllegalStateException.class,
-                () -> new FunctionFeaturesBuilderImpl().setFunction(AlgebricFunctionFactory.getValueFunction(2.0))
-                        .setIntervals(-1, 1).setRate(0.1)
-                        .setDynamicColor(new VariableColorBuilderImpl().setBlue(10).build()).setStaticColor(Color.black)
+                () -> new FunctionFeaturesBuilderImpl().function(AlgebricFunctionFactory.getValueFunction(2.0))
+                        .intervals(-1, 1).rate(0.1)
+                        .dynamicColor(new VariableColorBuilderImpl().blue(10).build()).staticColor(Color.black)
                         .build());
     }
 }

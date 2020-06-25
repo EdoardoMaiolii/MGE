@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 
+import it.unibo.oop.mge.c3d.geometry.Mesh;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 
 /**

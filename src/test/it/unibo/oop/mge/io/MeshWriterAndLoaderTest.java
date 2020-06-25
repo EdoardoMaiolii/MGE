@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import it.unibo.oop.mge.c3d.Mesh;
+import it.unibo.oop.mge.c3d.geometry.Mesh;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
 

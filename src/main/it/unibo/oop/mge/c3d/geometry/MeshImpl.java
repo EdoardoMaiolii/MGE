@@ -1,13 +1,10 @@
-package it.unibo.oop.mge.c3d;
+package it.unibo.oop.mge.c3d.geometry;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.DoubleStream;
 import java.util.stream.Stream;
-
-import it.unibo.oop.mge.c3d.geometry.Point3D;
-import it.unibo.oop.mge.c3d.geometry.Segment3D;
 
 /**
  * 

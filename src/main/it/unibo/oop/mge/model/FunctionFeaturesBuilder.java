@@ -16,7 +16,7 @@ public interface FunctionFeaturesBuilder {
      * @param function the function that will be setted.
      * @return a FunctionFeaturesBuilder
      */
-    FunctionFeaturesBuilder setFunction(AlgebricFunction function);
+    FunctionFeaturesBuilder function(AlgebricFunction function);
 
     /**
      * Sets the intervals.
@@ -25,7 +25,7 @@ public interface FunctionFeaturesBuilder {
      * @param max the maximum that will be setted.
      * @return a FunctionFeaturesBuilder
      */
-    FunctionFeaturesBuilder setIntervals(double min, double max);
+    FunctionFeaturesBuilder intervals(double min, double max);
 
     /**
      * Sets the rate.
@@ -33,7 +33,7 @@ public interface FunctionFeaturesBuilder {
      * @param rate the rate that will be setted.
      * @return a FunctionFeaturesBuilder
      */
-    FunctionFeaturesBuilder setRate(double rate);
+    FunctionFeaturesBuilder rate(double rate);
 
     /**
      * Sets the dynamic color.
@@ -41,7 +41,7 @@ public interface FunctionFeaturesBuilder {
      * @param varColor the VariableColor that will be setted.
      * @return a FunctionFeaturesBuilder
      */
-    FunctionFeaturesBuilder setDynamicColor(VariableColor varColor);
+    FunctionFeaturesBuilder dynamicColor(VariableColor varColor);
 
     /**
      * Sets the static color.
@@ -49,7 +49,7 @@ public interface FunctionFeaturesBuilder {
      * @param color the static color that will be setted.
      * @return a FunctionFeaturesBuilder
      */
-    FunctionFeaturesBuilder setStaticColor(Color color);
+    FunctionFeaturesBuilder staticColor(Color color);
 
     /**
      * Sets the decimal precision.
@@ -57,7 +57,7 @@ public interface FunctionFeaturesBuilder {
      * @param decimalPrecision the decimal precision that will be setted.
      * @return a FunctionFeaturesBuilder
      */
-    FunctionFeaturesBuilder setDecimalPrecision(int decimalPrecision);
+    FunctionFeaturesBuilder decimalPrecision(int decimalPrecision);
 
     /**
      * Builds the FunctionFeatures object.

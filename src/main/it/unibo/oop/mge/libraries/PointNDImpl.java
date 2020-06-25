@@ -12,7 +12,7 @@ public class PointNDImpl implements PointND {
     }
 
     private Boolean isNull(final Object obj) {
-        return obj.equals(null);
+        return obj == null;
     }
 
     @Override

@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import it.unibo.oop.mge.c3d.geometry.Mesh;
+import it.unibo.oop.mge.c3d.geometry.Mesh2D;
 import it.unibo.oop.mge.c3d.geometry.Point2D;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment2D;

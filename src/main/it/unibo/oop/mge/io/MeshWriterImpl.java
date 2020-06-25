@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-import it.unibo.oop.mge.c3d.Mesh;
+import it.unibo.oop.mge.c3d.geometry.Mesh;
 
 /**
  * 

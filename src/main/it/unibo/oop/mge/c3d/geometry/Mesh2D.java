@@ -1,8 +1,6 @@
-package it.unibo.oop.mge.c3d;
+package it.unibo.oop.mge.c3d.geometry;
 
 import java.util.List;
-
-import it.unibo.oop.mge.c3d.geometry.Segment2D;
 
 /**
  * 

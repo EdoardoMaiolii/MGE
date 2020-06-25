@@ -1,7 +1,5 @@
 package it.unibo.oop.mge.libraries;
 
-import java.util.List;
-
 /**
  * The function properties.
  */

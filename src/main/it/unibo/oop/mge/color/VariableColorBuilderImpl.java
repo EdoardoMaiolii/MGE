@@ -27,7 +27,7 @@ public final class VariableColorBuilderImpl implements VariableColorBuilder {
     }
 
     @Override
-    public VariableColorBuilder setRed(final int red) {
+    public VariableColorBuilder red(final int red) {
         if (this.red.isPresent() || countColorsSetted() >= 2) {
             throwIllSttExc();
         } else if (!belongInterval(red)) {
@@ -40,7 +40,7 @@ public final class VariableColorBuilderImpl implements VariableColorBuilder {
     }
 
     @Override
-    public VariableColorBuilder setGreen(final int green) {
+    public VariableColorBuilder green(final int green) {
         if (this.green.isPresent() || countColorsSetted() >= 2) {
             throwIllSttExc();
         } else if (!belongInterval(green)) {
@@ -53,7 +53,7 @@ public final class VariableColorBuilderImpl implements VariableColorBuilder {
     }
 
     @Override
-    public VariableColorBuilder setBlue(final int blue) {
+    public VariableColorBuilder blue(final int blue) {
         if (this.blue.isPresent() || countColorsSetted() >= 2) {
             throwIllSttExc();
         } else if (!belongInterval(blue)) {

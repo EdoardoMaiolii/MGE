@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 abstract class AlgebricFunctionImpl implements AlgebricFunction {
-    private Optional<List<AlgebricFunction>> parameters;
+    private final Optional<List<AlgebricFunction>> parameters;
 
     protected AlgebricFunctionImpl(final Optional<List<AlgebricFunction>> parameters) {
         this.parameters = parameters;

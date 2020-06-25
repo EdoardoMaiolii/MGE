@@ -3,6 +3,7 @@ package it.unibo.oop.mge.c3d;
 import java.util.Collection;
 import java.util.Collections;
 
+import it.unibo.oop.mge.c3d.geometry.Mesh;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 
 /**

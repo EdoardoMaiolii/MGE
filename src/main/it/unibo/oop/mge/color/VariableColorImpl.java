@@ -3,7 +3,7 @@ package it.unibo.oop.mge.color;
 import java.util.Optional;
 
 public class VariableColorImpl implements VariableColor {
-    private Optional<Integer> red, green, blue;
+    private final Optional<Integer> red, green, blue;
 
     protected VariableColorImpl(final Optional<Integer> red, final Optional<Integer> green,
             final Optional<Integer> blue) {

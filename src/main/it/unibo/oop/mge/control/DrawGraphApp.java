@@ -4,8 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import it.unibo.oop.mge.c3d.Mesh;
 import it.unibo.oop.mge.c3d.MeshDrawerBuilder;
+import it.unibo.oop.mge.c3d.geometry.Mesh;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.color.VariableColor;
 import it.unibo.oop.mge.color.VariableColorBuilderImpl;
@@ -30,7 +30,7 @@ public class DrawGraphApp implements DrawGraphViewObserver {
     private static final double TRANSLATION_DELTA = 10;
     private static final int GRAPH_G = 99;
     private static final int GRAPH_B = 103;
-    private static final VariableColor GRAPH_COLOR = new VariableColorBuilderImpl().setBlue(GRAPH_B).setGreen(GRAPH_G)
+    private static final VariableColor GRAPH_COLOR = new VariableColorBuilderImpl().blue(GRAPH_B).green(GRAPH_G)
             .build();
 
     public DrawGraphApp() {
@@ -45,8 +45,8 @@ public class DrawGraphApp implements DrawGraphViewObserver {
         boolean creationSuccess = false;
         try {
             final FunctionFeatures functionFeatures = new FunctionFeaturesBuilderImpl()
-                    .setFunction(new StringComposerImpl().parse(function)).setIntervals(min, max).setRate(rate)
-                    .setDynamicColor(GRAPH_COLOR).setDecimalPrecision(4).build();
+                    .function(new StringComposerImpl().parse(function)).intervals(min, max).rate(rate)
+                    .dynamicColor(GRAPH_COLOR).decimalPrecision(4).build();
             this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalModel()));
             this.visualizerMeshes.add(Mesh.fromSegments(functionFeatures.getPolygonalAxis()));
             this.view.plotProperties(

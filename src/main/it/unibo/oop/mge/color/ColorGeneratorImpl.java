@@ -9,13 +9,12 @@ public class ColorGeneratorImpl implements ColorGenerator {
 
     public ColorGeneratorImpl(final VariableColor varColor, final double min, final double max) {
         /*
-         * Define a line named 'linearFunction' that passes between 2 points : 
-         * a = (min,0) 
-         * b = (max,MAXRGBVALUE)
+         * Define a line named 'linearFunction' that passes between 2 points : a =
+         * (min,0) b = (max,MAXRGBVALUE)
          */
         final double m = min == max ? 0 : MAXRGBVALUE / (max - min);
         final double q = -m * min;
-        Function<Double, Integer> linearFunction = (x -> (int) (m * x + q));
+        final Function<Double, Integer> linearFunction = x -> (int) (m * x + q);
         colorFunction = i -> {
             /* This check convert 'i' to a value that belong to the interval [min,max] */
             i = i > max ? max : i < min ? min : i;

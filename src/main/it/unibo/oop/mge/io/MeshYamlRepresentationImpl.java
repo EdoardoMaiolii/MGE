@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 import com.amihaiemil.eoyaml.Yaml;
 import com.amihaiemil.eoyaml.YamlNode;
 
-import it.unibo.oop.mge.c3d.Mesh;
+import it.unibo.oop.mge.c3d.geometry.Mesh;
 import it.unibo.oop.mge.c3d.geometry.Point3D;
 import it.unibo.oop.mge.c3d.geometry.Segment3D;
 

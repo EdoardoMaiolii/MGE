@@ -11,7 +11,7 @@ public interface VariableColorBuilder {
      * @param red value.
      * @return a VariableColorBuilder with the parameter red setted.
      */
-    VariableColorBuilder setRed(int red);
+    VariableColorBuilder red(int red);
 
     /**
      * Sets the green.
@@ -19,7 +19,7 @@ public interface VariableColorBuilder {
      * @param green value.
      * @return a VariableColorBuilder with the parameter green setted.
      */
-    VariableColorBuilder setGreen(int green);
+    VariableColorBuilder green(int green);
 
     /**
      * Sets the blue.
@@ -27,7 +27,7 @@ public interface VariableColorBuilder {
      * @param blue value.
      * @return a VariableColorBuilder with the parameter blue setted.
      */
-    VariableColorBuilder setBlue(int blue);
+    VariableColorBuilder blue(int blue);
 
     /**
      * Builds the VariableColor.

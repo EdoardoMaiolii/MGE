@@ -2,7 +2,7 @@ package it.unibo.oop.mge.io;
 
 import java.io.IOException;
 
-import it.unibo.oop.mge.c3d.Mesh;
+import it.unibo.oop.mge.c3d.geometry.Mesh;
 
 /**
  * 
