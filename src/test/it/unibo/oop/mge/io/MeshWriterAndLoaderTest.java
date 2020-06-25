@@ -46,9 +46,4 @@ class MeshWriterAndLoaderTest {
         final Mesh mesh = loader.load(PATH);
         assertEquals(this.mesh.getSegments().stream().collect(Collectors.toSet()), mesh.getSegments().stream().collect(Collectors.toSet()));
     }
-
-    @Test
-    public void test2() {
-        System.out.println(MeshYamlRepresentation.of(mesh).toYamlString());
-    }
 }
